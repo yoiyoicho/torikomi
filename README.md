@@ -49,3 +49,6 @@ MVPリリース：2022/07/25
 
 # 画面遷移図
 https://www.figma.com/file/7pR0gEKMHcQJszhH40cYxx/Untitled?node-id=0%3A1
+
+# ER図
+https://drive.google.com/file/d/122zJn9fueeMe7jru5eynCBFgKUdSUpaK/view?usp=sharing
