@@ -37,6 +37,13 @@ module Torikomi
     #rails gコマンドで生成するファイルの設定
     config.generators do |g|
       g.helper false #ヘルパーファイルを生成しない
+      g.test_framework :rspec, #rspecの設定
+        fixtures: false,
+        routing_specs: false,
+        view_specs: false,
+        helper_specs: false,
+        controller_specs: true,
+        request_specs: false
     end
 
     #デフォルトのlocaleを日本語にする
