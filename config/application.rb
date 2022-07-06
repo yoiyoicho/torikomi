@@ -33,5 +33,14 @@ module Torikomi
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    #rails gコマンドで生成するファイルの設定
+    config.generators do |g|
+      g.helper false #ヘルパーファイルを生成しない
+    end
+
+    #デフォルトのlocaleを日本語にする
+    config.i18n.default_locale = :ja
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
   end
 end
