@@ -1,3 +1,14 @@
 ja:
   defaults:
+    start_now: '今すぐはじめる'
     login: 'ログイン'
+    logout: 'ログアウト'
+  static_pages:
+    top:
+      title: 'トップページ'
+    terms:
+      title: '利用規約'
+    privacy_policy:
+      title: 'プライバシーポリシー'
+    contact:
+      title: 'お問い合わせ'
