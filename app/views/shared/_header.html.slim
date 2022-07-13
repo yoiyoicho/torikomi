@@ -12,7 +12,7 @@ header
             = link_to 'ユーザー設定', '/'
           hr.mb-2
           li
-            = link_to t('defaults.start_now'), '/', class: 'button btn btn-primary mb-2'
+            = link_to t('defaults.start_now'), signup_path, class: 'button btn btn-primary mb-2'
           li
             = link_to t('defaults.login'), '/', class: 'button btn btn-outline btn-primary'
       = link_to root_path, class: 'btn btn-ghost normal-case text-xl' do
@@ -30,6 +30,6 @@ header
           = link_to 'ユーザー設定', '/'
       .flex
         .flex-none.pr-2
-          = link_to t('defaults.start_now'), '/', class: 'button btn btn-primary'
+          = link_to t('defaults.start_now'), signup_path, class: 'button btn btn-primary'
         .flex-none.pr-2
           = link_to t('defaults.login'), '/', class: 'button btn btn-outline btn-primary'

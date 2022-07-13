@@ -1,0 +1,28 @@
+.card.flex-shrink-0.w-full.max-w-sm.shadow-2xl.bg-base-100.mx-auto
+  .card-body
+    .form-control
+        button.btn.btn-outline
+          | Googleでログイン（準備中）
+    hr
+    = form_with model: @user, local: true do |f|
+      .form-control
+        label.label
+          span.label-text
+            = User.human_attribute_name('email')
+        = f.text_field :email, class: 'input input-bordered', placeholder: 'email'
+      .form-control
+        label.label
+          span.label-text
+            = User.human_attribute_name('password')
+        = f.password_field :password, class: 'input input-bordered', placeholder: 'password'
+      .form-control
+        label.label
+          span.label-text
+            = User.human_attribute_name('password_confirmation')
+        = f.password_field :password_confirmation, class: 'input input-bordered', placeholder: 'password_confirmation'
+        label.label
+          a.label-text-alt.link.link-hover[href="#"]
+            | パスワードを忘れた方はこちら（準備中）
+      .form-control.mt-6
+        button.btn.btn-primary
+          = t('defaults.register')
