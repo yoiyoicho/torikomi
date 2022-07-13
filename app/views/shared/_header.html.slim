@@ -23,5 +23,8 @@ header
           a
             | Item 3
     .navbar-end
-      a.btn.btn-primary
-        = t('defaults.start_now')
+      .flex
+        .flex-none.pr-3
+          =link_to t('defaults.start_now'), '/', class: 'button btn btn-primary'
+        .flex-none.pr-3
+          =link_to t('defaults.login'), '/', class: 'button btn btn-outline btn-primary'
