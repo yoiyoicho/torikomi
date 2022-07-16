@@ -1,9 +1,5 @@
 .card.flex-shrink-0.w-full.max-w-sm.shadow-2xl.bg-base-100.mx-auto
   .card-body
-    .form-control
-        button.btn.btn-outline
-          | Googleでログイン（準備中）
-    hr
     = form_with model: user, local: true do |f|
       .form-control
         label.label
@@ -26,3 +22,7 @@
       .form-control.mt-6
         button.btn.btn-primary
           = t('defaults.register')
+      hr.mt-6
+      .form-control.mt-6
+        button.btn.btn-outline
+          | Googleでログイン（準備中）
