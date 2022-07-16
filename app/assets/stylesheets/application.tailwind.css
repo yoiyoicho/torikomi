@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 入力フォームでエラーが起きたときにRailsが自動付与するクラスによるレイアウト崩れを防ぐ */
+.field_with_errors {
+  display: contents;
+}

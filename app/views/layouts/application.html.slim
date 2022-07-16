@@ -10,5 +10,6 @@ html
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
   body
     = render 'shared/header'
+    = render 'shared/flash_message'
     = yield
     = render 'shared/footer'

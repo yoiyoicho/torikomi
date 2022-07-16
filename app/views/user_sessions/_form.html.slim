@@ -1,0 +1,28 @@
+.card.flex-shrink-0.w-full.max-w-sm.shadow-2xl.bg-base-100.mx-auto
+  .card-body
+    = form_with url: login_path, method: :post do |f|
+      .form-control
+        label.label
+          span.label-text
+            = User.human_attribute_name('email')
+        = f.text_field :email, class: 'input input-bordered', placeholder: 'email'
+      .form-control
+        label.label
+          span.label-text
+            = User.human_attribute_name('password')
+        = f.password_field :password, class: 'input input-bordered', placeholder: 'password'
+        label.label
+          ul.text-left
+            li
+              = link_to '/', class: 'label-text-alt link link-hover' do
+                | パスワードを忘れた方はこちら（準備中）
+            li
+              = link_to signup_path, class: 'label-text-alt link link-hover' do
+                | 新規登録はこちら
+      .form-control.mt-6
+        button.btn.btn-primary
+          = t('defaults.login')
+      hr.mt-6
+      .form-control.mt-6
+        button.btn.btn-outline
+          | Googleでログイン（準備中）

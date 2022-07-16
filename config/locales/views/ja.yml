@@ -1,6 +1,7 @@
 ja:
   defaults:
     start_now: '今すぐはじめる'
+    register: '登録'
     login: 'ログイン'
     logout: 'ログアウト'
   static_pages:
@@ -12,3 +13,19 @@ ja:
       title: 'プライバシーポリシー'
     contact:
       title: 'お問い合わせ'
+    faq:
+      title: 'FAQ'
+  users:
+    new:
+      title: '新規登録'
+    create:
+      success: 'ユーザー登録が完了しました'
+      fail: 'ユーザー登録に失敗しました'
+  user_sessions:
+    new:
+      title: 'ログイン'
+    create:
+      success: 'ログインしました'
+      fail: 'ログインに失敗しました'
+    destroy:
+      success: 'ログアウトしました'
