@@ -4,6 +4,7 @@ ja:
     register: '登録'
     login: 'ログイン'
     logout: 'ログアウト'
+    please_login_first: 'ログインしてください'
   static_pages:
     top:
       title: 'トップページ'
@@ -15,6 +16,9 @@ ja:
       title: 'お問い合わせ'
     faq:
       title: 'FAQ'
+  dashboards:
+    index:
+      title: 'ダッシュボード'
   users:
     new:
       title: '新規登録'
