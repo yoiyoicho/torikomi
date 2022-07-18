@@ -8,6 +8,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      auto_login(@user)
       redirect_to dashboards_path, success: t('.success')
     else
       flash.now[:error] = t('.fail')
