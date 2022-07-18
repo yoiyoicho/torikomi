@@ -33,7 +33,7 @@ class SchedulesController < ApplicationController
 
   def destroy
     @schedule = current_user.schedules.find(params[:id])
-    @schedule.destroy
+    @schedule.destroy!
     redirect_to schedules_path, success: t('.success')
   end
 
