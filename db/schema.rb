@@ -18,8 +18,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_17_104330) do
     t.bigint "user_id", null: false
     t.string "title", limit: 255, null: false
     t.string "body", limit: 65535
-    t.time "start_time", null: false
-    t.time "end_time", null: false
+    t.datetime "start_time", precision: nil, null: false
+    t.datetime "end_time", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_schedules_on_user_id"
