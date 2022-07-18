@@ -7,7 +7,7 @@ header
             path[stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"]
         ul.menu.menu-compact.dropdown-content.mt-3.p-2.shadow.bg-base-100.rounded-box.w-52[tabindex="0"]
           - if logged_in?
-            = render 'shared/after_login_header_link'
+            = render 'shared/after_login_header_dropdown'
           - else
             = render 'shared/before_login_header_link'
       = link_to root_path, class: 'btn btn-ghost normal-case text-xl' do

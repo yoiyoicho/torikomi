@@ -4,6 +4,7 @@ ja:
     register: '登録'
     login: 'ログイン'
     logout: 'ログアウト'
+    please_login_first: 'ログインしてください'
   static_pages:
     top:
       title: 'トップページ'
@@ -15,6 +16,9 @@ ja:
       title: 'お問い合わせ'
     faq:
       title: 'FAQ'
+  dashboards:
+    index:
+      title: 'ダッシュボード'
   users:
     new:
       title: '新規登録'
@@ -29,3 +33,19 @@ ja:
       fail: 'ログインに失敗しました'
     destroy:
       success: 'ログアウトしました'
+  schedules:
+    index:
+      title: 'スケジュール一覧'
+      no_result: 'スケジュールがありません'
+    new:
+      title: 'スケジュール作成'
+    create:
+      success: 'スケジュールを作成しました'
+      fail: 'スケジュールの作成に失敗しました'
+    edit:
+      title: 'スケジュール編集'
+    update:
+      success: 'スケジュールを編集しました'
+      fail: 'スケジュールの編集に失敗しました'
+    destroy:
+      success: 'スケジュールを削除しました'
