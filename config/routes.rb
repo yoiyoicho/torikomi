@@ -18,4 +18,7 @@ Rails.application.routes.draw do
 
   # ダッシュボード
   get '/dashboards', to: 'dashboards#index'
+
+  # スケジュール
+  resources :schedules, only: %i(index new create edit update destroy)
 end

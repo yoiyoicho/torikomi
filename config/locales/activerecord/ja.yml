@@ -2,8 +2,14 @@ ja:
   activerecord:
     models:
       user: 'ユーザー'
+      schedule: 'スケジュール'
     attributes:
       user:
         email: 'メールアドレス'
         password: 'パスワード'
         password_confirmation: 'パスワード確認'
+      schedule:
+        title: 'タイトル'
+        body: '内容'
+        start_time: '開始日時'
+        end_time: '終了日時'

@@ -1,0 +1,26 @@
+.card.flex-shrink-0.w-full.max-w-sm.shadow-2xl.bg-base-100.mx-auto
+  .card-body
+    = form_with model: schedule do |f|
+      .form-control
+        label.label
+          span.label-text
+            span
+              = Schedule.human_attribute_name('title') + '（必須）'
+        = f.text_field :title, class: 'input input-bordered'
+      .form-control
+        label.label
+          span.label-text
+            = Schedule.human_attribute_name('body')
+        = f.text_area :body, class: 'input input-bordered h-24'
+      .form-control
+        label.label
+          span.label-text
+            = Schedule.human_attribute_name('start_time') + '（必須）'
+        = f.datetime_field :start_time, class: 'input input-bordered'
+      .form-control
+        label.label
+          span.label-text
+            = Schedule.human_attribute_name('end_time')
+        = f.datetime_field :end_time, class: 'input input-bordered'
+      .form-control.mt-6
+        = f.submit class: 'btn btn-primary'
