@@ -67,4 +67,9 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  # LINE Messaging APIを開発環境でテストするため
+  # ngrokで起動したサーバーを許可する
+  # https://www.codegrepper.com/code-examples/ruby/rails+ngrok+blocked+host
+  config.hosts << 'd4ac-240b-251-9460-9600-cc27-f68d-df04-fa4d.jp.ngrok.io'
 end
