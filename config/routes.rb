@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'line_users/index'
+  get 'line_users/new'
+  get 'line_users/create'
+  get 'line_users/destroy'
   # トップページ
   root 'static_pages#top'
 
@@ -21,4 +25,7 @@ Rails.application.routes.draw do
 
   # スケジュール
   resources :schedules, only: %i(index new create edit update destroy)
+
+  # LINEユーザー
+  resources :line_users, only: %i(index new create destroy)
 end

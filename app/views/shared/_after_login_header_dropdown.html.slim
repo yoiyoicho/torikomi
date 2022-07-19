@@ -6,8 +6,14 @@ li[tabindex="0"]
   ul.p-2.bg-base-100
     li
       = link_to '新規作成', new_schedule_path
-li 
-  = link_to 'ユーザー設定（準備中）', dashboards_path
+li[tabindex="0"]
+  = link_to line_users_path, class: 'justify-between' do
+    | LINEユーザー
+    svg.fill-current[xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24"]
+      path[d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"]
+  ul.p-2.bg-base-100
+    li
+      = link_to '新規登録', new_line_user_path
 li
   = link_to t('static_pages.faq.title'), faq_path
 li
