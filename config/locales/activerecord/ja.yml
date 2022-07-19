@@ -3,6 +3,7 @@ ja:
     models:
       user: 'ユーザー'
       schedule: 'スケジュール'
+      line_user: 'LINEユーザー'
     attributes:
       user:
         email: 'メールアドレス'
@@ -13,3 +14,7 @@ ja:
         body: '内容'
         start_time: '開始日時'
         end_time: '終了日時'
+      line_users:
+        line_user_id: 'LINEユーザーID'
+        display_name: '表示名'
+        picture_url: 'プロフィール画像'

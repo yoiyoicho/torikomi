@@ -49,3 +49,8 @@ ja:
       fail: 'スケジュールの編集に失敗しました'
     destroy:
       success: 'スケジュールを削除しました'
+  line_users:
+    index:
+      title: 'LINEユーザー一覧'
+    new:
+      title: 'LINEユーザー登録'
