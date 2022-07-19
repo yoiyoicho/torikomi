@@ -28,4 +28,5 @@ Rails.application.routes.draw do
 
   # LINEユーザー
   resources :line_users, only: %i(index new create destroy)
+  post '/callback', to: 'line_messaging_api#callback'
 end
