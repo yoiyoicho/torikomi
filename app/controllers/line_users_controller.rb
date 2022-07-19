@@ -10,4 +10,7 @@ class LineUsersController < ApplicationController
 
   def destroy
   end
+
+  def callback
+  end
 end
