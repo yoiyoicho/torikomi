@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'settings/index'
+  get 'settings/edit'
+  get 'settings/update'
   get 'line_users/index'
   get 'line_users/new'
   get 'line_users/create'
@@ -29,4 +32,7 @@ Rails.application.routes.draw do
   # LINEユーザー
   resources :line_users, only: %i(index update destroy)
   post '/callback', to: 'line_messaging_api#callback'
+
+  # 通知
+  resources :settings, only: %i(index edit update)
 end

@@ -58,3 +58,9 @@ ja:
       success: 'LINEユーザーを承認しました'
     destroy:
       success: 'LINEユーザーを削除しました'
+  settings:
+    index:
+      title: '通知設定'
+    update:
+      success: '通知設定を更新しました'
+      fail: '通知設定の更新に失敗しました'

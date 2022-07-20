@@ -18,6 +18,11 @@ ja:
         line_user_id: 'LINEユーザーID'
         display_name: '表示名'
         picture_url: 'プロフィール画像'
+        status: 'ステータス'
+      settings:
+        message_option: '通知メッセージ オプション'
+        message: '通知メッセージ'
+        notification_time: '通知時間（分）'
   enums:
     line_user:
       status:
