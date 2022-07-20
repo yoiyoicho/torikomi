@@ -25,25 +25,22 @@ class LineMessagingApiController < ApplicationController
 
           # LINEユーザーのuserIDを取得
           line_user_id = event['source']['userId']
+          line_user.assign_attributes(line_user_id: line_user_id)
 
           # LINEユーザーのプロフィールを取得
           profile = get_line_user_profile(line_user_id)
-          display_name = event['source']['displayName']
-          if event['source']['pictureUrl'].present?
-            picture_url = event['source']['pictureUrl']
-          end
+          line_user.assign_attributes(profile)
 
           # LINEユーザーから送られたワンタイムパスワードから、対応するトリコミのユーザーを見つける
           otp = event.message['text']
           hotp = ROTP::HOTP.new(ENV['OTP_SECRET'])
           User.all.each do |user|
             if hotp.verify(otp, user.id)
-              user_id = user.id
+              line_user.user_id = user.id
             end
           end
 
           # LINEユーザーをデータベースに保存する
-          line_user.assign_attributes(user_id: user_id||=nil, line_user_id: line_user_id, display_name: display_name, picture_url: picture_url||=nil)
           if line_user.save
             response_text = '成功しました'
           else
@@ -83,16 +80,16 @@ class LineMessagingApiController < ApplicationController
     options = {
       method: 'get',
       headers: {
-        "Authorization" => "Bearer #{ENV['CHANNEL_ACCESS_TOKEN']}"
+        "Authorization" => "Bearer #{ENV['LINE_CHANNEL_TOKEN']}"
       },
     }
     request = Typhoeus::Request.new(url, options)
     response = request.run
+    
     if response.code == 200
-      binding.pry
-      JSON.parse(response.body)
+      { display_name: JSON.parse(response.body)['displayName'], picture_url: JSON.parse(response.body)['pictureUrl']||=nil }
     else
-      nil
+      {}
     end
   end
 end

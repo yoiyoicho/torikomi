@@ -67,6 +67,7 @@ gem 'jsbundling-rails'
 gem 'sorcery'
 
 # LINE Messaging API
+
 gem 'line-bot-api'
 gem 'typhoeus'
 

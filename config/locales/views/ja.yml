@@ -54,3 +54,7 @@ ja:
     index:
       title: 'LINE通知設定'
       no_result: 'LINEユーザーがいません'
+    update:
+      success: 'LINEユーザーを承認しました'
+    destroy:
+      success: 'LINEユーザーを削除しました'

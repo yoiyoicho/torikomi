@@ -7,9 +7,15 @@ class LineUsersController < ApplicationController
   end
 
   def update
+    @line_user = current_user.line_users.find(params[:id])
+    @line_user.update!(status: :approved)
+    redirect_to line_users_path, success: t('.success')
   end
 
   def destroy
+    @line_user = current_user.line_users.find(params[:id])
+    @line_user.destroy!
+    redirect_to line_users_path, success: t('.success')
   end
 
   private
