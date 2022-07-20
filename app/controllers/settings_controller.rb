@@ -9,7 +9,7 @@ class SettingsController < ApplicationController
 
   def update
     if @setting.update(setting_params)
-      redirect_to settings_path, success: t('success')
+      redirect_to settings_path, success: t('.success')
     else
       flash.now[:error] = t('.fail')
       render :edit
@@ -20,5 +20,9 @@ class SettingsController < ApplicationController
 
   def set_setting
     @setting = current_user.setting
+  end
+
+  def setting_params
+    params.require(:setting).permit(:notification_time, :message_option, :message_text)
   end
 end
