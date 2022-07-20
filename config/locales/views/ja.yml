@@ -6,6 +6,7 @@ ja:
     logout: 'ログアウト'
     please_login_first: 'ログインしてください'
     update: '更新'
+    edit: '編集'
   static_pages:
     top:
       title: 'トップページ'
@@ -60,6 +61,8 @@ ja:
       success: 'LINEユーザーを削除しました'
   settings:
     index:
+      title: '通知メッセージ設定'
+    edit:
       title: '通知メッセージ設定'
     update:
       success: '通知メッセージの設定を更新しました'
