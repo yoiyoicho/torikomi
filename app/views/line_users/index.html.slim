@@ -5,4 +5,26 @@
       h1.text-5xl.font-bold
         = t('.title')
       p.py-6
-        | この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れ...
+      h2.text-4xl.font-bold
+        | 通知先LINEアカウントの登録方法
+      p.py-6
+        | ①通知を受け取りたいLINEアカウントで、トリコミの公式LINEアカウントを友だち登録
+        br
+        | ②通知を受け取りたいLINEアカウントから、トリコミ公式LINEアカウント宛にワンタイムパスワードを送信
+      .stats.shadow
+        .stat
+          .stat-title
+            | あなたのワンタイムパスワードは
+          .stat-value
+            = @otp
+      p.py-6
+        | ③下記のユーザー一覧から、通知を受け取りたいLINEアカウントを承認
+      h2.text-4xl.font-bold
+        | ユーザー一覧
+      .pt-6
+        = link_to t('defaults.update'), line_users_path, class: 'button btn btn-primary'
+      - if @line_users.present?
+        = render @line_users
+      - else
+        p.py-6
+          = t('.no_result')

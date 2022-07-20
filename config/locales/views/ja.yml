@@ -5,6 +5,7 @@ ja:
     login: 'ログイン'
     logout: 'ログアウト'
     please_login_first: 'ログインしてください'
+    update: '更新'
   static_pages:
     top:
       title: 'トップページ'
@@ -51,6 +52,5 @@ ja:
       success: 'スケジュールを削除しました'
   line_users:
     index:
-      title: 'LINEユーザー一覧'
-    new:
-      title: 'LINEユーザー登録'
+      title: 'LINE通知設定'
+      no_result: 'LINEユーザーがいません'

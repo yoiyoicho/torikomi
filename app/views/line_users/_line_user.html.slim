@@ -1,0 +1,11 @@
+p.py-6
+h2.text-4xl.font-bold
+  = line_user.display_name
+p.py-6
+  = 'ステータス：'
+  = line_user.status
+.flex
+  .flex-none.pr-2
+    = link_to '承認', line_user_path(line_user), method: :patch, class: 'button btn btn-info'
+  .flex-none.pr-2
+    = button_to '削除', line_user_path(line_user), method: :delete, class: 'button btn btn-error'
