@@ -66,11 +66,15 @@ gem 'jsbundling-rails'
 # ログイン機能
 gem 'sorcery'
 
-# LINE Messaging API SDK for Ruby
+# LINE Messaging API
 gem 'line-bot-api'
+gem 'typhoeus'
 
 # 環境変数の管理
 gem 'dotenv-rails'
+
+# アプリユーザーとLINEユーザーを紐付けるために利用するワンタイムパスワードライブラリ
+gem 'rotp'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
