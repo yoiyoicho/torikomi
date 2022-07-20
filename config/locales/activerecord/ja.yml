@@ -31,6 +31,6 @@ ja:
         approved: '承認済'
     setting:
       message_option:
-        only_start_time: '開始日時のみ'
-        start_time_and_title: '開始日時とタイトル'
-        all: 'すべて'
+        only_time: '開始日時のみ'
+        time_and_title: '開始日時とタイトル'
+        time_and_title_and_body: '開始日時、タイトル、内容すべて'
