@@ -4,6 +4,8 @@
     .max-w-screen-lg
       h1.text-5xl.font-bold
         = t('.title')
+      .pt-6
+        = link_to '新規作成', new_schedule_path, class: 'button btn btn-primary'
       - if @schedules.present?
         = render @schedules
       - else

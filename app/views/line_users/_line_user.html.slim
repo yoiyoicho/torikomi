@@ -7,10 +7,10 @@
   .pr-2
     - if line_user.approved?
       .span.badge.badge-primary
-        | 承認済
+        = line_user.status_i18n
     - else
       .span.badge.badge-primary.badge-outline
-        | 未承認
+        = line_user.status_i18n
   - if line_user.unapproved?
     .pr-2
       = button_to '承認', line_user_path(line_user), method: :patch, class: 'button btn btn-info pr-2'

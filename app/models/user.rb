@@ -1,7 +1,8 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
-  has_many :schedules
-  has_many :line_users
+  has_many :schedules, dependent: :destroy
+  has_many :line_users, dependent: :destroy
+  has_one :setting, dependent: :destroy
 
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_19_105728) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_20_042520) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,6 +36,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_19_105728) do
     t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
+  create_table "settings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "message_option", default: 0, null: false
+    t.string "message_text", limit: 255
+    t.integer "notification_time", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_settings_on_user_id", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "crypted_password"
@@ -47,4 +57,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_19_105728) do
 
   add_foreign_key "line_users", "users"
   add_foreign_key "schedules", "users"
+  add_foreign_key "settings", "users"
 end
