@@ -52,7 +52,7 @@ ja:
       success: 'スケジュールを削除しました'
   line_users:
     index:
-      title: 'LINE通知設定'
+      title: 'LINEユーザー設定'
       no_result: 'LINEユーザーがいません'
     update:
       success: 'LINEユーザーを承認しました'
@@ -60,7 +60,7 @@ ja:
       success: 'LINEユーザーを削除しました'
   settings:
     index:
-      title: '通知設定'
+      title: '通知メッセージ設定'
     update:
-      success: '通知設定を更新しました'
-      fail: '通知設定の更新に失敗しました'
+      success: '通知メッセージの設定を更新しました'
+      fail: '通知メッセージの設定の更新に失敗しました'
