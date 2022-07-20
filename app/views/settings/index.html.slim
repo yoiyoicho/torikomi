@@ -8,8 +8,13 @@
       h2.text-4xl.font-bold
         | 現在の設定
       p.py-6
-        | ①通知を受け取りたいLINEアカウントで、トリコミの公式LINEアカウントを友だち追加
-      p.py-6
-        | ②通知を受け取りたいLINEアカウントから、トリコミ公式LINEアカウント宛にワンタイムパスワードを送信
+        = '通知時間：' + @setting.notification_time.to_s + '（分前）'
+        br
+        = '通知メッセージ オプション：' + @setting.message_option_i18n
+        br
+        - if @setting.message_text.present?
+          = '通知メッセージ：' + @setting.message_text 
+        - else
+          = '通知メッセージ：（未設定）'
       .pt-6
         = link_to t('defaults.edit'), edit_setting_path(@setting), class: 'button btn btn-primary'
