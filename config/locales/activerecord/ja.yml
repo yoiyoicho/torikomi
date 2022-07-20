@@ -18,3 +18,8 @@ ja:
         line_user_id: 'LINEユーザーID'
         display_name: '表示名'
         picture_url: 'プロフィール画像'
+  enums:
+    line_user:
+      status:
+        unapproved: '未承認'
+        approved: '承認済'
