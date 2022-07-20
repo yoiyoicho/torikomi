@@ -21,7 +21,7 @@ ja:
         status: 'ステータス'
       settings:
         message_option: '通知メッセージ オプション'
-        message: '通知メッセージ'
+        message_text: '通知メッセージ'
         notification_time: '通知時間（分）'
   enums:
     line_user:
