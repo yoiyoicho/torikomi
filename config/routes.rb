@@ -27,6 +27,6 @@ Rails.application.routes.draw do
   resources :schedules, only: %i(index new create edit update destroy)
 
   # LINEユーザー
-  resources :line_users, only: %i(index new create destroy)
+  resources :line_users, only: %i(index update destroy)
   post '/callback', to: 'line_messaging_api#callback'
 end

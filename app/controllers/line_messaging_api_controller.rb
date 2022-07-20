@@ -1,5 +1,8 @@
 class LineMessagingApiController < ApplicationController
   require 'line/bot'
+  require 'json'
+  require 'typhoeus'
+
   # 外部からのPOSTリクエストを受けるためにCSRF対策を外す
   protect_from_forgery except: :callback
   skip_before_action :require_login
@@ -18,10 +21,34 @@ class LineMessagingApiController < ApplicationController
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
+          line_user = LineUser.new
+
+          # LINEユーザーのuserIDを取得
           line_user_id = event['source']['userId']
+          line_user.assign_attributes(line_user_id: line_user_id)
+
+          # LINEユーザーのプロフィールを取得
+          profile = get_line_user_profile(line_user_id)
+          line_user.assign_attributes(profile)
+
+          # LINEユーザーから送られたワンタイムパスワードから、対応するトリコミのユーザーを見つける
+          otp = event.message['text']
+          hotp = ROTP::HOTP.new(ENV['OTP_SECRET'])
+          User.all.each do |user|
+            if hotp.verify(otp, user.id)
+              line_user.user_id = user.id
+            end
+          end
+
+          # LINEユーザーをデータベースに保存する
+          if line_user.save
+            response_text = '成功しました'
+          else
+            response_text = '失敗しました'
+          end
           message = {
             type: 'text',
-            text: event.message['text']
+            text: response_text
           }
           client.push_message(line_user_id, message)
         end
@@ -46,5 +73,23 @@ class LineMessagingApiController < ApplicationController
       config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
       config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
     }
+  end
+
+  def get_line_user_profile(line_user_id)
+    url = "https://api.line.me/v2/bot/profile/:line_user_id".gsub(':line_user_id', line_user_id)
+    options = {
+      method: 'get',
+      headers: {
+        "Authorization" => "Bearer #{ENV['LINE_CHANNEL_TOKEN']}"
+      },
+    }
+    request = Typhoeus::Request.new(url, options)
+    response = request.run
+    
+    if response.code == 200
+      { display_name: JSON.parse(response.body)['displayName'], picture_url: JSON.parse(response.body)['pictureUrl']||=nil }
+    else
+      {}
+    end
   end
 end

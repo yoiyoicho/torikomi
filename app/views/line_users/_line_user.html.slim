@@ -1,0 +1,18 @@
+.flex.flex-row.py-6.items-center
+  .avatar.pr-2
+    .w-16.rounded-full
+      = image_tag line_user.picture_url
+  p.text-2xl.font-bold.pr-2
+    = line_user.display_name
+  .pr-2
+    - if line_user.approved?
+      .span.badge.badge-primary
+        | 承認済
+    - else
+      .span.badge.badge-primary.badge-outline
+        | 未承認
+  - if line_user.unapproved?
+    .pr-2
+      = button_to '承認', line_user_path(line_user), method: :patch, class: 'button btn btn-info pr-2'
+  .pr-2
+    = button_to '削除', line_user_path(line_user), method: :delete, class: 'button btn btn-error'
