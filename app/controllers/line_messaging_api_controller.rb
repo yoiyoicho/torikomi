@@ -69,7 +69,7 @@ class LineMessagingApiController < ApplicationController
     schedule = Schedule.find(schedule_id)
     message = {
       type: 'text',
-      text: schedule.title #あとで修正する
+      text: schedule.create_line_message
     }
     schedule.user.line_users.each do |line_user|
       client.push_message(line_user.line_user_id, message)
