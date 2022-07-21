@@ -65,6 +65,17 @@ class LineMessagingApiController < ApplicationController
     client.broadcast(message)
   end
 
+  def send_push_message_by_schedule_id(schedule_id)
+    schedule = Schedule.find(schedule_id)
+    message = {
+      type: 'text',
+      text: schedule.create_line_message
+    }
+    schedule.user.line_users.each do |line_user|
+      client.push_message(line_user.line_user_id, message)
+    end
+  end
+
   private
 
   def client

@@ -52,5 +52,8 @@ module Torikomi
 
     #デフォルトのタイムゾーンを日本にする
     config.time_zone = 'Tokyo'
+
+    # Active Jobをsidekiqで実行する
+    config.active_job.queue_adapter = :sidekiq
   end
 end
