@@ -10,6 +10,7 @@ class SchedulesController < ApplicationController
   def create
     @schedule = current_user.schedules.new(schedule_params)
     if @schedule.save
+      SendLineMessageJob.perform_later(@schedule.id)
       redirect_to schedules_path, success: t('.success')
     else
       flash.now[:error] = t('.fail')
