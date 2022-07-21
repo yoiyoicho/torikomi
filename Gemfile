@@ -67,7 +67,6 @@ gem 'jsbundling-rails'
 gem 'sorcery'
 
 # LINE Messaging API
-
 gem 'line-bot-api'
 gem 'typhoeus'
 
@@ -76,6 +75,9 @@ gem 'dotenv-rails'
 
 # アプリユーザーとLINEユーザーを紐付けるために利用するワンタイムパスワードライブラリ
 gem 'rotp'
+
+# LINEメッセージ送信の非同期処理を行う
+gem 'sidekiq'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
