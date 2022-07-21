@@ -10,7 +10,8 @@ class SchedulesController < ApplicationController
   def create
     @schedule = current_user.schedules.new(schedule_params)
     if @schedule.save
-      SendLineMessageJob.perform_later(@schedule.id)
+      # スケジュール開始時間からユーザーが設定した分数だけ前に、LINEメッセージを送信するジョブを追加
+      SendLineMessageJob.set(wait_until: schedule.start_time - schedule.user.setting.notification_time*60).perform_later(@schedule.id)
       redirect_to schedules_path, success: t('.success')
     else
       flash.now[:error] = t('.fail')
