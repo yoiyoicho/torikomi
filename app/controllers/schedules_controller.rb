@@ -1,4 +1,6 @@
 class SchedulesController < ApplicationController
+  require 'sidekiq/api'
+
   def index
     @schedules = current_user.schedules.order(:start_time)
   end
@@ -10,8 +12,9 @@ class SchedulesController < ApplicationController
   def create
     @schedule = current_user.schedules.new(schedule_params)
     if @schedule.save
-      # スケジュール開始時間からユーザーが設定した分数だけ前に、LINEメッセージを送信するジョブを追加
-      SendLineMessageJob.set(wait_until: schedule.start_time - schedule.user.setting.notification_time*60).perform_later(@schedule.id)
+      # スケジュール開始時間からユーザーが設定した分数だけ前に、LINEメッセージの送信ジョブを追加
+      job = SendLineMessageJob.set(wait_until: @schedule.start_time - @schedule.user.setting.notification_time*60).perform_later(@schedule.id)
+      @schedule.update!(job_id: job.job_id)
       redirect_to schedules_path, success: t('.success')
     else
       flash.now[:error] = t('.fail')
@@ -26,6 +29,16 @@ class SchedulesController < ApplicationController
   def update
     @schedule = current_user.schedules.find(params[:id])
     if @schedule.update(schedule_params)
+
+      # Sidekiqに登録されているLINEメッセージの送信ジョブを削除する
+      ss = Sidekiq::ScheduledSet.new
+      jobs = ss.select { |job| job.args[0]['job_id'] == @schedule.job_id }
+      jobs.each(&:delete)
+
+      # 新しくジョブを登録する
+      job = SendLineMessageJob.set(wait_until: @schedule.start_time - @schedule.user.setting.notification_time*60).perform_later(@schedule.id)
+      @schedule.update!(job_id: job.job_id)
+
       redirect_to schedules_path, success: t('.success')
     else
       flash.now[:error] = t('.fail')
@@ -35,6 +48,12 @@ class SchedulesController < ApplicationController
 
   def destroy
     @schedule = current_user.schedules.find(params[:id])
+
+    # Sidekiqに登録されているLINEメッセージの送信ジョブを削除する
+    ss = Sidekiq::ScheduledSet.new
+    jobs = ss.select { |job| job.args[0]['job_id'] == @schedule.job_id }
+    jobs.each(&:delete)
+
     @schedule.destroy!
     redirect_to schedules_path, success: t('.success')
   end
