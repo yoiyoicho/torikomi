@@ -3,8 +3,8 @@ class Api::LineMessagingApiController < ApplicationController
   require 'json'
   require 'typhoeus'
 
-  # 外部からのPOSTリクエストを受けるためにCSRF対策を外す
-  protect_from_forgery except: :callback
+  # 外部からのPOSTリクエストを受けるためにCSRFトークンの検証を制御する
+  protect_from_forgery with: :null_session
   skip_before_action :require_login
 
   def callback
