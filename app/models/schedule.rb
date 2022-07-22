@@ -4,9 +4,12 @@ class Schedule < ApplicationRecord
   validates :title, presence: true, length: { maximum: 255 }
   validates :body, length: { maximum: 65535 }
   validates :start_time, presence: true
+  validates :status, presence: true
 
-  validate :start_time_cannot_be_in_the_past
+  validate :start_time_cannot_be_in_the_past, on: :create_or_update
   validate :end_time_cannot_be_earier_than_start_time
+
+  enum status: { draft: 0, to_be_sent: 1, sent: 2 }
 
   def start_time_cannot_be_in_the_past
     if start_time < Time.now

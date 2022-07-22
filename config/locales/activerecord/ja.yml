@@ -15,6 +15,7 @@ ja:
         body: '内容'
         start_time: '開始日時'
         end_time: '終了日時'
+        status: 'ステータス'
       line_user:
         line_user_id: 'LINEユーザーID'
         display_name: '表示名'
@@ -34,3 +35,8 @@ ja:
         only_time: '開始日時のみ'
         time_and_title: '開始日時とタイトル'
         time_and_title_and_body: '開始日時、タイトル、内容すべて'
+    schedule:
+      status:
+        draft: '下書き'
+        to_be_sent: '送信予約中'
+        sent: '送信済'

@@ -11,10 +11,10 @@ class SchedulesController < ApplicationController
 
   def create
     @schedule = current_user.schedules.new(schedule_params)
-    if @schedule.save
+    if @schedule.save(context: :create_or_update)
       # スケジュール開始時間からユーザーが設定した分数だけ前に、LINEメッセージの送信ジョブを追加
       job = SendLineMessageJob.set(wait_until: @schedule.start_time - @schedule.user.setting.notification_time*60).perform_later(@schedule.id)
-      @schedule.update!(job_id: job.job_id)
+      @schedule.update!(job_id: job.job_id, status: :to_be_sent)
       redirect_to schedules_path, success: t('.success')
     else
       flash.now[:error] = t('.fail')
@@ -23,12 +23,13 @@ class SchedulesController < ApplicationController
   end
 
   def edit
-    @schedule = current_user.schedules.find(params[:id])
+    @schedule = current_user.schedules.to_be_sent.find(params[:id])
   end
 
   def update
-    @schedule = current_user.schedules.find(params[:id])
-    if @schedule.update(schedule_params)
+    @schedule = current_user.schedules.to_be_sent.find(params[:id])
+    @schedule.assign_attributes(schedule_params)
+    if @schedule.save(context: :create_or_update)
 
       # Sidekiqに登録されているLINEメッセージの送信ジョブを削除する
       ss = Sidekiq::ScheduledSet.new
@@ -47,7 +48,7 @@ class SchedulesController < ApplicationController
   end
 
   def destroy
-    @schedule = current_user.schedules.find(params[:id])
+    @schedule = current_user.schedules.to_be_sent.find(params[:id])
 
     # Sidekiqに登録されているLINEメッセージの送信ジョブを削除する
     ss = Sidekiq::ScheduledSet.new
