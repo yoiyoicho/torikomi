@@ -7,7 +7,20 @@
       .pt-6
         = link_to '新規作成', new_schedule_path, class: 'button btn btn-primary'
       - if @schedules.present?
-        = render @schedules
+        h2.text-4xl.font-bold.pt-6
+          = Schedule.statuses_i18n[:to_be_sent]
+        - if @schedules.to_be_sent.present?
+          = render @schedules.to_be_sent
+        - else
+          .pt-6
+            = t('.no_result')
+        h2.text-4xl.font-bold.pt-6
+          = Schedule.statuses_i18n[:sent]
+        - if @schedules.to_be_sent.present?
+          = render @schedules.sent
+        - else
+          .pt-6
+            = t('.no_result')      
       - else
         p.py-6
           = t('.no_result')
