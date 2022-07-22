@@ -1,4 +1,4 @@
-class LineMessagingApiController < ApplicationController
+class Api::LineMessagingApiController < ApplicationController
   require 'line/bot'
   require 'json'
   require 'typhoeus'
