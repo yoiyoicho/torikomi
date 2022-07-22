@@ -5,6 +5,23 @@ class Schedule < ApplicationRecord
   validates :body, length: { maximum: 65535 }
   validates :start_time, presence: true
 
+  validate :start_time_cannot_be_in_the_past
+  validate :end_time_cannot_be_earier_than_start_time
+
+  def start_time_cannot_be_in_the_past
+    if start_time < Time.now
+      errors.add(:start_time, "は現在より未来にしてください")
+    end
+  end
+
+  def end_time_cannot_be_earier_than_start_time
+    if end_time.present?
+      if end_time < start_time
+        errors.add(:end_time, "は開始日時より未来にしてください")
+      end
+    end
+  end
+
   def create_line_message
     setting = self.user.setting
 
