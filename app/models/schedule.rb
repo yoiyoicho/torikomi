@@ -6,7 +6,7 @@ class Schedule < ApplicationRecord
   validates :start_time, presence: true
   validates :status, presence: true
 
-  validate :start_time_cannot_be_in_the_past
+  validate :start_time_cannot_be_in_the_past, on: :create_or_update
   validate :end_time_cannot_be_earier_than_start_time
 
   enum status: { draft: 0, to_be_sent: 1, sent: 2 }
