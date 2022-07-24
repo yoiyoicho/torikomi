@@ -20,7 +20,7 @@
       .form-control
         label.label
           span.label-text
-            = Schedule.human_attribute_name('end_time')
+            = Schedule.human_attribute_name('end_time') + '（必須）'
         = f.datetime_field :end_time, class: 'input input-bordered'
       .form-control.mt-6
         = f.submit class: 'btn btn-primary'
