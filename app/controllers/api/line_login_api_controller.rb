@@ -12,7 +12,7 @@ class Api::LineLoginApiController < ApplicationController
     authorization_url = 'https://access.line.me/oauth2/v2.1/authorize'
     response_type = 'code'
     client_id = ENV['LINE_LOGIN_CHANNEL_ID']
-    redirect_uri = 'https%3A%2F%2F0d87-240b-251-9460-9600-3c19-9301-dd7b-1b81.jp.ngrok.io%2Fapi%2Fcallback'
+    redirect_uri = CGI.escape(api_callback_url)
     state = STATE
     scope = 'profile%20openid'
     
@@ -57,7 +57,7 @@ class Api::LineLoginApiController < ApplicationController
 
   def get_line_user_id_token(code)
     url = 'https://api.line.me/oauth2/v2.1/token'
-    redirect_uri = 'https://0d87-240b-251-9460-9600-3c19-9301-dd7b-1b81.jp.ngrok.io/api/callback'
+    redirect_uri = api_callback_url
 
     options = {
       headers: {
