@@ -7,7 +7,10 @@
       p.py-6
       h2.text-4xl.font-bold
         | 通知先LINEアカウントの登録方法
-      = link_to 'LINEでログイン', api_login_path
+      = button_to 'ログインURLを生成する', link_token_path, method: :post
+      - if @login_url.present?
+        p.py-6
+          = @login_url
       / p.py-6
         | ①通知を受け取りたいLINEアカウントで、トリコミの公式LINEアカウントを友だち追加
       / = link_to 'https://lin.ee/xBUsFNv' do

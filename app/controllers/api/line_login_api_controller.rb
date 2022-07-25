@@ -9,23 +9,27 @@ class Api::LineLoginApiController < ApplicationController
   #あとで、USER、STATEの組み合わせを一意にする
 
   def login
+    session[:user_id] = params[:user_id]
+    session[:state] = params[:link_token]
+
     authorization_url = 'https://access.line.me/oauth2/v2.1/authorize'
     response_type = 'code'
     client_id = ENV['LINE_LOGIN_CHANNEL_ID']
     redirect_uri = CGI.escape(api_callback_url)
-    state = STATE
+    state = params[:id]
     scope = 'profile%20openid'
     
-    request_url = "#{authorization_url}?response_type=#{response_type}&client_id=#{client_id}&redirect_uri=#{redirect_uri}&state=#{STATE}&scope=#{scope}"
-    redirect_to request_url, allow_other_host: true
+    login_url = "#{authorization_url}?response_type=#{response_type}&client_id=#{client_id}&redirect_uri=#{redirect_uri}&state=#{state}&scope=#{scope}"
+    redirect_to login_url, allow_other_host: true
   end
 
   def callback
-    if params[:state] == STATE
+    if params[:state] == session[:state]
+      user = User.find(session[:user_id])
       line_user_params = get_line_user_params(params[:code])
-      line_user = USER.line_users.new(line_user_params)
+      line_user = user.line_users.new(line_user_params)
       if line_user.save
-        redirect_to line_users_path, success: 'ログインできました'
+        redirect_to line_users_path, success: 'トリコミのLINEユーザーに追加されました'
       else
         redirect_to line_users_path, error: 'エラーが起きました'
       end
