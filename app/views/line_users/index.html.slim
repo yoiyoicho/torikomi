@@ -7,19 +7,20 @@
       p.py-6
       h2.text-4xl.font-bold
         | 通知先LINEアカウントの登録方法
-      p.py-6
+      = link_to 'LINEでログイン', api_login_path
+      / p.py-6
         | ①通知を受け取りたいLINEアカウントで、トリコミの公式LINEアカウントを友だち追加
-      = link_to 'https://lin.ee/xBUsFNv' do
+      / = link_to 'https://lin.ee/xBUsFNv' do
         = image_tag "https://scdn.line-apps.com/n/line_add_friends/btn/ja.png", size: '116x36'
-      p.py-6
+      / p.py-6
         | ②通知を受け取りたいLINEアカウントから、トリコミ公式LINEアカウント宛にワンタイムパスワードを送信
-      .stats.shadow
+      / .stats.shadow
         .stat
           .stat-title
             | あなたのワンタイムパスワードは
           .stat-value
             = @otp
-      p.py-6
+      / p.py-6
         | ③下記のLINEアカウント一覧から、通知を受け取りたいLINEアカウントを承認
       h2.text-4xl.font-bold
         | 通知先LINEアカウント一覧

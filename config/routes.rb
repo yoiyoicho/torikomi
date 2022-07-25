@@ -24,7 +24,9 @@ Rails.application.routes.draw do
 
   # LINEユーザー
   resources :line_users, only: %i(index update destroy)
-  post '/api/callback', to: 'api/line_messaging_api#callback'
+  # post '/api/callback', to: 'api/line_messaging_api#callback'
+  get '/api/login', to: 'api/line_login_api#login'
+  get '/api/callback', to: 'api/line_login_api#callback'
 
   # 通知
   resources :settings, only: %i(index edit update)
