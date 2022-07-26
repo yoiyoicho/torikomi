@@ -13,7 +13,7 @@ class Schedule < ApplicationRecord
   enum status: { draft: 0, to_be_sent: 1, sent: 2 }
 
   def start_time_cannot_be_in_the_past
-    if start_time < Time.now
+    if start_time < Time.zone.now
       errors.add(:start_time, "は現在より未来にしてください")
     end
   end

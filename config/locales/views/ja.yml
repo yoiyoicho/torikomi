@@ -56,7 +56,8 @@ ja:
       title: 'LINEユーザー設定'
       no_result: 'LINEユーザーがいません'
     update:
-      success: 'LINEユーザーを承認しました'
+      success: 'LINEユーザーの通知設定を変更しました'
+      fail: 'LINEユーザーの通知設定の変更に失敗しました'
     destroy:
       success: 'LINEユーザーを削除しました'
   settings:

@@ -28,8 +28,8 @@ ja:
   enums:
     line_user:
       status:
-        unapproved: '未承認'
-        approved: '承認済'
+        notification_on: '通知オン'
+        notification_off: '通知オフ'
     setting:
       message_option:
         only_time: '開始日時のみ'
