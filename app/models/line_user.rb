@@ -5,5 +5,5 @@ class LineUser < ApplicationRecord
   validates :display_name, presence: true
   validates :status, presence: true
 
-  enum status: { unapproved: 0, approved: 1 }
+  enum status: { notification_on: 0, notification_off: 1 }
 end

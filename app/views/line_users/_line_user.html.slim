@@ -4,15 +4,18 @@
       = image_tag line_user.picture_url
   p.text-2xl.font-bold.pr-2
     = line_user.display_name
-  .pr-2
-    - if line_user.approved?
+  /.pr-2
+    - if line_user.notification_on?
       .span.badge.badge-primary
         = line_user.status_i18n
     - else
       .span.badge.badge-primary.badge-outline
         = line_user.status_i18n
-  - if line_user.unapproved?
+  - if line_user.notification_on?
     .pr-2
-      = button_to '承認', line_user_path(line_user), method: :patch, class: 'button btn btn-info pr-2'
+      = button_to '通知オフ', line_user_path(line_user, notification: 'off'), method: :patch, class: 'button btn btn-info pr-2'
+  - else 
+    .pr-2
+      = button_to '通知オン', line_user_path(line_user, notification: 'on'), method: :patch, class: 'button btn btn-info pr-2'
   .pr-2
     = button_to '削除', line_user_path(line_user), method: :delete, class: 'button btn btn-error'

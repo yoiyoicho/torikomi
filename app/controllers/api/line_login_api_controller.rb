@@ -3,7 +3,7 @@ class Api::LineLoginApiController < ApplicationController
   require 'typhoeus'
   require 'securerandom'
 
-  skip_before_action :require_login
+  skip_before_action :require_login, only: %i(login callback)
 
   # sessionを有効にするためにCSRF対策を外す（あとで検討）
   protect_from_forgery except: %i(login callback)
@@ -13,10 +13,11 @@ class Api::LineLoginApiController < ApplicationController
     # URLに含まれるlink_tokenからアプリユーザーを特定する
     user = User.find_by(link_token: params[:link_token])
 
-    # アプリユーザーが存在し、selfパラメーターが正しいフォーマットの場合にLINEログイン処理へ移る
+    # アプリユーザーが存在し、link_tokenが期限内で、selfパラメーターが正しいフォーマットの場合にLINEログイン処理へ移る
     # selfパラメーターは、アプリユーザーが自分のLINEアカウントを登録しようとしているときにture
     # アプリユーザーが自分でないLINEユーザーに登録してもらおうとしているときにfalse
-    if user && ( params[:self] == 'true' || params[:self] == 'false' )
+
+    if user && user.link_token_created_at > 1.days.ago.in_time_zone && ( params[:self] == 'true' || params[:self] == 'false' )
 
       session[:app_user_id] = user.id
       session[:self] = params[:self]
@@ -52,25 +53,19 @@ class Api::LineLoginApiController < ApplicationController
       line_user = user.line_users.new(line_user_params)
 
       if line_user.save
-
-        # line_userが正当なデータだったとき
+        # line_userが妥当なデータだったとき
         reset_session_before_redirect(session[:self])
         flash[:success] = 'トリコミのLINEユーザーに追加されました'
-
       else
-
         # line_userが不正なデータだったとき
         reset_session_before_redirect(session[:self])
         flash[:error] = 'エラーが起きました'
-
       end
 
     else
-
       # LINEログインの通信に失敗しているとき
       reset_session_before_redirect(session[:self])
       flash[:error] = 'エラーが起きました'
-
     end
 
     redirect_to root_path
