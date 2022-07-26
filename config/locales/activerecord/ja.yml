@@ -28,7 +28,7 @@ ja:
   enums:
     line_user:
       status:
-        notificaton_on: '通知オン'
+        notification_on: '通知オン'
         notification_off: '通知オフ'
     setting:
       message_option:
