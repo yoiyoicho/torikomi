@@ -5,7 +5,7 @@ class LineUsersController < ApplicationController
     # @otp = @hotp.at(current_user.id)
     @line_users = current_user.line_users
     if current_user.link_token.present? && current_user.link_token_created_at > 1.week.ago.in_time_zone
-      @login_url = root_url + current_user.link_token + '/login?user_id=' + current_user.id.to_s
+      @login_url = root_url + 'api/' + current_user.link_token + '/login'
     end
   end
 
