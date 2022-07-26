@@ -29,9 +29,9 @@ class LineUsersController < ApplicationController
   private
 
   def create_login_url(user)
-    link_token = SecureRandom.urlsafe_base64
-    user.update!(link_token: link_token, link_token_created_at: Time.zone.now)
-    login_url = root_url + 'api/' + current_user.link_token + '/login'
+    token = SecureRandom.urlsafe_base64
+    user.link_tokens.create!(token: token)
+    login_url = root_url + 'api/' + token + '/login'
     login_url
   end
 

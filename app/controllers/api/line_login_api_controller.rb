@@ -11,15 +11,15 @@ class Api::LineLoginApiController < ApplicationController
   def login
 
     # URLに含まれるlink_tokenからアプリユーザーを特定する
-    user = User.find_by(link_token: params[:link_token])
+    link_token = LinkToken.find_by(token: params[:link_token])
 
-    # アプリユーザーが存在し、link_tokenが期限内で、selfパラメーターが正しいフォーマットの場合にLINEログイン処理へ移る
+    # link_tokenが正しく、アプリユーザーが存在し、selfパラメーターが正しいフォーマットの場合にLINEログイン処理へ移る
     # selfパラメーターは、アプリユーザーが自分のLINEアカウントを登録しようとしているときにture
     # アプリユーザーが自分でないLINEユーザーに登録してもらおうとしているときにfalse
 
-    if user && user.link_token_created_at > 1.days.ago.in_time_zone && ( params[:self] == 'true' || params[:self] == 'false' )
+    if link_token && link_token.user && link_token.not_expired? && ( params[:self] == 'true' || params[:self] == 'false' )
 
-      session[:app_user_id] = user.id
+      session[:app_user_id] = link_token.user.id
       session[:self] = params[:self]
       session[:state] = SecureRandom.urlsafe_base64 #クロスサイトリクエストフォージェリ防止用のトークン
 
