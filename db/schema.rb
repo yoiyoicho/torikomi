@@ -10,19 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_26_075117) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_27_000934) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "line_users", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.string "line_user_id", null: false
     t.string "display_name", null: false
     t.string "picture_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 0, null: false
-    t.index ["user_id"], name: "index_line_users_on_user_id"
   end
 
   create_table "link_tokens", force: :cascade do |t|
@@ -56,6 +54,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_26_075117) do
     t.index ["user_id"], name: "index_settings_on_user_id", unique: true
   end
 
+  create_table "user_line_user_relationships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "line_user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["line_user_id"], name: "index_user_line_user_relationships_on_line_user_id"
+    t.index ["user_id"], name: "index_user_line_user_relationships_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "crypted_password"
@@ -65,8 +72,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_26_075117) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "line_users", "users"
   add_foreign_key "link_tokens", "users"
   add_foreign_key "schedules", "users"
   add_foreign_key "settings", "users"
+  add_foreign_key "user_line_user_relationships", "line_users"
+  add_foreign_key "user_line_user_relationships", "users"
 end
