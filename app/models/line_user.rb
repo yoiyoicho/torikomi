@@ -1,7 +1,8 @@
 class LineUser < ApplicationRecord
-  belongs_to :user
+  has_many :user_line_user_relationships, dependent: :destroy
+  has_many :users, through: :user_line_user_relationships
 
-  validates :line_user_id, presence: true, uniqueness: { scope: :user }
+  validates :line_user_id, presence: true, uniqueness: true
   validates :display_name, presence: true
   validates :status, presence: true
 

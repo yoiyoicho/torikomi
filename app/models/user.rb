@@ -1,7 +1,8 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
   has_many :schedules, dependent: :destroy
-  has_many :line_users, dependent: :destroy
+  has_many :user_line_user_relationships, dependent: :destroy
+  has_many :line_users, through: :user_line_user_relationships
   has_one :setting, dependent: :destroy
   has_many :link_tokens
 
