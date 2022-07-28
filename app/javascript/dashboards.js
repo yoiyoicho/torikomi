@@ -1,10 +1,21 @@
 import Vue from 'vue/dist/vue.esm.js';
+import VCalendar from 'v-calendar';
+Vue.use(VCalendar);
 
-const app = new Vue({
-  el: '#dashboard_app',
-  data() {
-    return {
-      text: 'hello vue.js from dashboards.js'
-    };
+new Vue({
+  el: '#app',
+  data: { 
+    attrs: [
+        {
+          key: 'today',
+          highlight: {
+            backgroundColor: '#ff8080',
+          },
+          dates: new Date(),
+          popover: {
+            label: 'メッセージを表示できます',
+          },
+        }
+    ],
   }
 });

@@ -71,5 +71,5 @@ Rails.application.configure do
   # LINE Messaging APIを開発環境でテストするため
   # ngrokで起動したサーバーを許可する
   # https://www.codegrepper.com/code-examples/ruby/rails+ngrok+blocked+host
-  config.hosts << 'f155-240b-251-9460-9600-10f0-be34-3ae0-852.jp.ngrok.io'
+  config.hosts << 'b353-240b-251-9460-9600-10f0-be34-3ae0-852.jp.ngrok.io'
 end
