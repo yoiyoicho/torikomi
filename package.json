@@ -6,7 +6,7 @@
     "daisyui": "^2.19.0",
     "esbuild": "^0.14.49",
     "postcss": "^8.4.14",
-    "tailwindcss": "^3.1.5",
+    "tailwindcss": "^3.1.6",
     "vue": "2.6.14"
   },
   "scripts": {
