@@ -1,0 +1,40 @@
+- content_for(:title, t('.title'))
+.hero.min-h-screen.bg-base-200
+  .hero-content
+    .max-w-screen-lg
+      h1.text-5xl.font-bold
+        = t('.title')
+      p.py-6
+      .card.flex-shrink-0.w-full.max-w-sm.shadow-2xl.bg-base-100.mx-auto
+        .card-body
+          = form_with model: @setting do |f|
+            .form-control
+              label.label
+                span.label-text
+                  span
+                    = Setting.human_attribute_name('notification_time') + '（分）'
+              = f.number_field :notification_time, in: 0..120, step: 5, class: 'input input-bordered'
+              label.label
+                ul.text-left
+                  li.label-text-alt
+                    | スケジュールの何分前に通知を送りたいか設定します
+            .form-control
+              label.label
+                span.label-text
+                  = Setting.human_attribute_name('message_option')
+              = f.select :message_option, Setting.message_options_i18n.invert, {}, class: 'input input-bordered'
+              label.label
+                ul.text-left
+                  li.label-text-alt
+                    | スケジュールの情報をどこまで通知メッセージに含めるか設定します
+            .form-control
+              label.label
+                span.label-text
+                  = Setting.human_attribute_name('message_text')
+              = f.text_area :message_text, class: 'input input-bordered h-24'
+              label.label
+                ul.text-left
+                  li.label-text-alt
+                    | オリジナルの通知メッセージを送りたい場合は設定します
+            .form-control.mt-6
+              = f.submit class: 'btn btn-primary'

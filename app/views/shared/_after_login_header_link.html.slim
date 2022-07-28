@@ -1,0 +1,22 @@
+li[tabindex="0"]
+  = link_to schedules_path, class: 'justify-between' do
+    svg.fill-current[xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewbox="0 0 24 24"]
+      path[d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"]
+    | スケジュール
+  ul.p-2.bg-base-100
+    li
+      = link_to '新規作成', new_schedule_path
+li[tabindex="0"]
+  .justify-between
+    svg.fill-current[xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewbox="0 0 24 24"]
+      path[d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"]
+    | 通知設定
+  ul.p-2.bg-base-100
+    li
+      = link_to 'LINEユーザー設定', line_users_path
+    li
+      = link_to '通知メッセージ設定', settings_path
+li
+  = link_to t('static_pages.faq.title'), faq_path
+li
+  = button_to t('defaults.logout'), logout_path, method: :delete

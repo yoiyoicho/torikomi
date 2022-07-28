@@ -1,0 +1,51 @@
+- content_for(:title, t('.title'))
+.hero.min-h-screen.bg-base-200
+  .hero-content
+    .max-w-screen-lg
+      h1.text-5xl.font-bold.py-6
+        = t('.title')
+      h2.text-4xl.font-bold.py-6
+        | LINEユーザー新規登録
+      .py-2
+        .collapse.collapse-open.border.border-base-300.bg-base-100.rounded-box[tabindex="0"]
+          .collapse-title.text-xl.font-medium
+            | 自分のLINEアカウントを登録したいとき
+          .collapse-content
+            p
+            | ①下記のボタンから自分のLINEアカウントでログイン
+            br
+            | 　続けて「トリコミ」LINE公式アカウントを友だち登録！
+            .py-2
+              = link_to 'LINEでログイン', @login_url + '&self=true', class: 'button btn btn-primary'
+            p
+            | ②登録済LINEユーザー一覧に自分のLINEアカウントが表示されていればOK！
+      .py-2
+        .collapse.collapse-open.border.border-base-300.bg-base-100.rounded-box[tabindex="0"]
+          .collapse-title.text-xl.font-medium
+            | 他人のLINEアカウントを登録したいとき
+          .collapse-content
+            p
+            | ①下記のボタンからLINEログインURLを発行して、追加したいLINEユーザーに送信
+            .py-2
+              = link_to 'ログインURLを送信', "https://line.me/R/share?text=%E3%80%8C%E3%83%88%E3%83%AA%E3%82%B3%E3%83%9F%E3%80%8D%E3%81%AB%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%EF%BC%81%0D%0A%EF%BC%88URL%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%99%90%EF%BC%9A24%E6%99%82%E9%96%93%EF%BC%89%0D%0A%0D%0A#{CGI.escape(@login_url+'&self=false')}", class: 'button btn btn-primary'
+            p
+            | ②（URLを受け取ったLINEユーザー）①のURLからログイン
+            br
+            | 　続けて「トリコミ」LINE公式アカウントを友だち登録！
+            br
+            | ③（アプリユーザー）登録済LINEユーザー一覧に追加したい人のLINEアカウントが表示されていればOK！
+      h2.text-4xl.font-bold.py-6
+        | 登録済LINEユーザー一覧
+      - if @line_users.present?
+        .overflow-x-auto.w-full
+          table.table.w-full
+            thead
+              tr
+                th.bg-primary.text-primary-content
+                  | 名前
+                th.bg-primary
+            tbody
+              = render @line_users
+      - else
+        p.py-6
+          = t('.no_result')

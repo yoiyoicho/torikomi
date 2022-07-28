@@ -1,0 +1,70 @@
+ja:
+  defaults:
+    start_now: '今すぐはじめる'
+    register: '登録'
+    login: 'ログイン'
+    logout: 'ログアウト'
+    please_login_first: 'ログインしてください'
+    update: '更新'
+    edit: '編集'
+  static_pages:
+    top:
+      title: 'トップページ'
+    terms:
+      title: '利用規約'
+    privacy_policy:
+      title: 'プライバシーポリシー'
+    contact:
+      title: 'お問い合わせ'
+    faq:
+      title: 'FAQ'
+  dashboards:
+    index:
+      title: 'ダッシュボード'
+  users:
+    new:
+      title: '新規登録'
+    create:
+      success: 'ユーザー登録が完了しました'
+      fail: 'ユーザー登録に失敗しました'
+  user_sessions:
+    new:
+      title: 'ログイン'
+    create:
+      success: 'ログインしました'
+      fail: 'ログインに失敗しました'
+    destroy:
+      success: 'ログアウトしました'
+  schedules:
+    index:
+      title: 'スケジュール一覧'
+      no_result: 'スケジュールがありません'
+    new:
+      title: 'スケジュール作成'
+    create:
+      success: 'スケジュールを作成しました'
+      fail: 'スケジュールの作成に失敗しました'
+    edit:
+      title: 'スケジュール編集'
+    update:
+      success: 'スケジュールを編集しました'
+      fail: 'スケジュールの編集に失敗しました'
+    destroy:
+      success: 'スケジュールを削除しました'
+  line_users:
+    index:
+      title: 'LINEユーザー設定'
+      no_result: 'LINEユーザーがいません'
+    update:
+      success: 'LINEユーザーの通知設定を変更しました'
+      fail: 'LINEユーザーの通知設定の変更に失敗しました'
+    destroy:
+      success: 'LINEユーザーを削除しました'
+  settings:
+    index:
+      title: '通知メッセージ設定'
+    edit:
+      title: '通知メッセージ設定'
+    update:
+      success: '通知メッセージの設定を更新しました'
+      fail: '通知メッセージの設定の更新に失敗しました'
