@@ -1,20 +1,20 @@
 tr
   td
-    .flex.items-center.space-x-3
+    .flex.items-center.space-x-2
       .avatar
-        .w-16.rounded-full
+        .w-12.rounded-full
           = image_tag line_user.picture_url
       div
         .font-bold
           = line_user.display_name
         .text-sm.opacity-50
           = line_user.status_i18n
-  td 
+  td.pl-0
     .flex.float-right
       .flex-none.pr-2
         - if line_user.notification_on?
-          = button_to '通知オフにする', line_user_path(line_user, notification: 'off'), method: :patch, class: 'button btn btn-info pr-2'
+          = button_to 'OFF', line_user_path(line_user, notification: 'off'), method: :patch, class: 'button btn btn-info'
         - else 
-          = button_to '通知オンにする', line_user_path(line_user, notification: 'on'), method: :patch, class: 'button btn btn-info pr-2'
+          = button_to 'ON', line_user_path(line_user, notification: 'on'), method: :patch, class: 'button btn btn-info'
       .flex-none
-        = button_to '削除', line_user_path(line_user), method: :delete, class: 'button btn btn-error'
+        = button_to '×', line_user_path(line_user), method: :delete, class: 'button btn btn-error'

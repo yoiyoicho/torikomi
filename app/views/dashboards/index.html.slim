@@ -22,7 +22,7 @@
         .flex-none
           = link_to '新規登録', line_users_path, class: 'button btn btn-primary'
       - if @line_users.present?
-        .overflow-x-auto.w-full.py-2
+        .py-2
           table.table.w-full
             thead
               tr
@@ -40,7 +40,7 @@
         .flex-none
           = link_to t('defaults.edit'), edit_setting_path(@setting), class: 'button btn btn-primary'
       .py-2
-        .overflow-x-auto.w-full.bg-base-100.rounded-lg
+        .bg-base-100.rounded-lg
           p.p-4
             = '通知時間：' + @setting.notification_time.to_s + '（分前）'
             br
