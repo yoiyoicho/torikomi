@@ -10,16 +10,16 @@ class Api::LineLoginApiController < ApplicationController
 
   def login
 
-    # URLに含まれるlink_tokenからアプリユーザーを特定する
-    link_token = LinkToken.find_by(token: params[:link_token])
+    user = User.find_by(id: params[:app_user_id].to_i)
+    link_token = params[:link_token]
 
-    # link_tokenが正しく、アプリユーザーが存在し、selfパラメーターが正しいフォーマットの場合にLINEログイン処理へ移る
+    # アプリユーザーが存在し、link_tokenが正しく、selfパラメーターが正しいフォーマットの場合にLINEログイン処理へ移る
     # selfパラメーターは、アプリユーザーが自分のLINEアカウントを登録しようとしているときにture
     # アプリユーザーが自分でないLINEユーザーに登録してもらおうとしているときにfalse
 
-    if link_token && link_token.user && link_token.not_expired? && ( params[:self] == 'true' || params[:self] == 'false' )
+    if user && LinkToken.valid?(user.id, link_token) && ( params[:self] == 'true' || params[:self] == 'false' )
 
-      session[:app_user_id] = link_token.user.id
+      session[:app_user_id] = user.id
       session[:self] = params[:self]
       session[:state] = SecureRandom.urlsafe_base64 #クロスサイトリクエストフォージェリ防止用のトークン
 
@@ -50,7 +50,7 @@ class Api::LineLoginApiController < ApplicationController
 
       user = User.find(session[:app_user_id])
       line_user_params = get_line_user_params(params[:code])
-      line_user = LineUser.find_or_initialize_by(line_user_id: line_user_params[:line_user_id])
+      line_user = LineUser.find_or_initialize_by(line_user_id: line_user_params[:line_user_id].to_i)
       line_user.assign_attributes(line_user_params)
 
       if line_user.save && UserLineUserRelationship.find_or_create_by(user: user, line_user: line_user)

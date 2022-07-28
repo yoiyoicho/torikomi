@@ -2,7 +2,7 @@ class LineUsersController < ApplicationController
 
   def index
     @line_users = current_user.line_users
-    @login_url = create_login_url(current_user)
+    @login_url = LinkToken.create_line_login_url(root_url, current_user)
   end
 
   def update
@@ -25,14 +25,4 @@ class LineUsersController < ApplicationController
     @line_user.destroy!
     redirect_to line_users_path, success: t('.success')
   end
-
-  private
-
-  def create_login_url(user)
-    token = SecureRandom.urlsafe_base64
-    user.link_tokens.create!(token: token)
-    login_url = root_url + 'api/' + token + '/login'
-    login_url
-  end
-
 end
