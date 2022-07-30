@@ -14,14 +14,14 @@ class Schedule < ApplicationRecord
 
   def start_time_cannot_be_in_the_past
     if start_time < Time.zone.now
-      errors.add(:start_time, "は現在より未来にしてください")
+      errors.add(:start_time, "は現在より先の日時にしてください")
     end
   end
 
   def end_time_cannot_be_earier_than_start_time
     if end_time.present?
       if end_time < start_time
-        errors.add(:end_time, "は開始日時より未来にしてください")
+        errors.add(:end_time, "は開始日時より先の日時にしてください")
       end
     end
   end

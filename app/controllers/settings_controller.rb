@@ -5,11 +5,12 @@ class SettingsController < ApplicationController
   end
 
   def edit
+    session[:previous_url] = request.referer
   end
 
   def update
     if @setting.update(setting_params)
-      redirect_to settings_path, success: t('.success')
+      redirect_to session[:previous_url] ||= dashboards_path, success: t('.success')
     else
       flash.now[:error] = t('.fail')
       render :edit
