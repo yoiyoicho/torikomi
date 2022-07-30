@@ -37,10 +37,19 @@ new Vue({
           },
           dates: start_time_date,
           popover: {
-            label: start_time_date.getHours().toString() + ':' + start_time_date.getMinutes().toString() + ' ' + title
+            label: this.convertDateToString(start_time_date) + ' ' + title
           },
         });
       }
+    },
+    convertDateToString(date){
+      hour_s = date.getHours().toString();
+      minute_s = date.getMinutes().toString();
+      if(minute_s.length == 1){
+        minute_s = '0' + minute_s;
+      }
+      date_s = hour_s + ':' + minute_s
+      return date_s;
     }
   }
 });
