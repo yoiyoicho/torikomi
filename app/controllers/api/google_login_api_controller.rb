@@ -1,0 +1,21 @@
+class Api::GoogleLoginApiController < ApplicationController
+  require "googleauth/id_tokens/errors"
+  require "googleauth/id_tokens/verifier"
+
+  skip_before_action :require_login
+  protect_from_forgery except: :callback
+
+  def callback
+    payload = Google::Auth::IDTokens.verify_oidc(params[:credential], aud: ENV['GOOGLE_CLIENT_ID'])
+    user = User.find_or_initialize_by(email: payload['email'], login_type: :google)
+    if user.save
+      unless user.setting.present?
+        user.build_setting.save!
+      end
+      auto_login(user)
+      redirect_to dashboards_path, success: 'Googleアカウントでログインしました'
+    else
+      redirect_to login_path, error: 'Googleアカウントでのログインに失敗しました'
+    end
+  end
+end

@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   post 'login', to: 'user_sessions#create'
   delete 'logout', to: 'user_sessions#destroy'
 
+  # Googleログイン
+  post '/api/google_login/callback', to: 'api/google_login_api#callback'
+
   # ダッシュボード
   get '/dashboards', to: 'dashboards#index'
 
@@ -25,8 +28,8 @@ Rails.application.routes.draw do
   # LINEユーザー
   resources :line_users, only: %i(index update destroy)
   # post '/api/callback', to: 'api/line_messaging_api#callback'
-  get '/api/callback', to: 'api/line_login_api#callback'
-  get '/api/:link_token/login', to: 'api/line_login_api#login', as: 'api_login'
+  get '/api/line_login/callback', to: 'api/line_login_api#callback'
+  get '/api/line_login/:link_token/login', to: 'api/line_login_api#login', as: 'api_login'
 
   # 通知
   resources :settings, only: %i(index edit update)

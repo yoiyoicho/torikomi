@@ -6,8 +6,10 @@ class User < ApplicationRecord
   has_one :setting, dependent: :destroy
   has_many :link_tokens
 
-  validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
-  validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
-  validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
-  validates :email, uniqueness: true, presence: true
+  validates :password, length: { minimum: 3 }, if: -> { default? && (new_record? || changes[:crypted_password]) }
+  validates :password, confirmation: true, if: -> { default? && (new_record? || changes[:crypted_password]) }
+  validates :password_confirmation, presence: true, if: -> { default? && (new_record? || changes[:crypted_password]) }
+  validates :email, presence: true, uniqueness: { scope: :login_type }
+
+  enum login_type: { default: 0, google: 1 }
 end
