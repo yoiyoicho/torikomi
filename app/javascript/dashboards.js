@@ -3,7 +3,7 @@ import VCalendar from 'v-calendar';
 Vue.use(VCalendar);
 
 new Vue({
-  el: '#app',
+  el: '#calendar',
   mounted() {
     const schedules_json = JSON.parse(this.$refs.schedules.dataset.schedules);
     this.schedules = schedules_json;
