@@ -14,7 +14,7 @@
           .flex-none
             = link_to '新規作成', new_schedule_path, class: 'button btn btn-primary'
       .py-2
-        #app
+        #calendar
           .js-schedules ref="schedules" data-schedules="#{@schedules.to_json}"
           v-calendar[is-expanded :attributes="attrs"]
       h2.text-2xl.font-bold.py-3
