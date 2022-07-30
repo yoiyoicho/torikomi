@@ -25,6 +25,10 @@ Rails.application.routes.draw do
   # スケジュール
   resources :schedules, only: %i(index new create edit update destroy)
 
+  # Googleカレンダー
+  get 'api/google_calendar/authorize', to: 'api/google_calendar_api#authorize', as: 'api_google_calendar_authorize'
+  get 'api/google_calendar/callback', to: 'api/google_calendar_api#callback'
+
   # LINEユーザー
   resources :line_users, only: %i(index update destroy)
   # post '/api/callback', to: 'api/line_messaging_api#callback'
