@@ -7,8 +7,15 @@ class Api::GoogleLoginApiController < ApplicationController
 
   def callback
     payload = Google::Auth::IDTokens.verify_oidc(params[:credential], aud: ENV['GOOGLE_CLIENT_ID'])
-    # email = payload['email']
-    # name = payload['name']
-    redirect_to dashboards_path, success: 'ログインしました'
+    user = User.find_or_initialize_by(email: payload['email'], login_type: :google)
+    if user.save
+      unless user.setting.present?
+        user.build_setting.save!
+      end
+      auto_login(user)
+      redirect_to dashboards_path, success: 'Googleアカウントでログインしました'
+    else
+      redirect_to login_path, error: 'Googleアカウントでのログインに失敗しました'
+    end
   end
 end

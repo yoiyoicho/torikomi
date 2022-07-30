@@ -21,6 +21,7 @@ ja:
   dashboards:
     index:
       title: 'ダッシュボード'
+      no_result: 'データがありません'
   users:
     new:
       title: '新規登録'
