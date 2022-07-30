@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   post 'login', to: 'user_sessions#create'
   delete 'logout', to: 'user_sessions#destroy'
 
+  # Googleログイン
+  get '/api/google_login/callback', to: 'api/google_login_api#callback'
+
   # ダッシュボード
   get '/dashboards', to: 'dashboards#index'
 
