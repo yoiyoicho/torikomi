@@ -1,4 +1,5 @@
 import './dashboards.js';
+import './schedules.js';
 
 /*const app = new Vue({
   el: '#app',

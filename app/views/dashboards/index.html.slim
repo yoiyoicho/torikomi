@@ -1,13 +1,62 @@
 - content_for(:title, t('.title'))
-#dashboard_app
-  p = "{{text}}"
 .hero.min-h-screen.bg-base-200
   .hero-content
     .max-w-screen-lg
-      h1.text-5xl.font-bold
-        = t('.title')
-      p.py-6
-      h2.text-4xl.font-bold
+      h1.text-3xl.font-bold.py-3
         = 'Welcome! ' + current_user.email + ' さん'
-      p.py-6
-        | この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れ...
+      .div class="flex flex-col sm:flex-row sm:items-center"
+        .flex-none.pr-4.py-2
+          h2.text-2xl.font-bold
+            = 'スケジュール'
+        .flex.py-2
+          .flex-none.pr-2
+            = link_to '一覧・編集・削除', schedules_path, class: 'button btn'
+          .flex-none
+            = link_to '新規作成', new_schedule_path, class: 'button btn btn-primary'
+      .py-2
+        #calendar
+          .js-schedules ref="schedules" data-schedules="#{@schedules.to_json}"
+          v-calendar[is-expanded :attributes="attrs"]
+      h2.text-2xl.font-bold.py-3
+        = '連携設定'
+      .py-2
+        .bg-base-100.rounded-lg
+          p.p-4
+            | Googleカレンダー（準備中）
+      h2.text-2xl.font-bold.py-3
+        = '通知設定'
+      .flex.items-center.py-2
+        .flex-none.pr-4
+          h3.text-xl.font-bold
+            = 'LINEユーザー一覧'
+        .flex-none
+          = link_to '新規登録', line_users_path, class: 'button btn btn-primary'
+      - if @line_users.present?
+        .py-2
+          table.table.w-full
+            thead
+              tr
+                th.bg-white.pb-0.5
+                th.bg-white.pb-0.5
+            tbody
+              = render @line_users
+      - else
+        p.py-2
+          = t('.no_result')
+      .flex.items-center.py-2
+        .flex-none.pr-4
+          h3.text-xl.font-bold
+            = '通知メッセージ設定'
+        .flex-none
+          = link_to t('defaults.edit'), edit_setting_path(@setting), class: 'button btn btn-primary'
+      .py-2
+        .bg-base-100.rounded-lg
+          p.p-4
+            = '通知時間：' + @setting.notification_time.to_s + '（分前）'
+            br
+            = '通知メッセージ オプション：' + @setting.message_option_i18n
+            br
+            - if @setting.message_text.present?
+              = '通知メッセージ：' + @setting.message_text 
+            - else
+              = '通知メッセージ：（未設定）'

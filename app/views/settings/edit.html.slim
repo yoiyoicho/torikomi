@@ -2,9 +2,9 @@
 .hero.min-h-screen.bg-base-200
   .hero-content
     .max-w-screen-lg
-      h1.text-5xl.font-bold
+      h1.text-3xl.font-bold.py-3.text-center
         = t('.title')
-      p.py-6
+      .py-2
       .card.flex-shrink-0.w-full.max-w-sm.shadow-2xl.bg-base-100.mx-auto
         .card-body
           = form_with model: @setting do |f|
