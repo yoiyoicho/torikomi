@@ -73,11 +73,11 @@ gem 'typhoeus'
 # 環境変数の管理
 gem 'dotenv-rails'
 
-# アプリユーザーとLINEユーザーを紐付けるために利用するワンタイムパスワードライブラリ
-gem 'rotp'
-
 # LINEメッセージ送信の非同期処理を行う
 gem 'sidekiq'
+
+# Googleログイン
+gem 'googleauth'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
