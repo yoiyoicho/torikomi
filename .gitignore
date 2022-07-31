@@ -38,3 +38,4 @@
 /public/.DS_Store
 
 .env
+/config/google_calendar_client_secrets.json
