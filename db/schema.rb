@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_31_040131) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_31_133449) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_31_040131) do
     t.datetime "updated_at", null: false
     t.string "job_id", default: "", null: false
     t.integer "status", default: 0, null: false
+    t.integer "resource_type", default: 0, null: false
+    t.string "i_cal_uid"
     t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
