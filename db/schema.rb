@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_30_085000) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_31_040131) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "google_calendar_tokens", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "access_token", null: false
+    t.string "refresh_token", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_google_calendar_tokens_on_user_id", unique: true
+  end
 
   create_table "line_users", force: :cascade do |t|
     t.string "line_user_id", null: false
@@ -73,6 +82,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_30_085000) do
     t.integer "login_type", default: 0, null: false
   end
 
+  add_foreign_key "google_calendar_tokens", "users"
   add_foreign_key "link_tokens", "users"
   add_foreign_key "schedules", "users"
   add_foreign_key "settings", "users"
