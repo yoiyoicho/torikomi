@@ -4,6 +4,7 @@ class CreateGoogleCalendarTokens < ActiveRecord::Migration[7.0]
       t.belongs_to :user, index: { unique: true }, null: false, foreign_key: true
       t.string :access_token, null: false
       t.string :refresh_token, null: false
+      t.timestamp :expires_at, null: false
 
       t.timestamps
     end

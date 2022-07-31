@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_31_040131) do
     t.bigint "user_id", null: false
     t.string "access_token", null: false
     t.string "refresh_token", null: false
+    t.datetime "expires_at", precision: nil, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_google_calendar_tokens_on_user_id", unique: true
