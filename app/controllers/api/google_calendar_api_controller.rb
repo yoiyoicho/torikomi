@@ -53,9 +53,22 @@ class Api::GoogleCalendarApiController < ApplicationController
         @auth_client.access_token = google_calendar_token[:access_token]
       end
     end
-    @calendar = Google::Apis::CalendarV3::CalendarService.new
-    @calendar.authorization = @auth_client
-    binding.pry
+    @service = Google::Apis::CalendarV3::CalendarService.new
+    @service.authorization = @auth_client
+    events = @service.list_events('primary', time_min: Time.zone.now.rfc3339, time_max: 1.month.since.in_time_zone.rfc3339 )
+    events.items.each do |item|
+      i_cal_uid = item.i_cal_uid
+      schedule = current_user.schedules.find_or_initialize_by(i_cal_uid: i_cal_uid)
+
+      start_time = item.start.date_time&.in_time_zone || item.start.date&.in_time_zone
+      end_time = item.end.date_time&.in_time_zone || item.end.date&.tomorrow.in_time_zone
+      title = item.summary
+      body = item.description #あとでdescriptionが長すぎる場合に先頭の●文字を保存するように処理を追加する
+
+      schedule.assign_attributes(start_time: start_time, end_time: end_time, title: title, body: body, resource_type: :google)
+      # LINE通知タスクの処理を追加する
+      schedule.save!
+    end
   end
 
   private
