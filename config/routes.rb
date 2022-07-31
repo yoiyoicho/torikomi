@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   # Googleカレンダー
   get 'api/google_calendar/authorize', to: 'api/google_calendar_api#authorize', as: 'api_google_calendar_authorize'
   get 'api/google_calendar/callback', to: 'api/google_calendar_api#callback'
+  get 'api/google_calendar/update', to: 'api/google_calendar_api#update'
 
   # LINEユーザー
   resources :line_users, only: %i(index update destroy)

@@ -19,14 +19,18 @@
           v-calendar[is-expanded :attributes="attrs"]
       .flex.items-center.py-3
         .flex-none.pr-4
-          h2.text-2xl.font-bold
-            = '連携設定'
+          h3.text-xl.font-bold
+            = 'Googleカレンダー連携'
         .flex-none
           = link_to '設定する', api_google_calendar_authorize_path, class: 'button btn btn-primary'
-      .py-2
-        .bg-base-100.rounded-lg
-          p.p-4
-            | Googleカレンダー（準備中）
+      .my-2
+        - if current_user.google_calendar_token.present?
+          .bg-base-100.rounded-lg
+            .p-4
+              = link_to '更新', api_google_calendar_update_path, class: 'button btn btn-info'
+        - else
+          p
+            = '連携されていません'
       h2.text-2xl.font-bold.py-3
         = '通知設定'
       .flex.items-center.py-2
