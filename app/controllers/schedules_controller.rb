@@ -24,11 +24,11 @@ class SchedulesController < ApplicationController
   end
 
   def edit
-    @schedule = current_user.schedules.to_be_sent.find(params[:id])
+    @schedule = current_user.schedules.to_be_sent.default.find(params[:id])
   end
 
   def update
-    @schedule = current_user.schedules.to_be_sent.find(params[:id])
+    @schedule = current_user.schedules.to_be_sent.default.find(params[:id])
     @schedule.assign_attributes(schedule_params)
     if @schedule.save(context: :create_or_update)
 
@@ -49,7 +49,7 @@ class SchedulesController < ApplicationController
   end
 
   def destroy
-    @schedule = current_user.schedules.to_be_sent.find(params[:id])
+    @schedule = current_user.schedules.to_be_sent.default.find(params[:id])
 
     # Sidekiqに登録されているLINEメッセージの送信ジョブを削除する
     ss = Sidekiq::ScheduledSet.new
