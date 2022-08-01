@@ -27,8 +27,10 @@ ja:
         message_text: '通知メッセージ'
         notification_time: '通知時間'
       google_calendar_setting:
-        start_time: '開始時刻'
-        end_time: '終了時刻'
+        start_time_hour: '開始時刻（時）'
+        start_time_min: '開始時刻（分'
+        end_time_hour: '終了時刻（時）'
+        end_time_min: '終了時刻（分）'
   enums:
     line_user:
       status:

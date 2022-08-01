@@ -9,7 +9,6 @@ class GoogleCalendarSettingsController < ApplicationController
   end
   
   def update
-    binding.pry
     if @google_calendar_setting.update(google_calendar_setting_params)
       redirect_to session[:previous_url] ||= dashboards_path, success: t('.success')
     else
@@ -25,6 +24,6 @@ class GoogleCalendarSettingsController < ApplicationController
   end
   
   def google_calendar_setting_params
-    params.require(:google_calendar_setting).permit(:monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :start_time, :end_time)
+    params.require(:google_calendar_setting).permit(:monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday, :start_time_hour, :start_time_min, :end_time_hour, :end_time_min)
   end
 end

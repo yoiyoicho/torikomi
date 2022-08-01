@@ -16,9 +16,10 @@
       = '終了日時：'
       = schedule.end_time.present? ? schedule.end_time.strftime('%Y年%m月%d日 %H時%M分') : '（未設定）'
     .card-actions.justify-end
-      - if schedule.to_be_sent? && schedule.default?
+      - if schedule.to_be_sent? 
         .flex
-          .flex-none.pr-2
-            = link_to '編集', edit_schedule_path(schedule), class: 'button btn btn-info'
+          - if schedule.default?
+            .flex-none.pr-2
+              = link_to '編集', edit_schedule_path(schedule), class: 'button btn btn-info'
           .flex-none.pr-2
             = button_to '削除', schedule_path(schedule), method: :delete, class: 'button btn btn-error'

@@ -28,7 +28,6 @@ class Api::GoogleCalendarApiController < ApplicationController
       google_calendar_token.assign_attributes(access_token: @auth_client.access_token, refresh_token: @auth_client.refresh_token, expires_at: @auth_client.expires_at, google_calendar_id: service.get_calendar('primary').id)
 
       if google_calendar_token.save
-        get_schedules_from_google_calendar
         redirect_back_or_to dashboards_path, success: 'Googleカレンダーと連携しました'
       else
         redirect_back_or_to dashboards_path, error: 'Googleカレンダーと連携できませんでした'
@@ -54,7 +53,6 @@ class Api::GoogleCalendarApiController < ApplicationController
         @auth_client.refresh!
         google_calendar_token.update!(access_token: @auth_client.access_token, expires_at: @auth_client.expires_at)
       else
-        google_calendar_token.update!(updated_at: Time.zone.now)
         @auth_client.access_token = google_calendar_token[:access_token]
       end
     end

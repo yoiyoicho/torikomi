@@ -12,7 +12,7 @@ class CreateGoogleCalendarSettings < ActiveRecord::Migration[7.0]
       t.integer :start_time_hour, null: false, default:0
       t.integer :start_time_min, null: false, default: 0
       t.integer :end_time_hour, null: false, default: 23
-      t.integer :end_time_min, null: false, default: 59
+      t.integer :end_time_min, null: false, default: 50
       t.timestamps
     end
   end

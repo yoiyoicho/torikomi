@@ -17,7 +17,22 @@ class GoogleCalendarSetting < ApplicationRecord
 
   def end_time_cannot_be_earier_than_start_time
     if (end_time_hour * 60 + end_time_min) < (start_time_hour * 60 + start_time_min)
-      errors.add(:end_time, "は開始時刻より先の時刻にしてください")
+      errors.add(:end_time_hour, "は開始時刻より先の時刻にしてください")
+      errors.add(:end_time_min, "は開始時刻より先の時刻にしてください")
+    end
+  end
+
+  def get_period
+    transform_integer_time_to_string(start_time_hour) + ':' + transform_integer_time_to_string(start_time_min) + '〜' + transform_integer_time_to_string(end_time_hour) + ':' + transform_integer_time_to_string(end_time_min)
+  end
+
+  private
+
+  def transform_integer_time_to_string(integer_time)
+    if integer_time < 10
+      '0' + integer_time.to_s
+    else
+      integer_time.to_s
     end
   end
 end
