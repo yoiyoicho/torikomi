@@ -7,6 +7,7 @@ class Api::GoogleCalendarApiController < ApplicationController
 
   require 'google/apis/calendar_v3'
   require 'google/api_client/client_secrets'
+  require 'sidekiq/api'
 
   before_action :set_auth_client
 
@@ -63,11 +64,21 @@ class Api::GoogleCalendarApiController < ApplicationController
       start_time = item.start.date_time&.in_time_zone || item.start.date&.in_time_zone
       end_time = item.end.date_time&.in_time_zone || item.end.date&.tomorrow.in_time_zone
       title = item.summary
-      body = item.description #あとでdescriptionが長すぎる場合に先頭の●文字を保存するように処理を追加する
+      body = item.description #最大160字（後ろから数えて）
 
       schedule.assign_attributes(start_time: start_time, end_time: end_time, title: title, body: body, resource_type: :google)
-      # LINE通知タスクの処理を追加する
       schedule.save!
+
+      # Sidekiqに登録されているLINEメッセージの送信ジョブを削除する
+      if schedule.job_id.present?
+        ss = Sidekiq::ScheduledSet.new
+        jobs = ss.select { |job| job.args[0]['job_id'] == schedule.job_id }
+        jobs.each(&:delete)
+      end
+      
+      # 新しくジョブを登録する
+      job = SendLineMessageJob.set(wait_until: schedule.start_time - schedule.user.setting.notification_time*60).perform_later(schedule.id)
+      schedule.update!(job_id: job.job_id, status: :to_be_sent)
     end
   end
 
