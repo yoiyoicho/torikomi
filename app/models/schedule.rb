@@ -22,10 +22,8 @@ class Schedule < ApplicationRecord
   end
 
   def end_time_cannot_be_earier_than_start_time
-    if end_time.present?
-      if end_time < start_time
-        errors.add(:end_time, "は開始日時より先の日時にしてください")
-      end
+    if end_time < start_time
+      errors.add(:end_time, "は開始日時より先の日時にしてください")
     end
   end
 

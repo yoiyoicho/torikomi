@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_one :setting, dependent: :destroy
   has_many :link_tokens, dependent: :destroy
   has_one :google_calendar_token, dependent: :destroy
+  has_one :google_calendar_setting, dependent: :destroy
 
   validates :password, length: { minimum: 3 }, if: -> { :default? && (new_record? || changes[:crypted_password]) }
   validates :password, confirmation: true, if: -> { :default? && (new_record? || changes[:crypted_password]) }
