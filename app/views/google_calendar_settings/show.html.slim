@@ -23,7 +23,7 @@
           = link_to '連携する', api_google_calendar_authorize_path, class: 'button btn btn-primary'
       - if current_user.google_calendar_token.present?
         h2.text-2xl.font-bold.py-3
-          | 自動取得設定
+          | 取得設定
         .bg-base-100.rounded-lg
           p.p-4
             = 'スケジュール取得曜日：'
