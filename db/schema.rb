@@ -10,9 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_31_133449) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_01_005611) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "google_calendar_settings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.boolean "monday", default: false, null: false
+    t.boolean "tuesday", default: false, null: false
+    t.boolean "wednesday", default: false, null: false
+    t.boolean "thursday", default: false, null: false
+    t.boolean "friday", default: false, null: false
+    t.boolean "saturday", default: false, null: false
+    t.boolean "sunday", default: false, null: false
+    t.datetime "start_time", precision: nil, default: "2022-07-31 15:00:00", null: false
+    t.datetime "end_time", precision: nil, default: "2022-08-01 14:59:59", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_google_calendar_settings_on_user_id", unique: true
+  end
 
   create_table "google_calendar_tokens", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -85,6 +101,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_31_133449) do
     t.integer "login_type", default: 0, null: false
   end
 
+  add_foreign_key "google_calendar_settings", "users"
   add_foreign_key "google_calendar_tokens", "users"
   add_foreign_key "link_tokens", "users"
   add_foreign_key "schedules", "users"
