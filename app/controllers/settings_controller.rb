@@ -1,7 +1,7 @@
 class SettingsController < ApplicationController
   before_action :set_setting
 
-  def index
+  def show
   end
 
   def edit

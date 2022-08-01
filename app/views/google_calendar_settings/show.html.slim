@@ -1,0 +1,51 @@
+- content_for(:title, t('.title'))
+.hero.min-h-screen.bg-base-200
+  .hero-content
+    .max-w-screen-lg
+      h1.text-3xl.font-bold.py-3
+        = t('.title')
+      h2.text-2xl.font-bold.py-3
+        | 連携中のGoogleカレンダー
+      - if current_user.google_calendar_token.present?
+        .bg-base-100.rounded-lg.p-4
+          .div class="flex sm:items-center flex-col sm:flex-row"
+            p.flex-none.mr-2.py-2
+              = current_user.google_calendar_token.google_calendar_id
+            .flex.py-2
+              .flex-none.pr-2
+                = link_to '手動更新', api_google_calendar_update_path, class: 'button btn btn-info'
+              .flex-none
+                = button_to '連携解除', google_calendar_token_path(current_user.google_calendar_token), method: :delete, class: 'button btn btn-error'
+      - else
+        p.py-2
+          | カレンダーが連携されていません
+        .py-2
+          = link_to '連携する', api_google_calendar_authorize_path, class: 'button btn btn-primary'
+      - if current_user.google_calendar_token.present?
+        h2.text-2xl.font-bold.py-3
+          | 自動取得設定
+        .bg-base-100.rounded-lg
+          p.p-4
+            = 'スケジュール取得曜日：'
+            - if @google_calendar_setting.monday == true
+              = '月'
+            - if @google_calendar_setting.tuesday == true
+              = '火'
+            - if @google_calendar_setting.wednesday == true
+              = '水'
+            - if @google_calendar_setting.thursday == true
+              = '木'
+            - if @google_calendar_setting.friday == true
+              = '金'
+            - if @google_calendar_setting.saturday == true
+              = '土'
+            - if @google_calendar_setting.sunday == true
+              = '日'
+            - if @google_calendar_setting.monday == false && @google_calendar_setting.tuesday == false && @google_calendar_setting.wednesday == false && @google_calendar_setting.thursday == false && @google_calendar_setting.friday == false && @google_calendar_setting.saturday == false && @google_calendar_setting.sunday == false
+              = 'なし'
+            br
+            = 'スケジュール取得時間：' + @google_calendar_setting.start_time.strftime('%H:%M') + '〜' + @google_calendar_setting.end_time.strftime('%H:%M')
+            br
+            = '最終取得日時：' + current_user.google_calendar_token.updated_at.strftime('%Y年%m月%d日 %H時%M分')
+        .my-4
+          = link_to t('defaults.edit'), edit_google_calendar_setting_path, class: 'button btn btn-primary'

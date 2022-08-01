@@ -62,10 +62,18 @@ ja:
     destroy:
       success: 'LINEユーザーを削除しました'
   settings:
-    index:
+    show:
       title: '通知メッセージ設定'
     edit:
       title: '通知メッセージ設定'
     update:
       success: '通知メッセージの設定を更新しました'
       fail: '通知メッセージの設定の更新に失敗しました'
+  google_calendar_settings:
+    show:
+      title: 'Googleカレンダー連携設定'
+    edit:
+      title: 'Googleカレンダー連携設定'
+    update:
+      success: 'Googleカレンダー連携設定を更新しました'
+      fail: 'Googleカレンダー連携設定の更新に失敗しました'

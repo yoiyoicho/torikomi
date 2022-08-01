@@ -22,12 +22,34 @@
           h3.text-xl.font-bold
             = 'Googleカレンダー連携'
         .flex-none
-          = link_to '設定する', api_google_calendar_authorize_path, class: 'button btn btn-primary'
+          = link_to '設定する', google_calendar_setting_path, class: 'button btn btn-primary'
       .my-2
         - if current_user.google_calendar_token.present?
-          .bg-base-100.rounded-lg
-            .p-4
-              = link_to '更新', api_google_calendar_update_path, class: 'button btn btn-info'
+          .bg-base-100.rounded-lg.p-4
+            .py-2
+              = 'カレンダー：' + current_user.google_calendar_token.google_calendar_id
+              br
+              = 'スケジュール取得曜日：'
+              - if @google_calendar_setting.monday == true
+                = '月'
+              - if @google_calendar_setting.tuesday == true
+                = '火'
+              - if @google_calendar_setting.wednesday == true
+                = '水'
+              - if @google_calendar_setting.thursday == true
+                = '木'
+              - if @google_calendar_setting.friday == true
+                = '金'
+              - if @google_calendar_setting.saturday == true
+                = '土'
+              - if @google_calendar_setting.sunday == true
+                = '日'
+              - if @google_calendar_setting.monday == false && @google_calendar_setting.tuesday == false && @google_calendar_setting.wednesday == false && @google_calendar_setting.thursday == false && @google_calendar_setting.friday == false && @google_calendar_setting.saturday == false && @google_calendar_setting.sunday == false
+                = 'なし'
+              br
+              = 'スケジュール取得時間：' + @google_calendar_setting.start_time.strftime('%H:%M') + '〜' + @google_calendar_setting.end_time.strftime('%H:%M')
+              br
+              = '最終取得日時：' + current_user.google_calendar_token.updated_at.strftime('%Y年%m月%d日 %H時%M分')
         - else
           p
             = '連携されていません'
@@ -38,7 +60,7 @@
           h3.text-xl.font-bold
             = 'LINEユーザー一覧'
         .flex-none
-          = link_to '新規登録', line_users_path, class: 'button btn btn-primary'
+          = link_to '設定する', line_users_path, class: 'button btn btn-primary'
       - if @line_users.present?
         .py-2
           table.table.w-full
@@ -56,7 +78,7 @@
           h3.text-xl.font-bold
             = '通知メッセージ'
         .flex-none
-          = link_to '設定する', edit_setting_path(@setting), class: 'button btn btn-primary'
+          = link_to '設定する', edit_setting_path, class: 'button btn btn-primary'
       .py-2
         .bg-base-100.rounded-lg
           p.p-4
