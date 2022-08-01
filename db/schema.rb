@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_01_005611) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_01_035143) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,8 +23,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_01_005611) do
     t.boolean "friday", default: false, null: false
     t.boolean "saturday", default: false, null: false
     t.boolean "sunday", default: false, null: false
-    t.datetime "start_time", precision: nil, default: "2022-07-31 15:00:00", null: false
-    t.datetime "end_time", precision: nil, default: "2022-08-01 14:59:59", null: false
+    t.integer "start_time_hour", default: 0, null: false
+    t.integer "start_time_min", default: 0, null: false
+    t.integer "end_time_hour", default: 23, null: false
+    t.integer "end_time_min", default: 59, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_google_calendar_settings_on_user_id", unique: true
@@ -37,6 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_01_005611) do
     t.datetime "expires_at", precision: nil, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "google_calendar_id", null: false
     t.index ["user_id"], name: "index_google_calendar_tokens_on_user_id", unique: true
   end
 

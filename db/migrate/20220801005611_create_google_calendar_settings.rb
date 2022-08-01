@@ -9,9 +9,10 @@ class CreateGoogleCalendarSettings < ActiveRecord::Migration[7.0]
       t.boolean :friday, null: false, default: 0
       t.boolean :saturday, null: false, default: 0
       t.boolean :sunday, null: false, default: 0
-      t.timestamp :start_time, null: false, default: Time.zone.now.beginning_of_day
-      t.timestamp :end_time, null: false, default: Time.zone.now.end_of_day
-
+      t.integer :start_time_hour, null: false, default:0
+      t.integer :start_time_min, null: false, default: 0
+      t.integer :end_time_hour, null: false, default: 23
+      t.integer :end_time_min, null: false, default: 59
       t.timestamps
     end
   end
