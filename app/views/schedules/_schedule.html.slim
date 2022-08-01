@@ -1,8 +1,12 @@
-.card.w-88.bg-base-100.shadow-xl.my-2
+.div class="card bg-base-100 shadow-xl my-2 md:w-88"
   .card-body
-    h2.card-title
-      = schedule.title
-    p
+    div class="flex flex-col sm:items-center sm:flex-row mb-2"
+      h2.flex-none.card-title.mr-2
+        = schedule.title
+      - if schedule.google?
+        .flex-none.badge.badge-accent
+          | Googleカレンダー      
+    p.break-all
       = '内容：'
       = schedule.body.present? ? simple_format(schedule.body, {}, wrapper_tag: 'span') : '（未設定）'
       br
@@ -12,9 +16,10 @@
       = '終了日時：'
       = schedule.end_time.present? ? schedule.end_time.strftime('%Y年%m月%d日 %H時%M分') : '（未設定）'
     .card-actions.justify-end
-      - if schedule.to_be_sent?
+      - if schedule.to_be_sent? 
         .flex
-          .flex-none.pr-2
-            = link_to '編集', edit_schedule_path(schedule), class: 'button btn btn-info'
+          - if schedule.default?
+            .flex-none.pr-2
+              = link_to '編集', edit_schedule_path(schedule), class: 'button btn btn-info'
           .flex-none.pr-2
             = button_to '削除', schedule_path(schedule), method: :delete, class: 'button btn btn-error'

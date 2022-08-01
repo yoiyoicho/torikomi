@@ -1,0 +1,79 @@
+- content_for(:title, t('.title'))
+.hero.min-h-screen.bg-base-200
+  .hero-content
+    .max-w-screen-lg
+      - if @google_calendar_setting.errors.any?
+        - @google_calendar_setting.errors.full_messages.each do |error_message|
+          ul.text-error-content
+            li
+              = '- ' + error_message
+      h1.text-3xl.font-bold.py-3.text-center
+        = t('.title')
+      .py-2
+      .card.flex-shrink-0.w-full.max-w-sm.shadow-2xl.bg-base-100.mx-auto
+        .card-body
+          = form_with model: @google_calendar_setting do |f|
+            .form-control
+              .flex
+                .flex-none.mr-2
+                  label.label
+                    span.label-text
+                      = '月'
+                  = f.check_box :monday, class: 'checkbox'
+                .flex-none.mr-2
+                  label.label
+                    span.label-text
+                      = '火'
+                  = f.check_box :tuesday, class: 'checkbox'
+                .flex-none.mr-2
+                  label.label
+                    span.label-text
+                      = '水'
+                  = f.check_box :wednesday, class: 'checkbox'
+                .flex-none.mr-2
+                  label.label
+                    span.label-text
+                      = '木'
+                  = f.check_box :thursday, class: 'checkbox'
+                .flex-none.mr-2
+                  label.label
+                    span.label-text
+                      = '金'
+                  = f.check_box :friday, class: 'checkbox'
+                .flex-none.mr-2
+                  label.label
+                    span.label-text
+                      = '土'
+                  = f.check_box :saturday, class: 'checkbox'
+                .flex-none
+                  label.label
+                    span.label-text
+                      = '日'
+                  = f.check_box :sunday, class: 'checkbox'
+              label.label
+                ul.text-left
+                  li.label-text-alt
+                    | 何曜日のスケジュールを取得するか設定します
+            hr
+            div
+              label.label
+                span.label-text
+                  = '開始時刻（必須）'
+              = f.select :start_time_hour, [*(0..23)], {}, {class: 'select select-bordered'}
+              span
+                = '：'
+              = f.select :start_time_min, [0, 10, 20, 30, 40, 50], {}, {class: 'select select-bordered'}
+            div
+              label.label
+                span.label-text
+                  = '終了時刻（必須）'
+              = f.select :end_time_hour, [*(0..23)], {}, {class: 'select select-bordered'}
+              span
+                = '：'
+              = f.select :end_time_min, [0, 10, 20, 30, 40, 50], {}, {class: 'select select-bordered'}
+              label.label
+                ul.text-left
+                  li.label-text-alt
+                    | 何時から何時までのスケジュールを取得するか設定します
+            .form-control.mt-6
+              = f.submit class: 'btn btn-primary'

@@ -10,9 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_30_085000) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_01_035143) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "google_calendar_settings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.boolean "monday", default: false, null: false
+    t.boolean "tuesday", default: false, null: false
+    t.boolean "wednesday", default: false, null: false
+    t.boolean "thursday", default: false, null: false
+    t.boolean "friday", default: false, null: false
+    t.boolean "saturday", default: false, null: false
+    t.boolean "sunday", default: false, null: false
+    t.integer "start_time_hour", default: 0, null: false
+    t.integer "start_time_min", default: 0, null: false
+    t.integer "end_time_hour", default: 23, null: false
+    t.integer "end_time_min", default: 50, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_google_calendar_settings_on_user_id", unique: true
+  end
+
+  create_table "google_calendar_tokens", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "access_token", null: false
+    t.string "refresh_token", null: false
+    t.datetime "expires_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "google_calendar_id", null: false
+    t.index ["user_id"], name: "index_google_calendar_tokens_on_user_id", unique: true
+  end
 
   create_table "line_users", force: :cascade do |t|
     t.string "line_user_id", null: false
@@ -42,6 +71,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_30_085000) do
     t.datetime "updated_at", null: false
     t.string "job_id", default: "", null: false
     t.integer "status", default: 0, null: false
+    t.integer "resource_type", default: 0, null: false
+    t.string "i_cal_uid"
     t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
@@ -73,6 +104,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_30_085000) do
     t.integer "login_type", default: 0, null: false
   end
 
+  add_foreign_key "google_calendar_settings", "users"
+  add_foreign_key "google_calendar_tokens", "users"
   add_foreign_key "link_tokens", "users"
   add_foreign_key "schedules", "users"
   add_foreign_key "settings", "users"

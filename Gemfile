@@ -77,7 +77,12 @@ gem 'dotenv-rails'
 gem 'sidekiq'
 
 # Googleログイン
+# https://github.com/googleapis/google-auth-library-ruby/blob/main/lib/googleauth/id_tokens.rb
 gem 'googleauth'
+
+# Googleカレンダー
+# https://github.com/googleapis/google-api-ruby-client/blob/48b22f4326d4022f3e0962b66305cb67fdf30d53/generated/google-apis-calendar_v3/OVERVIEW.md
+gem 'google-apis-calendar_v3'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

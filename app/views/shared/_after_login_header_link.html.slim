@@ -1,15 +1,17 @@
 li
-  = link_to 'スケジュール', schedules_path
+  = link_to 'スケジュール一覧', schedules_path
 li[tabindex="0"]
   .justify-between
     svg.fill-current[xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewbox="0 0 24 24"]
       path[d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"]
-    | 通知設定
+    | 設定
   ul.p-2.bg-base-100
     li
-      = link_to 'LINEユーザー設定', line_users_path
+      = link_to 'Googleカレンダー連携', google_calendar_setting_path
     li
-      = link_to '通知メッセージ設定', settings_path
+      = link_to 'LINEユーザー', line_users_path
+    li
+      = link_to '通知メッセージ', setting_path
 li
   = link_to t('static_pages.faq.title'), faq_path
 li
