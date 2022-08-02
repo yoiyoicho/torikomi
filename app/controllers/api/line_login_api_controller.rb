@@ -29,7 +29,7 @@ class Api::LineLoginApiController < ApplicationController
       authorization_url = 'https://access.line.me/oauth2/v2.1/authorize'
       response_type = 'code'
       client_id = ENV['LINE_LOGIN_CHANNEL_ID']
-      redirect_uri = CGI.escape(api_callback_url)
+      redirect_uri = CGI.escape(api_line_login_callback_url)
       state = session[:state]
       scope = 'profile%20openid'
     
@@ -50,7 +50,7 @@ class Api::LineLoginApiController < ApplicationController
 
       user = User.find(session[:app_user_id])
       line_user_params = get_line_user_params(params[:code])
-      line_user = LineUser.find_or_initialize_by(line_user_id: line_user_params[:line_user_id].to_i)
+      line_user = LineUser.find_or_initialize_by(line_user_id: line_user_params[:line_user_id])
       line_user.assign_attributes(line_user_params)
 
       if line_user.save && UserLineUserRelationship.find_or_create_by(user: user, line_user: line_user)
@@ -106,7 +106,7 @@ class Api::LineLoginApiController < ApplicationController
     # ここではLINEユーザーのID、表示名、プロフィール画像のみ取得
 
     url = 'https://api.line.me/oauth2/v2.1/token'
-    redirect_uri = api_callback_url
+    redirect_uri = api_line_login_callback_url
 
     options = {
       headers: {

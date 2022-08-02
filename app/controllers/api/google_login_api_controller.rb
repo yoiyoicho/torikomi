@@ -21,6 +21,7 @@ class Api::GoogleLoginApiController < ApplicationController
         auto_login(user)
         redirect_to dashboards_path, success: 'Googleアカウントでログインしました'
       else
+        puts user.errors.full_messages
         redirect_to login_path, error: 'Googleアカウントでのログインに失敗しました'
       end
     

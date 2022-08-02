@@ -3,7 +3,7 @@ tr
     .flex.items-center.space-x-2
       .avatar
         .w-12.rounded-full
-          = image_tag line_user.picture_url
+          = image_tag line_user.picture_url ||= 'noimage.png'
       div
         .font-bold
           = line_user.display_name
