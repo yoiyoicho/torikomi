@@ -78,9 +78,8 @@ class Api::GoogleCalendarApiController < ApplicationController
         body = item.description #最大160字（後ろから数えて）
 
         schedule.assign_attributes(start_time: start_time, end_time: end_time, title: title, body: body, resource_type: :google)
-        schedule.save!
 
-        if schedule.changed?
+        if schedule.changed? && schedule.save
           # Sidekiqに登録されているLINEメッセージの送信ジョブを削除する
           if schedule.job_id.present?
             ss = Sidekiq::ScheduledSet.new
