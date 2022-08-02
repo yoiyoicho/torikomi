@@ -15,6 +15,9 @@ class Api::GoogleLoginApiController < ApplicationController
       payload = Google::Auth::IDTokens.verify_oidc(params[:credential], aud: ENV['GOOGLE_CLIENT_ID'])
       user = User.find_or_initialize_by(email: payload['email'], login_type: :google)
 
+      puts payload
+      puts payload['email']
+
       if user.save
         user.build_setting.save! if user.setting.blank?
         user.build_google_calendar_setting.save! if user.google_calendar_setting.blank?
