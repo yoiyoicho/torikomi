@@ -57,11 +57,16 @@ class Api::LineLoginApiController < ApplicationController
         reset_session_before_redirect(session[:self])
         flash[:success] = 'トリコミのLINEユーザーに追加されました'
       else # line_userが不正か、relationが不正だったとき
+        puts 'line_userが不正か、relationが不正'
+        puts line_user
+        test = UserLineUserRelationship.find_or_create_by(user: user, line_user: line_user)
+        puts test.errors.full_messages
         reset_session_before_redirect(session[:self])
         flash[:error] = 'エラーが起きました'
       end
 
     else # LINEログインの通信に失敗しているとき
+      puts 'LINEログインの通信に失敗'
       reset_session_before_redirect(session[:self])
       flash[:error] = 'エラーが起きました'
     end
