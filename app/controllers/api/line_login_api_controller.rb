@@ -106,7 +106,7 @@ class Api::LineLoginApiController < ApplicationController
     # ここではLINEユーザーのID、表示名、プロフィール画像のみ取得
 
     url = 'https://api.line.me/oauth2/v2.1/token'
-    redirect_uri = api_callback_url
+    redirect_uri = api_line_login_callback_url
 
     options = {
       headers: {
