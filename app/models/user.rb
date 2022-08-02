@@ -8,9 +8,9 @@ class User < ApplicationRecord
   has_one :google_calendar_token, dependent: :destroy
   has_one :google_calendar_setting, dependent: :destroy
 
-  validates :password, length: { minimum: 3 }, if: -> { :default? && (new_record? || changes[:crypted_password]) }
-  validates :password, confirmation: true, if: -> { :default? && (new_record? || changes[:crypted_password]) }
-  validates :password_confirmation, presence: true, if: -> { :default? && (new_record? || changes[:crypted_password]) }
+  validates :password, length: { minimum: 3 }, if: -> { default? && (new_record? || changes[:crypted_password]) }
+  validates :password, confirmation: true, if: -> { default? && (new_record? || changes[:crypted_password]) }
+  validates :password_confirmation, presence: true, if: -> { default? && (new_record? || changes[:crypted_password]) }
   validates :email, presence: true, uniqueness: { scope: :login_type }
 
   enum login_type: { default: 0, google: 1 }
