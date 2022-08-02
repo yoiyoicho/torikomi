@@ -29,7 +29,7 @@ class Api::LineLoginApiController < ApplicationController
       authorization_url = 'https://access.line.me/oauth2/v2.1/authorize'
       response_type = 'code'
       client_id = ENV['LINE_LOGIN_CHANNEL_ID']
-      redirect_uri = CGI.escape(api_line_login_callback)
+      redirect_uri = CGI.escape(api_line_login_callback_url)
       state = session[:state]
       scope = 'profile%20openid'
     
