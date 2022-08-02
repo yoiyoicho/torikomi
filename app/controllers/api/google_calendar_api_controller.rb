@@ -112,7 +112,9 @@ class Api::GoogleCalendarApiController < ApplicationController
     @auth_client.update!(
       scope: 'https://www.googleapis.com/auth/calendar.readonly',
       additional_parameters: {
-        access_type: 'offline'
+        access_type: 'offline',
+        prompt: 'consent',
+        session: false
       }
     )
   end
