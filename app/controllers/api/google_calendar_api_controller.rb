@@ -39,14 +39,14 @@ class Api::GoogleCalendarApiController < ApplicationController
 
   def update
     if current_user.google_calendar_token.present?
-      get_schedules_from_google_calendar(current_user.google_calendar_token)
+      set_schedules_from_google_calendar(current_user.google_calendar_token)
       redirect_to dashboards_path, success: 'Googleカレンダーからスケジュールを取得しました'
     else
       redirect_to dashboards_path, error: 'Googleカレンダーからスケジュールを更新できませんでした'
     end
   end
 
-  def get_schedules_from_google_calendar(google_calendar_token)
+  def set_schedules_from_google_calendar(google_calendar_token)
 
     user = google_calendar_token.user
 
@@ -78,6 +78,7 @@ class Api::GoogleCalendarApiController < ApplicationController
         body = item.description #最大160字（後ろから数えて）
 
         schedule.assign_attributes(start_time: start_time, end_time: end_time, title: title, body: body, resource_type: :google)
+        schedule.save!
 
         if schedule.changed?
           # Sidekiqに登録されているLINEメッセージの送信ジョブを削除する
@@ -86,11 +87,10 @@ class Api::GoogleCalendarApiController < ApplicationController
             jobs = ss.select { |job| job.args[0]['job_id'] == schedule.job_id }
             jobs.each(&:delete)
           end
-      
+
           # 新しくジョブを登録する
           job = SendLineMessageJob.set(wait_until: schedule.start_time - schedule.user.setting.notification_time*60).perform_later(schedule.id)
-          schedule.assign_attributes(job_id: job.job_id, status: :to_be_sent)
-          schedule.save!
+          schedule.update!(job_id: job.job_id, status: :to_be_sent)
         end
       end
     end
