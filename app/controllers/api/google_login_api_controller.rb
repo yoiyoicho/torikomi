@@ -17,6 +17,8 @@ class Api::GoogleLoginApiController < ApplicationController
 
       puts payload
       puts payload['email']
+      puts user
+      puts user.valid?
 
       if user.save
         user.build_setting.save! if user.setting.blank?
