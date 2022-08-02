@@ -16,13 +16,13 @@ class Schedule < ApplicationRecord
   enum resource_type: { default: 0, google: 1 }
 
   def start_time_cannot_be_in_the_past
-    if start_time < Time.zone.now
+    if start_time.present? && start_time < Time.zone.now
       errors.add(:start_time, "は現在より先の日時にしてください")
     end
   end
 
   def end_time_cannot_be_earier_than_start_time
-    if end_time < start_time
+    if start_time.present? && end_time.present? && end_time < start_time
       errors.add(:end_time, "は開始日時より先の日時にしてください")
     end
   end
