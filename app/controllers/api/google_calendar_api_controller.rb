@@ -105,7 +105,7 @@ class Api::GoogleCalendarApiController < ApplicationController
         "auth_uri":"https://accounts.google.com/o/oauth2/auth",
         "token_uri":"https://oauth2.googleapis.com/token",
         "client_secret":ENV['GOOGLE_CALENDAR_CLIENT_SECRET'],
-        "redirect_uris":["http://localhost:3000/api/google_calendar/callback"]
+        "redirect_uris":[api_google_calendar_callback_url]
       }
     })
     @auth_client = client_secrets.to_authorization
