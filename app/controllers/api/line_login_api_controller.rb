@@ -50,23 +50,18 @@ class Api::LineLoginApiController < ApplicationController
 
       user = User.find(session[:app_user_id])
       line_user_params = get_line_user_params(params[:code])
-      line_user = LineUser.find_or_initialize_by(line_user_id: line_user_params[:line_user_id].to_i)
+      line_user = LineUser.find_or_initialize_by(line_user_id: line_user_params[:line_user_id])
       line_user.assign_attributes(line_user_params)
 
       if line_user.save && UserLineUserRelationship.find_or_create_by(user: user, line_user: line_user)
         reset_session_before_redirect(session[:self])
         flash[:success] = 'トリコミのLINEユーザーに追加されました'
       else # line_userが不正か、relationが不正だったとき
-        puts 'line_userが不正か、relationが不正'
-        puts line_user
-        test = UserLineUserRelationship.find_or_create_by(user: user, line_user: line_user)
-        puts test.errors.full_messages
         reset_session_before_redirect(session[:self])
         flash[:error] = 'エラーが起きました'
       end
 
     else # LINEログインの通信に失敗しているとき
-      puts 'LINEログインの通信に失敗'
       reset_session_before_redirect(session[:self])
       flash[:error] = 'エラーが起きました'
     end
