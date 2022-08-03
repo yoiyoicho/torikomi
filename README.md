@@ -43,12 +43,12 @@ README〜ER図作成：〜2022/07/04
 
 メイン機能実装：〜2022/07/31
 
-MVPリリース：2022/08/01
+MVPリリース：2022/08/03
 
-本リリース：2022/08/08
+本リリース：2022/08/15
 
 # 画面遷移図
 https://www.figma.com/file/7pR0gEKMHcQJszhH40cYxx/Untitled?node-id=0%3A1
 
 # ER図
-https://drive.google.com/file/d/122zJn9fueeMe7jru5eynCBFgKUdSUpaK/view?usp=sharing
+https://drive.google.com/file/d/1-fs_t26LEFDbjQ8b0KHXYcIkQG1upOwg/view?usp=sharing
