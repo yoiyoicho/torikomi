@@ -1,20 +1,20 @@
 .hero.min-h-screen.bg-base-200
   .max-w-screen-lg.mx-auto
     .hero-content.flex-col.lg:flex-row-reverse
-      img src="https://placeimg.com/260/400/arch" class="max-w-sm rounded-lg shadow-2xl"
+      = image_tag 'topimage.jpeg', class: "max-w-sm sm:max-w-xl rounded-lg shadow-2xl"
       div
-        h1.text-5xl.font-bold
+        h1.text-3xl.font-bold.py-3
           | 「今、取り込み中」をLINEでお知らせ
-        p.py-6
-          | 自宅でのオンラインミーティングや勉強会。一緒に暮らす家族やパートナーがいるとき、スケジュールの共有に困っていませんか？
+        p.py-2
+          | 自宅でのオンラインミーティングや勉強会。一緒に暮らす家族やパートナーに、事前にスケジュールを知らせたいときはありませんか？
           br
-          | 「トリコミ」を使えば、あなたが“取り込み中”になるスケジュールを、家族やパートナーのLINEに自動でお知らせ。Googleカレンダーとの連携でさらに便利に！
-        .flex
+          | 「トリコミ」を使えば、あなたが“取り込み中”になるスケジュールを、LINEメッセージで自動送信。Googleカレンダーとの連携でさらに便利に！
+        .flex.my-2
           .flex-none.pr-2
             = link_to t('defaults.start_now'), signup_path, class: 'button btn btn-primary'
           .flex-none.pr-2
             = link_to t('defaults.login'), login_path, class: 'button btn btn-outline btn-primary'
-    h2.text-4xl.font-bold.p-4.pt-20
+    h2.text-2xl.font-bold.p-4
       | 使い方
     .hero-content.flex-col.lg:flex-row
       img src="https://placeimg.com/260/400/arch" class="max-w-sm rounded-lg shadow-2xl"
