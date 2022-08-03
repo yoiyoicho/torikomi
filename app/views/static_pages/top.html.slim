@@ -1,37 +1,39 @@
 .hero.min-h-screen.bg-base-200
   .max-w-screen-lg.mx-auto
     .hero-content.flex-col.lg:flex-row-reverse
-      img src="https://placeimg.com/260/400/arch" class="max-w-sm rounded-lg shadow-2xl"
+      = image_tag 'topimage.jpeg', class: "max-w-sm sm:max-w-xl rounded-lg shadow-2xl"
       div
-        h1.text-5xl.font-bold
-          | ここに見出しが入ります
-        p.py-6
-          | この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。
-        .flex
+        h1.text-3xl.font-bold.py-3
+          | 「今、取り込み中」をLINEでお知らせ
+        p.py-2
+          | 自宅でのオンラインミーティングや勉強会。一緒に暮らす家族やパートナーに、事前にスケジュールを知らせたいときはありませんか？
+          br
+          | 「トリコミ」を使えば、あなたが“取り込み中”になるスケジュールを、LINEメッセージで自動送信。Googleカレンダーとの連携でさらに便利に！
+        .flex.my-2
           .flex-none.pr-2
             = link_to t('defaults.start_now'), signup_path, class: 'button btn btn-primary'
           .flex-none.pr-2
             = link_to t('defaults.login'), login_path, class: 'button btn btn-outline btn-primary'
-    h2.text-4xl.font-bold.p-4.pt-20
+    h2.text-2xl.font-bold.p-4
       | 使い方
     .hero-content.flex-col.lg:flex-row
       img src="https://placeimg.com/260/400/arch" class="max-w-sm rounded-lg shadow-2xl"
       div
         h3.text-3xl.font-bold
-          | STEP1 ここに見出しが入ります
+          | スケジュールを登録
         p.py-6
-          | この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れ...
+          | 「トリコミ」にログインして、通知したいスケジュールを登録。Googleカレンダーと連携して、指定した曜日・時間帯のスケジュールを自動で取得することもできます。
     .hero-content.flex-col.lg:flex-row-reverse
       img src="https://placeimg.com/260/400/arch" class="max-w-sm rounded-lg shadow-2xl"
       div
         h3.text-3xl.font-bold
-          | STEP2 ここに見出しが入ります
+          | 通知先のLINEアカウントを登録
         p.py-6
-          | この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れ...
+          | スケジュール通知を受け取ってほしい人に招待URLを送りましょう。招待URLを受け取った人が一度LINEログインすればLINEユーザー登録完了です。
     .hero-content.flex-col.lg:flex-row
       img src="https://placeimg.com/260/400/arch" class="max-w-sm rounded-lg shadow-2xl"
       div
         h3.text-3xl.font-bold
-          | STEP3 ここに見出しが入ります
+          | 通知時間・メッセージをカスタマイズ
         p.py-6
-          | この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れ...
+          | スケジュールの何分前に通知を送るか、スケジュールの内容をどこまで通知するかをカスタマイズ。オリジナルのメッセージを含めることもできます。
