@@ -1,7 +1,7 @@
 .hero.min-h-screen.bg-base-200
   .max-w-screen-lg.mx-auto
     .hero-content.flex-col.lg:flex-row-reverse
-      = image_tag 'topimage.jpeg', class: "max-w-sm sm:max-w-xl rounded-lg shadow-2xl"
+      = image_tag 'topimage.jpg', class: "max-w-sm sm:max-w-xl rounded-lg shadow-2xl"
       div
         h1.text-3xl.font-bold.py-3
           | 「今、取り込み中」をLINEでお知らせ
@@ -17,21 +17,21 @@
     h2.text-2xl.font-bold.p-4
       | 使い方
     .hero-content.flex-col.lg:flex-row
-      img src="https://placeimg.com/260/400/arch" class="max-w-sm rounded-lg shadow-2xl"
+      = image_tag 'step1.jpg', class: "max-w-sm rounded-lg shadow-2xl"
       div
         h3.text-3xl.font-bold
           | スケジュールを登録
         p.py-6
           | 「トリコミ」にログインして、通知したいスケジュールを登録。Googleカレンダーと連携して、指定した曜日・時間帯のスケジュールを自動で取得することもできます。
     .hero-content.flex-col.lg:flex-row-reverse
-      img src="https://placeimg.com/260/400/arch" class="max-w-sm rounded-lg shadow-2xl"
+      = image_tag 'step2.jpg', class: "max-w-sm rounded-lg shadow-2xl"
       div
         h3.text-3xl.font-bold
           | 通知先のLINEアカウントを登録
         p.py-6
           | スケジュール通知を受け取ってほしい人に招待URLを送りましょう。招待URLを受け取った人が一度LINEログインすればLINEユーザー登録完了です。
     .hero-content.flex-col.lg:flex-row
-      img src="https://placeimg.com/260/400/arch" class="max-w-sm rounded-lg shadow-2xl"
+      = image_tag 'step3.jpg', class: "max-w-sm rounded-lg shadow-2xl"
       div
         h3.text-3xl.font-bold
           | 通知時間・メッセージをカスタマイズ
