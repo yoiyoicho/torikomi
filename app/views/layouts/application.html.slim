@@ -1,6 +1,13 @@
 doctype html
 html
   head
+    / Google tag (gtag.js)
+    script[async src="https://www.googletagmanager.com/gtag/js?id=G-TGQ66JJLG1"]
+    script
+      | window.dataLayer = window.dataLayer || [];
+      | function gtag(){dataLayer.push(arguments);}
+      | gtag('js', new Date());
+      | gtag('config', 'G-TGQ66JJLG1');
     title
       = page_title(yield(:title))
     meta[name="viewport" content="width=device-width,initial-scale=1"]
