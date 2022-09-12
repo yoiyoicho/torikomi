@@ -74,7 +74,7 @@ class Api::LineMessagingApiController < ApplicationController
     schedule.user.line_users.each do |line_user|
       client.push_message(line_user.line_user_id, message)
     end
-    schedule.update!(status: :sent)
+    schedule.update!(status: :sent, sent_at: Time.zone.now)
   end
 
   private
