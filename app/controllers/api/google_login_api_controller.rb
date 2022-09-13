@@ -3,7 +3,11 @@ class Api::GoogleLoginApiController < ApplicationController
   require "googleauth/id_tokens/verifier"
 
   skip_before_action :require_login
+
+  # WebアプリとLINEプラットフォーム間でのCSRF対策は自前で行うため
+  # RailsデフォルトのCSRF対策メソッドは無効化する
   protect_from_forgery except: :callback
+  before_action :verify_g_csrf_token, only: :callback
 
   def callback
     # 以下のドキュメントをもとに実装
@@ -21,12 +25,19 @@ class Api::GoogleLoginApiController < ApplicationController
         auto_login(user)
         redirect_to dashboards_path, success: 'Googleアカウントでログインしました'
       else
-        puts user.errors.full_messages
         redirect_to login_path, error: 'Googleアカウントでのログインに失敗しました'
       end
     
     else
       redirect_to login_path, error: 'Googleアカウントでのログインに失敗しました'
+    end
+  end
+
+  private
+
+  def verify_g_csrf_token
+    if cookies["g_csrf_token"].blank? || params[:g_csrf_token].blank? || cookies["g_csrf_token"] != params[:g_csrf_token]
+      redirect_to login_path, notice: '不正なアクセスです'
     end
   end
 end
