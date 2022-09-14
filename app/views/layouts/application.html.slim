@@ -11,6 +11,15 @@ html
     title
       = page_title(yield(:title))
     meta[name="viewport" content="width=device-width,initial-scale=1"]
+
+    / ogp
+    meta name="twitter:card" content="summary_large_image"
+    meta name="twitter:site" content="@yoiyoicho"
+    meta property="og:title" content=page_title(yield(:title))
+    meta property="og:url" content=request.url
+    meta property="og:description" content="「今、取り込み中」をLINEで通知！　リモートワーカー向けスケジュール共有サービス「トリコミ」です。Googleカレンダー連携でもっと便利に。"
+    meta property="og:image" content=image_url("ogp.jpg")
+
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
