@@ -28,6 +28,8 @@ ja:
     create:
       success: 'ユーザー登録が完了しました'
       fail: 'ユーザー登録に失敗しました'
+    destroy:
+      success: 'ユーザーの退会手続きが完了しました'
   user_sessions:
     new:
       title: 'ログイン'
