@@ -88,3 +88,11 @@
               = '通知メッセージ：' + @setting.message_text 
             - else
               = '通知メッセージ：（未設定）'
+      h2.text-2xl.font-bold.py-3
+        = 'アカウント設定'
+      .flex.items-center.py-2
+        .flex-none.pr-4
+          h3.text-xl.font-bold
+            = 'アカウントの削除'
+        .flex-none
+          = button_to '退会する', user_path(current_user), method: :delete, class: 'button btn btn-primary'
