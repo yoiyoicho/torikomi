@@ -14,8 +14,8 @@
         label.label
           ul.text-left
             li
-              = link_to '/', class: 'label-text-alt link link-hover' do
-                | パスワードを忘れた方はこちら（準備中）
+              = link_to new_password_reset_path, class: 'label-text-alt link link-hover' do
+                | パスワードを忘れた方はこちら
             li
               = link_to signup_path, class: 'label-text-alt link link-hover' do
                 | 新規登録はこちら

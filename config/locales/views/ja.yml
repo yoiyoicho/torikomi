@@ -82,3 +82,5 @@ ja:
   password_resets:
     edit:
       title: 'パスワードリセット'
+    new:
+      title: 'パスワードリセットメール送信'

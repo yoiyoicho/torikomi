@@ -3,7 +3,10 @@ class PasswordResetsController < ApplicationController
   # before_action :require_login
   # is not declared in your ApplicationController.
   skip_before_action :require_login
-    
+  
+  def new
+  end
+
   # request password reset.
   # you get here when the user entered their email in the reset password form and submitted it.
   def create
@@ -20,7 +23,8 @@ class PasswordResetsController < ApplicationController
       redirect_to root_path, success: 'パスワードリセットURLをメールで送信しました'
 
     else
-      redirect_to root_path. error: 'ユーザーが存在しません'
+      flash.now[:error] = 'ユーザーが存在しません'
+      render :new
     end
 
   end
@@ -52,7 +56,8 @@ class PasswordResetsController < ApplicationController
     if @user.change_password(params[:user][:password])
       redirect_to root_path, success: 'パスワードが更新されました'
     else
-      render :action => "edit"
+      flash.now[:error] = 'パスワードの更新に失敗しました'
+      render :edit
     end
   end
 end

@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   delete 'logout', to: 'user_sessions#destroy'
 
   # パスワードリセット
-  resources :password_resets, only: %i(create edit update)
+  resources :password_resets, only: %i(new create edit update)
 
   # Googleログイン
   post '/api/google_login/callback', to: 'api/google_login_api#callback'

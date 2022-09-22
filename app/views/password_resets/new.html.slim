@@ -1,0 +1,17 @@
+- content_for(:title, t('.title'))
+.hero.min-h-screen.bg-base-200
+  .text-center.w-screen.max-w-screen-lg
+    h1.text-3xl.font-bold.py-3
+      = t('.title')
+    .py-2
+    .card.flex-shrink-0.w-full.max-w-sm.shadow-2xl.bg-base-100.mx-auto
+      .card-body
+        = form_with url: password_resets_path, method: :post do |f|
+          .form-control
+            label.label
+              span.label-text
+                = User.human_attribute_name('email')
+            = f.text_field :email, class: 'input input-bordered', placeholder: 'email'
+          .form-control.mt-6
+            button.btn.btn-primary
+              = t('defaults.register')
