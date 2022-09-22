@@ -79,3 +79,6 @@ ja:
     update:
       success: 'Googleカレンダー連携設定を更新しました'
       fail: 'Googleカレンダー連携設定の更新に失敗しました'
+  password_resets:
+    edit:
+      title: 'パスワードリセット'
