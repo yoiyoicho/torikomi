@@ -23,7 +23,7 @@ class PasswordResetsController < ApplicationController
       redirect_to root_path, success: 'パスワードリセットURLをメールで送信しました'
 
     else
-      flash.now[:error] = 'ユーザーが存在しません'
+      flash.now[:error] = '存在しないメールアドレスです'
       render :new
     end
 
