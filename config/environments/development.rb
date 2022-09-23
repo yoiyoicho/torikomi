@@ -71,5 +71,18 @@ Rails.application.configure do
   # LINE Messaging APIを開発環境でテストするため
   # ngrokで起動したサーバーを許可する
   # https://www.codegrepper.com/code-examples/ruby/rails+ngrok+blocked+host
-  config.hosts << '745e-240b-251-9460-9600-10f0-be34-3ae0-852.jp.ngrok.io'
+  config.hosts << '.jp.ngrok.io'
+
+  # パスワードリセット処理時、Gmailからメールを送信できるようにする
+  # https://labo.kon-ruri.co.jp/rails-send-mail-via-gmail-smtp/
+  config.action_mailer.default_url_options = {  host: 'localhost', port: 3000 }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    domain: 'gmail.com',
+    port: 587,
+    user_name: ENV['GMAIL_ADDRESS'],  #Gmailアドレス
+    password: ENV['GMAIL_APP_PASSWORD'],  #アプリパスワード
+    authentication: :login
+  }
 end
