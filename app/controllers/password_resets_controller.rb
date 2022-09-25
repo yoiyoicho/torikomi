@@ -54,6 +54,7 @@ class PasswordResetsController < ApplicationController
     @user.password_confirmation = params[:user][:password_confirmation]
     # the next line clears the temporary token and updates the password
     if @user.change_password(params[:user][:password])
+      auto_login(@user)
       redirect_to root_path, success: 'パスワードが更新されました'
     else
       flash.now[:error] = 'パスワードの更新に失敗しました'
