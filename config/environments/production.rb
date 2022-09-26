@@ -90,4 +90,16 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # パスワードリセット処理時、Gmailからメールを送信できるようにする
+  config.action_mailer.default_url_options = {  host: 'torikomi.herokuapp.com' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.gmail.com',
+    domain: 'gmail.com',
+    port: 587,
+    user_name: ENV['GMAIL_ADDRESS'],  #Gmailアドレス
+    password: ENV['GMAIL_APP_PASSWORD'],  #アプリパスワード
+    authentication: :login
+  }
 end
