@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   # 静的ページ
   get '/terms', to: 'static_pages#terms'
   get '/privacy_policy', to: 'static_pages#privacy_policy'
-  get '/contact', to: 'static_pages#contact'
   get '/faq', to: 'static_pages#faq'
 
   # ユーザー登録・ログイン・ログアウト
@@ -45,4 +44,7 @@ Rails.application.routes.draw do
 
   # Googleカレンダー連携設定
   resource :google_calendar_setting, only: %i(show edit update)
+
+  # お問い合わせ
+  resources :inquiries, only: %i(new create)
 end

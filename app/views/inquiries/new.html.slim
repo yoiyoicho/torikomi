@@ -1,0 +1,30 @@
+- content_for(:title, t('.title'))
+.hero.min-h-screen.bg-base-200
+  .text-center.w-screen.max-w-screen-lg
+    - if @inquiry.errors.any?
+      - @inquiry.errors.full_messages.each do |error_message|
+        ul.text-error-content
+          li
+            = '- ' + error_message
+    h1.text-3xl.font-bold.py-3
+      = t('.title')
+    p.py-2
+      | 下記のフォームに必要事項をご記入ください。
+      br
+      | 近日中にメールにて返信いたします。
+    .py-2
+    .card.flex-shrink-0.w-full.max-w-sm.shadow-2xl.bg-base-100.mx-auto
+      .card-body
+        = form_with model: @inquiry do |f|
+          .form-control
+            label.label
+              span.label-text
+                = Inquiry.human_attribute_name('email') + '（必須）'
+            = f.text_field :email, class: 'input input-bordered'
+          .form-control
+            label.label
+              span.label-text
+                = Inquiry.human_attribute_name('body') + '（必須）'
+            = f.text_area :body, class: 'input input-bordered h-24'
+          .form-control.mt-6
+            = f.submit t('defaults.send'), class: 'btn btn-primary'

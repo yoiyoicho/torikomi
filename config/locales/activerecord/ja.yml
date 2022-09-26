@@ -6,6 +6,7 @@ ja:
       line_user: 'LINEユーザー'
       setting: '設定'
       google_calendar_setting: 'Googleカレンダー設定'
+      inquiry: 'お問い合わせ'
     attributes:
       user:
         email: 'メールアドレス'

@@ -7,6 +7,7 @@ ja:
     please_login_first: 'ログインしてください'
     update: '更新'
     edit: '編集'
+    send: '送信'
   static_pages:
     top:
       title: 'トップページ'
@@ -14,8 +15,6 @@ ja:
       title: '利用規約'
     privacy_policy:
       title: 'プライバシーポリシー'
-    contact:
-      title: 'お問い合わせ'
     faq:
       title: 'FAQ'
   dashboards:
@@ -84,3 +83,9 @@ ja:
       title: 'パスワード再設定'
     new:
       title: 'パスワードリセット受付'
+  inquiries:
+    new:
+      title: 'お問い合わせ'
+    create:
+      success: 'お問い合わせを受け付けました'
+      fail: 'お問い合わせの受付に失敗しました'
