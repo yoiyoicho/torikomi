@@ -1,0 +1,8 @@
+ja:
+  activemodel:
+    models:
+      inquiry: 'お問い合わせ'
+    attributes:
+      inquiry:
+        email: '返信用メールアドレス'
+        body: 'お問い合わせ内容'

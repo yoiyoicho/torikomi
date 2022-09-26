@@ -32,9 +32,6 @@ ja:
         start_time_min: '開始時刻（分'
         end_time_hour: '終了時刻（時）'
         end_time_min: '終了時刻（分）'
-      inquiry:
-        body: '内容'
-        email: 'メールアドレス'
   enums:
     line_user:
       status:
