@@ -6,6 +6,7 @@ ja:
       line_user: 'LINEユーザー'
       setting: '設定'
       google_calendar_setting: 'Googleカレンダー設定'
+      inquiry: 'お問い合わせ'
     attributes:
       user:
         email: 'メールアドレス'
@@ -31,6 +32,9 @@ ja:
         start_time_min: '開始時刻（分'
         end_time_hour: '終了時刻（時）'
         end_time_min: '終了時刻（分）'
+      inquiry:
+        body: '内容'
+        email: 'メールアドレス'
   enums:
     line_user:
       status:
