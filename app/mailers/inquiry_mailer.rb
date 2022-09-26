@@ -1,8 +1,7 @@
 class InquiryMailer < ApplicationMailer
-
-  def inquiry_email(inquiry_body, reply_email_address)
-    @inquiry_body = inquiry_body
-    @reply_email_address = reply_email_address
-    mail to: ENV['GMAIL_ADDRESS'], subject: "お問い合わせメール（トリコミ）"
+  def inquiry_email(email, body)
+    @email = email #返信先メールアドレス
+    @body = body #お問い合わせ内容
+    mail to: ENV['GMAIL_ADDRESS'], subject: "お問い合わせ受付のお知らせ（トリコミ）"
   end
 end
