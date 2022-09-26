@@ -1,0 +1,33 @@
+- content_for(:title, t('.title'))
+.hero.min-h-screen.bg-base-200
+  .text-center.w-screen.max-w-screen-lg
+    - if @user.errors.any?
+      - @user.errors.full_messages.each do |error_message|
+        ul.text-error-content
+          li
+            = '- ' + error_message
+    h1.text-3xl.font-bold.py-3
+      = t('.title')
+    .py-2
+      | 新しいパスワードをご入力ください。
+    .card.flex-shrink-0.w-full.max-w-sm.shadow-2xl.bg-base-100.mx-auto
+      .card-body
+        = form_with model: @user, url: password_reset_path(@token), method: :put do |f|
+          .form-control
+            label.label
+              span.label-text
+                = User.human_attribute_name('email')
+            = f.text_field :email, readonly: true, class: 'input input-bordered'
+          .form-control
+            label.label
+              span.label-text
+                = '新しい' + User.human_attribute_name('password')
+            = f.password_field :password, class: 'input input-bordered'
+          .form-control
+            label.label
+              span.label-text
+                = '新しい' + User.human_attribute_name('password_confirmation')
+            = f.password_field :password_confirmation, class: 'input input-bordered'
+          .form-control.mt-6
+            button.btn.btn-primary
+              = t('defaults.register')
