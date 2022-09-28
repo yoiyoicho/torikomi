@@ -21,13 +21,13 @@ class Api::GoogleLoginApiController < ApplicationController
 
       if user.save
         auto_login(user)
-        redirect_to dashboards_path, success: 'Googleアカウントでログインしました'
+        redirect_to dashboards_path, success: t('.success')
       else
-        redirect_to login_path, error: 'Googleアカウントでのログインに失敗しました'
+        redirect_to login_path, error: t('.fail')
       end
 
     else
-      redirect_to login_path, error: 'Googleアカウントでのログインに失敗しました'
+      redirect_to login_path, error: t('.fail')
     end
   end
 
@@ -35,7 +35,7 @@ class Api::GoogleLoginApiController < ApplicationController
 
   def verify_g_csrf_token
     if cookies["g_csrf_token"].blank? || params[:g_csrf_token].blank? || cookies["g_csrf_token"] != params[:g_csrf_token]
-      redirect_to login_path, notice: '不正なアクセスです'
+      redirect_to login_path, error: t('.fail')
     end
   end
 end

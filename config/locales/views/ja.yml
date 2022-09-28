@@ -8,6 +8,13 @@ ja:
     update: '更新'
     edit: '編集'
     send: '送信'
+  api:
+    google_login_api:
+      callback:
+        success: 'Googleアカウントでログインしました'
+        fail: 'Googleアカウントでのログインに失敗しました'
+      verify_g_csrf_token:
+        fail: '不正なアクセスです'
   static_pages:
     top:
       title: 'トップページ'
