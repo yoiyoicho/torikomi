@@ -1,32 +1,30 @@
 class Api::LineLoginApiController < ApplicationController
-  require 'json'
-  require 'typhoeus'
+  # 以下のドキュメントをもとに実装
+  # https://developers.line.biz/ja/docs/line-login/integrate-line-login/#making-an-authorization-request
+  # 関連する処理は、app/services/line_login/以下を参照のこと
+
   require 'securerandom'
 
-  skip_before_action :require_login, only: %i(login callback)
+  skip_before_action :require_login
 
   # WebアプリとLINEプラットフォーム間でのCSRF対策は自前で行うため
   # RailsデフォルトのCSRF対策メソッドは無効化する
   protect_from_forgery except: %i(login callback)
 
   def login
+    # ログインURLのバリデーションを行う
+    login_url_validator = LineLogin::LoginUrlValidator.new(params)
 
-    user = User.find_by(id: params[:app_user_id].to_i)
-    link_token = params[:link_token]
+    if login_url_validator
 
-    # アプリユーザーが存在し、link_tokenが正しく、selfパラメーターが正しいフォーマットの場合にLINEログイン処理へ移る
-    # selfパラメーターは、アプリユーザーが自分のLINEアカウントを登録しようとしているときにture
-    # アプリユーザーが自分でないLINEユーザーに登録してもらおうとしているときにfalse
-
-    if user && LinkToken.valid?(user.id, link_token) && ( params[:self] == 'true' || params[:self] == 'false' )
-
-      session[:app_user_id] = user.id
+      # アプリユーザーとLINEユーザーの紐付けに必要な情報をsesssionに保存する
+      session[:app_user_id] = params[:app_user_id]
       session[:self] = params[:self]
-      session[:state] = SecureRandom.urlsafe_base64 #クロスサイトリクエストフォージェリ防止用のトークン
+
+      #クロスサイトリクエストフォージェリ防止用のトークンをsessionに保存する
+      session[:state] = SecureRandom.urlsafe_base64
 
       # LINEユーザーに認証と認可を要求する
-      # https://developers.line.biz/ja/docs/line-login/integrate-line-login/#making-an-authorization-request
-
       authorization_url = 'https://access.line.me/oauth2/v2.1/authorize'
       response_type = 'code'
       client_id = ENV['LINE_LOGIN_CHANNEL_ID']
@@ -39,112 +37,31 @@ class Api::LineLoginApiController < ApplicationController
       redirect_to login_url, allow_other_host: true
 
     else
-
-      redirect_to root_path, error: 'LINEユーザーのログインURLが正しくありません'
-
+      redirect_to root_path, error: t('.fail')
     end
   end
 
   def callback
-
+    # クロスサイトリクエストフォージェリ防止用のトークンを検証する
     if params[:state] == session[:state]
 
-      user = User.find(session[:app_user_id])
-      line_user_params = get_line_user_params(params[:code])
-      line_user = LineUser.find_or_initialize_by(line_user_id: line_user_params[:line_user_id])
-      line_user.assign_attributes(line_user_params)
+      # 返却されたparamsとsessionからLINEユーザーをfind or initializeし、
+      # アプリユーザーと紐づけて保存する
+      saver = LineLogin::LineUserSaver.new(params, session)
 
-      if line_user.save && UserLineUserRelationship.find_or_create_by(user: user, line_user: line_user)
-        reset_session_before_redirect(session[:self])
-        flash[:success] = 'トリコミのLINEユーザーに追加されました'
-      else # line_userが不正か、relationが不正だったとき
-        reset_session_before_redirect(session[:self])
-        flash[:error] = 'エラーが起きました'
+      if saver #LINEユーザーが保存できたとき
+        flash[:success] = t('.success')
+
+      else # LINEユーザーが保存できなかったとき
+        flash[:error] = t('.fail')
       end
 
     else # LINEログインの通信に失敗しているとき
-      reset_session_before_redirect(session[:self])
-      flash[:error] = 'エラーが起きました'
+      flash[:error] = t('.fail')
     end
 
+    # アプリユーザー以外によるアクセスの場合、アプリからログアウト状態にする
+    reset_session if session[:self] == 'false'
     redirect_to root_path
-
   end
-
-  private
-
-  def get_line_user_params(code)
-
-    line_user_params = {}
-    id_token = get_line_user_id_token(code)
-
-    if id_token.present?
-
-      url = 'https://api.line.me/oauth2/v2.1/verify'
-      options = {
-        body: {
-          id_token: id_token,
-          client_id: ENV['LINE_LOGIN_CHANNEL_ID']
-        }
-      }
-
-      response = Typhoeus::Request.post(url, options)
-
-      if response.code == 200
-        line_user_params.merge!({ line_user_id: JSON.parse(response.body)['sub'], display_name: JSON.parse(response.body)['name'], picture_url: JSON.parse(response.body)['picture']||=nil })
-      end
-
-    end
-
-    line_user_params
-
-  end
-
-  def get_line_user_id_token(code)
-
-    # LINEユーザーのアクセストークンを発行する
-    # https://developers.line.biz/ja/reference/line-login/#issue-access-token
-    # ここではLINEユーザーのID、表示名、プロフィール画像のみ取得
-
-    url = 'https://api.line.me/oauth2/v2.1/token'
-    redirect_uri = api_line_login_callback_url
-
-    options = {
-      headers: {
-        'Content-Type' => 'application/x-www-form-urlencoded'
-      },
-      body: {
-        grant_type: 'authorization_code',
-        code: code,
-        redirect_uri: redirect_uri,
-        client_id: ENV['LINE_LOGIN_CHANNEL_ID'],
-        client_secret: ENV['LINE_LOGIN_CHANNEL_SECRET']
-      }
-    }
-    response = Typhoeus::Request.post(url, options)
-
-    if response.code == 200 && JSON.parse(response.body)['id_token'].present?
-      JSON.parse(response.body)['id_token']
-    else
-      nil
-    end
-  end
-
-  def reset_session_before_redirect(self_flag)
-
-    if self_flag == 'true'
-      # アプリユーザーが自分のLINEアカウントを登録しようとしているときは
-      # LINEログイン後のsessionをログイン状態にしておく
-      session[:state] = nil
-      session[:app_user_id] = nil
-      session[:self] = nil
-
-    else
-      # アプリユーザーが自分でないLINEユーザーに登録してもらおうとしているときは
-      # LINEログイン後のsessionをログアウト状態にしておく
-      reset_session
-    end
-
-  end
-
 end

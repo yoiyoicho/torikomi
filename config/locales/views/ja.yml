@@ -15,6 +15,12 @@ ja:
         fail: 'Googleアカウントでのログインに失敗しました'
       verify_g_csrf_token:
         fail: '不正なアクセスです'
+    line_login_api:
+      login:
+        fail: 'LINEユーザーのログインURLが正しくありません'
+      callback:
+        success: 'トリコミのLINEユーザーに追加されました'
+        fail: 'トリコミのLINEユーザーの追加に失敗しました'
   static_pages:
     top:
       title: 'トップページ'

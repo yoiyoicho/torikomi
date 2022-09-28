@@ -1,0 +1,2 @@
+class GoogleCalendar::Service
+end
