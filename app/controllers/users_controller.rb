@@ -10,8 +10,6 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      @user.build_setting.save!
-      @user.build_google_calendar_setting.save!
       auto_login(@user)
       redirect_to dashboards_path, success: t('.success')
     else

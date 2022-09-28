@@ -20,14 +20,12 @@ class Api::GoogleLoginApiController < ApplicationController
       user = User.find_or_initialize_by(email: payload['email'], login_type: :google)
 
       if user.save
-        user.build_setting.save! if user.setting.blank?
-        user.build_google_calendar_setting.save! if user.google_calendar_setting.blank?
         auto_login(user)
         redirect_to dashboards_path, success: 'Googleアカウントでログインしました'
       else
         redirect_to login_path, error: 'Googleアカウントでのログインに失敗しました'
       end
-    
+
     else
       redirect_to login_path, error: 'Googleアカウントでのログインに失敗しました'
     end
