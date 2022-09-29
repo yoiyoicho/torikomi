@@ -1,4 +1,4 @@
-class LineLogin::LoginUrlValidateSerivce
+class LineLogin::LoginUrlValidateService
   def initialize(params)
     @user = User.find_by(id: params[:app_user_id].to_i)
     @link_token = params[:link_token]

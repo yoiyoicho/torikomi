@@ -47,7 +47,8 @@ class Api::LineLoginApiController < ApplicationController
 
       # 返却されたparamsとsessionからLINEユーザーをfind or initializeし、
       # アプリユーザーと紐づけて保存する
-      save_service = LineLogin::LineUserSaveService.new(params, session)
+      save_service = LineLogin::LineUserSaveService.new(params, session, api_line_login_callback_url
+      )
 
       if save_service.call #LINEユーザーが保存できたとき
         flash[:success] = t('.success')

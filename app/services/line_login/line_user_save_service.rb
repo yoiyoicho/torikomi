@@ -1,12 +1,14 @@
 class LineLogin::LineUserSaveService
   require 'json'
   require 'typhoeus'
+  include Rails.application.routes.url_helpers
 
-  def initialize(params, session)
+  def initialize(params, session, redirect_uri)
     @user = User.find(session[:app_user_id])
     @code = params[:code]
+    @redirect_uri = redirect_uri
   end
-  
+
   def call
     line_user_params = get_line_user_params(@code)
     line_user = LineUser.find_or_initialize_by(line_user_id: line_user_params[:line_user_id])
@@ -54,7 +56,6 @@ class LineLogin::LineUserSaveService
     # ここではLINEユーザーのID、表示名、プロフィール画像のみ取得
 
     url = 'https://api.line.me/oauth2/v2.1/token'
-    redirect_uri = api_line_login_callback_url
 
     options = {
       headers: {
@@ -63,7 +64,7 @@ class LineLogin::LineUserSaveService
       body: {
         grant_type: 'authorization_code',
         code: code,
-        redirect_uri: redirect_uri,
+        redirect_uri: @redirect_uri,
         client_id: ENV['LINE_LOGIN_CHANNEL_ID'],
         client_secret: ENV['LINE_LOGIN_CHANNEL_SECRET']
       }

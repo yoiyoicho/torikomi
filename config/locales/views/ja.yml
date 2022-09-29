@@ -98,7 +98,6 @@ ja:
     update:
       success: 'Googleカレンダー連携設定を更新しました'
       fail: 'Googleカレンダー連携設定の更新に失敗しました'
-  google_calendar_settings:
     destroy:
       success: 'Googleカレンダーとの連携を解除しました'
   password_resets:
