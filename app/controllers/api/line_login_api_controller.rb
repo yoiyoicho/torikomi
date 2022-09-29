@@ -13,9 +13,9 @@ class Api::LineLoginApiController < ApplicationController
 
   def login
     # ログインURLのバリデーションを行う
-    login_url_validator = LineLogin::LoginUrlValidator.new(params)
+    validate_service = LineLogin::LoginUrlValidateService.new(params)
 
-    if login_url_validator
+    if validate_service.call
 
       # アプリユーザーとLINEユーザーの紐付けに必要な情報をsesssionに保存する
       session[:app_user_id] = params[:app_user_id]
@@ -47,9 +47,9 @@ class Api::LineLoginApiController < ApplicationController
 
       # 返却されたparamsとsessionからLINEユーザーをfind or initializeし、
       # アプリユーザーと紐づけて保存する
-      saver = LineLogin::LineUserSaver.new(params, session)
+      save_service = LineLogin::LineUserSaveService.new(params, session)
 
-      if saver #LINEユーザーが保存できたとき
+      if save_service.call #LINEユーザーが保存できたとき
         flash[:success] = t('.success')
 
       else # LINEユーザーが保存できなかったとき

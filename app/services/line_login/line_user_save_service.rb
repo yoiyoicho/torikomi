@@ -1,4 +1,4 @@
-class LineLogin::LineUserSaver
+class LineLogin::LineUserSaveService
   require 'json'
   require 'typhoeus'
 
@@ -12,9 +12,9 @@ class LineLogin::LineUserSaver
     line_user = LineUser.find_or_initialize_by(line_user_id: line_user_params[:line_user_id])
     line_user.assign_attributes(line_user_params)
     if line_user.save && UserLineUserRelationship.find_or_create_by(user: @user, line_user: line_user)
-      line_user
+      true
     else
-      nil
+      false
     end
   end
 
