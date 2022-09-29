@@ -95,4 +95,4 @@
           h3.text-xl.font-bold
             = 'アカウントの削除'
         .flex-none
-          = button_to '退会する', user_path(current_user), method: :delete, class: 'button btn btn-primary'
+          = button_to '退会する', user_path(current_user), method: :delete, form: { data: { turbo_confirm: "すべてのデータが削除されます。本当に退会しますか？" } }, class: 'button btn btn-primary'

@@ -22,4 +22,4 @@
             .flex-none.pr-2
               = link_to '編集', edit_schedule_path(schedule), class: 'button btn btn-info'
           .flex-none.pr-2
-            = button_to '削除', schedule_path(schedule), method: :delete, class: 'button btn btn-error'
+            = button_to '削除', schedule_path(schedule), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？" } }, class: 'button btn btn-error'
