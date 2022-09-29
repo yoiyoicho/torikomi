@@ -16,7 +16,7 @@ class LineUsersController < ApplicationController
       redirect_to line_users_path, success: t('.success')
     else
       flash.now[:error] = t('.fail')
-      render :index
+      render :index, status: :unprocessable_entity
     end
   end
 
