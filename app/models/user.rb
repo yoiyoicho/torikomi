@@ -14,4 +14,13 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: { scope: :login_type }
 
   enum login_type: { default: 0, google: 1 }
+
+  after_save :create_user_settings
+
+  private
+
+  def create_user_settings
+    self.build_setting.save! if self.setting.blank?
+    self.build_google_calendar_setting.save! if self.google_calendar_setting.blank?
+  end
 end

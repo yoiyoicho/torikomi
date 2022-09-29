@@ -8,6 +8,26 @@ ja:
     update: '更新'
     edit: '編集'
     send: '送信'
+  api:
+    google_calendar_api:
+      callback:
+        success: 'Googleカレンダーと連携しました'
+        fail: 'Googleカレンダーと連携できませんでした'
+      update:
+        success: 'Googleカレンダーからスケジュールを取得しました'
+        fail: 'Googleカレンダーからスケジュールを更新できませんでした'
+    google_login_api:
+      callback:
+        success: 'Googleアカウントでログインしました'
+        fail: 'Googleアカウントでのログインに失敗しました'
+      verify_g_csrf_token:
+        fail: '不正なアクセスです'
+    line_login_api:
+      login:
+        fail: 'LINEユーザーのログインURLが正しくありません'
+      callback:
+        success: 'トリコミのLINEユーザーに追加されました'
+        fail: 'トリコミのLINEユーザーの追加に失敗しました'
   static_pages:
     top:
       title: 'トップページ'
@@ -78,11 +98,19 @@ ja:
     update:
       success: 'Googleカレンダー連携設定を更新しました'
       fail: 'Googleカレンダー連携設定の更新に失敗しました'
+    destroy:
+      success: 'Googleカレンダーとの連携を解除しました'
   password_resets:
-    edit:
-      title: 'パスワード再設定'
     new:
       title: 'パスワードリセット受付'
+    create:
+      success: 'パスワードリセットURLをメールで送信しました'
+      fail: '存在しないメールアドレスです'
+    edit:
+      title: 'パスワード再設定'
+    update:
+      success: 'パスワードが更新されました'
+      fail: 'パスワードの更新に失敗しました'
   inquiries:
     new:
       title: 'お問い合わせ'

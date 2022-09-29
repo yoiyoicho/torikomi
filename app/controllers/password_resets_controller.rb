@@ -20,10 +20,10 @@ class PasswordResetsController < ApplicationController
   
       # Tell the user instructions have been sent whether or not email was found.
       # This is to not leak information to attackers about which emails exist in the system.
-      redirect_to root_path, success: 'パスワードリセットURLをメールで送信しました'
+      redirect_to root_path, success: t('.success')
 
     else
-      flash.now[:error] = '存在しないメールアドレスです'
+      flash.now[:error] = t('.fail')
       render :new
     end
 
@@ -55,9 +55,9 @@ class PasswordResetsController < ApplicationController
     # the next line clears the temporary token and updates the password
     if @user.change_password(params[:user][:password])
       auto_login(@user)
-      redirect_to root_path, success: 'パスワードが更新されました'
+      redirect_to dashboards_path, success: t('.success')
     else
-      flash.now[:error] = 'パスワードの更新に失敗しました'
+      flash.now[:error] = t('.fail')
       render :edit
     end
   end
