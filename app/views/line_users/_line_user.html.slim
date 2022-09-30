@@ -16,5 +16,5 @@ tr
           = button_to 'OFF', line_user_path(line_user, notification: 'off'), method: :patch, class: 'button btn btn-info'
         - else 
           = button_to 'ON', line_user_path(line_user, notification: 'on'), method: :patch, class: 'button btn btn-info'
-      .flex-none
+      .flex-none[data-turbo="true"]
         = button_to '×', line_user_path(line_user), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？" } }, class: 'button btn btn-error'
