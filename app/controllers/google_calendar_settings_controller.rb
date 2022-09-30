@@ -13,7 +13,7 @@ class GoogleCalendarSettingsController < ApplicationController
       redirect_to session[:previous_url] ||= dashboards_path, success: t('.success')
     else
       flash.now[:error] = t('.fail')
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
   

@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       redirect_to dashboards_path, success: t('.success')
     else
       flash.now[:error] = t('.fail')
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
