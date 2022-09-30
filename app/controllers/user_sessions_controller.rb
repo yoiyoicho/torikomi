@@ -11,6 +11,7 @@ class UserSessionsController < ApplicationController
       redirect_to dashboards_path, success: t('.success')
     else
       flash.now[:error] = t('.fail')
+      @error_message = 'メールアドレスまたはパスワードが正しくありません'
       render :new, status: :unprocessable_entity
     end
   end

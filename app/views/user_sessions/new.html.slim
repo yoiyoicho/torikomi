@@ -2,6 +2,10 @@
 script[src="https://accounts.google.com/gsi/client" async defer]
 .hero.min-h-screen.bg-base-200
   .text-center.w-screen.max-w-screen-lg
+    - if @error_message.present?
+      ul.text-error-content
+        li
+          = '- ' + @error_message
     h1.text-3xl.font-bold.py-3
       = t('.title')
     .py-2
