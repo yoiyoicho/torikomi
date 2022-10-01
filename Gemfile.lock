@@ -106,6 +106,8 @@ GEM
     enum_help (0.0.19)
       activesupport (>= 3.0.0)
     erubi (1.10.0)
+    et-orbi (1.2.7)
+      tzinfo
     ethon (0.15.0)
       ffi (>= 1.15.0)
     factory_bot (6.2.1)
@@ -118,6 +120,9 @@ GEM
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (2.0.3)
     ffi (1.15.5)
+    fugit (1.7.1)
+      et-orbi (~> 1, >= 1.2.7)
+      raabro (~> 1.4)
     globalid (1.0.0)
       activesupport (>= 5.0)
     google-apis-calendar_v3 (0.22.0)
@@ -210,6 +215,7 @@ GEM
     public_suffix (4.0.7)
     puma (5.6.4)
       nio4r (~> 2.0)
+    raabro (1.4.0)
     racc (1.6.0)
     rack (2.2.4)
     rack-test (2.0.2)
@@ -291,6 +297,8 @@ GEM
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
+    rufus-scheduler (3.8.2)
+      fugit (~> 1.1, >= 1.1.6)
     selenium-webdriver (4.3.0)
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -300,6 +308,11 @@ GEM
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
+    sidekiq-scheduler (4.0.2)
+      redis (>= 4.2.0)
+      rufus-scheduler (~> 3.2)
+      sidekiq (>= 4)
+      tilt (>= 1.4.0)
     signet (0.17.0)
       addressable (~> 2.8)
       faraday (>= 0.17.5, < 3.a)
@@ -388,6 +401,7 @@ DEPENDENCIES
   rubocop
   rubocop-rails
   sidekiq
+  sidekiq-scheduler
   slim-rails
   sorcery
   sprockets-rails

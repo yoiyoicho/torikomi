@@ -73,8 +73,9 @@ gem 'typhoeus'
 # 環境変数の管理
 gem 'dotenv-rails'
 
-# LINEメッセージ送信の非同期処理を行う
+# 非同期処理を行う
 gem 'sidekiq'
+gem 'sidekiq-scheduler'
 
 # Googleログイン
 # https://github.com/googleapis/google-auth-library-ruby/blob/main/lib/googleauth/id_tokens.rb
