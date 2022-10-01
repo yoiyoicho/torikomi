@@ -1,1 +1,5 @@
 :max_retries: 5
+:schedule:
+  delete_old_schedule:
+    cron: '0 0 0 * * *'
+    class: DeleteOldScheduleJob
