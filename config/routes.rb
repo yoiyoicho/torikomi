@@ -1,3 +1,6 @@
+require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
+
 Rails.application.routes.draw do
   # トップページ
   root 'static_pages#top'
@@ -46,4 +49,10 @@ Rails.application.routes.draw do
 
   # お問い合わせ
   resources :inquiries, only: %i(new create)
+
+  # sidekiq管理画面
+  Sidekiq::Web.use(Rack::Auth::Basic) do |user_id, password|
+    [user_id, password] == [ENV['SIDEKIQ_ADMIN_USER_ID'], ENV['SIDEKIQ_ADMIN_PASSWORD']]
+  end
+  mount Sidekiq::Web, at: '/sidekiq'
 end
