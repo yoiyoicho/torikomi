@@ -1,14 +1,14 @@
 class LineLogin::LoginUrlValidateService
   def initialize(params)
-    @user = User.find_by(id: params[:app_user_id].to_i)
-    @link_token = params[:link_token]
+    @user = User.find_by(id: params[:app_user_id])
+    @link_token = LinkToken.find_by(user_id: params[:app_user_id], token_digest: Digest::MD5.hexdigest(params[:link_token]))
     @self = params[:self]
   end
 
   def call
-    # @userが存在し、@link_tokenが正しく、@selfが正しいフォーマットの場合にLINEログイン処理へ移る
+    # @user、@link_tokenが存在し、@selfが正しいフォーマットの場合にLINEログイン処理へ移る
     # @selfは、アプリユーザーが自分のLINEアカウントを登録しようとしているときにtrue
     # アプリユーザーが自分でないLINEユーザーに登録してもらおうとしているときにfalse
-    @user && LinkToken.valid?(@user.id, @link_token) && ( @self == 'true' || @self == 'false' )
+    @user && @link_token && ( @self == 'true' || @self == 'false' )
   end
 end
