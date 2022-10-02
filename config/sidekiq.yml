@@ -3,3 +3,6 @@
   delete_old_schedules:
     cron: '0 0 0 * * *'
     class: DeleteOldSchedulesJob
+  delete_old_link_tokens:
+    cron: '0 0 0 * * *'
+    class: DeleteOldLinkTokensJob
