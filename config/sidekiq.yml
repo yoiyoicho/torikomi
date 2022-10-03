@@ -6,3 +6,6 @@
   delete_old_link_tokens:
     cron: '0 0 0 * * *'
     class: DeleteOldLinkTokensJob
+  access_route_page:
+    cron: '0 0/20 * * * *'
+    class: AccessRoutePageJob
