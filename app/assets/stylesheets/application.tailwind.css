@@ -6,3 +6,22 @@
 .field_with_errors {
   display: contents;
 }
+
+/* v-calendarの色をdaysiUIのテーマにあわせる */
+.vc-day-popover-container {
+  color: black !important;
+  background-color: #E6E6E6 !important;
+  border-color: #E6E6E6 !important;
+}
+
+.vc-day-popover-header {
+  color: black !important;
+}
+
+.vc-container {
+  border: none !important;
+  --green-500: #529B03 !important;
+  --green-600: #529B03 !important;
+  --gray-500: #191A3E !important;
+  --gray-600: #191A3E !important;
+}
