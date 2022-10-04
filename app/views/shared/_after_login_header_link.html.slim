@@ -8,23 +8,24 @@
   label.btn.btn-ghost.btn-circle.avatar[tabindex="0"]
     .w-10.rounded-full
       = image_tag 'default_icon.jpg'
-  ul.mt-3.p-2.shadow.menu.menu-compact.dropdown-content.bg-base-100.rounded-box.w-52[tabindex="0"]
+  ul.mt-3.p-2.shadow.menu.menu-compact.dropdown-content.bg-base-100.rounded-box[tabindex="0"]
     li
       = link_to dashboards_path do
-        span
-          | ログイン中：
+        p
+          b
+            = current_user.email
           br
-          = current_user.email
+            | ダッシュボード
     hr
     li
       = link_to 'スケジュール一覧', schedules_path
-    hr
     li
       = link_to 'Googleカレンダー連携', google_calendar_setting_path
+    hr
     li
-      = link_to 'LINEユーザー', line_users_path
+      = link_to 'LINEユーザー設定', line_users_path
     li
-      = link_to '通知メッセージ', setting_path
+      = link_to '通知メッセージ設定', setting_path
     li
       = link_to 'アカウント設定', '#'
     hr

@@ -46,31 +46,42 @@
                 = link_to 'Googleカレンダー連携', google_calendar_setting_path, class: 'button btn'
       .tr-line-users.mt-12
         h2.text-2xl.font-bold.pb-6
-          = '通知先LINEユーザー一覧'
-        - if current_user.line_users.any?
-          table.table.w-full
-            thead
-              tr
-                th.bg-white.pb-0.5
-                th.bg-white.pb-0.5
-            tbody
-              = render current_user.line_users
-          /- next_schedule = current_user.schedules.to_be_sent.first
-            .card.bg-base-100
-              .card-body
-                h2.card-title
-                  = next_schedule.title
-                p
-                  = next_schedule.body
-                .card-actions.justify-end
-                  = link_to '設定する', line_users_path, class: 'button btn btn-primary'
-        - else
-          .card.bg-base-100
-            .card-body
+          = '通知設定'
+        .card.bg-base-100
+          .card-body
+            h2.card-title
+              | 通知先LINEユーザー
+            - if current_user.line_users.any?
+              - current_user.line_users.each_with_index do |line_user, index|
+                - if index != 0
+                  hr
+                .flex
+                  .flex-none.pr-4
+                    .avatar
+                      .w-12.rounded-full
+                        = image_tag line_user.picture_url || 'noimage.png'
+                  .flex-none
+                    p
+                      = line_user.display_name
+                      br
+                      = line_user.status_i18n
+            - else
               p
                 | LINEユーザーがいません
-              .card-actions.justify-end
-                = link_to 'LINEユーザー設定', line_users_path, class: 'button btn btn-primary'
+            .card-actions.justify-end
+              = link_to 'LINEユーザー設定', line_users_path, class: 'button btn btn-primary'
+        .card.bg-base-100.mt-6
+          .card-body
+            h2.card-title
+              | 通知時間・メッセージ
+            p
+              = '通知時間：' + current_user.setting.notification_time.to_s + '（分前）'
+              br
+              = '通知メッセージ オプション：' + current_user.setting.message_option_i18n
+              br
+                = '通知メッセージ：' + ( current_user.setting.message_text || '（未設定）' )
+            .card-actions.justify-end
+              = link_to 'メッセージ設定', setting_path, class: 'button btn btn-primary'
       .tr-user.mt-12
         h2.text-2xl.font-bold.pb-6
           = 'アカウント情報'
