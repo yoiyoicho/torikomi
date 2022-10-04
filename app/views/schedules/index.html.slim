@@ -1,30 +1,38 @@
 - content_for(:title, t('.title'))
 .hero.min-h-screen.bg-base-200
   .hero-content
-    .max-w-screen-lg
+    .max-w-sm
       h1.text-3xl.font-bold.py-3
         = t('.title')
       .py-2
         = link_to '新規作成', new_schedule_path, class: 'button btn btn-primary'
-      #schedule-list
-        .tabs
-          a.tab.tab-bordered.tab-lg(@click="toBeSentTabClick" :class="{'tab-active': toBeSent }")
-            | 送信予約中
-          a.tab.tab-bordered.tab-lg(@click="sentTabClick" :class="{'tab-active': sent }")
-            | 送信済
-        - if @schedules.present?
-          .(:style="toBeSentStyle")
-            - if @schedules.to_be_sent.present?
-              = render @schedules.to_be_sent
-            - else
-              .py-2
-                = t('.no_result')
-          .(:style="sentStyle")
-            - if @schedules.sent.present?
-              = render @schedules.sent
-            - else
-              .py-2
-                = t('.no_result')      
-        - else
-          p.py-2
-            = t('.no_result')
+      .py-2
+        #calendar
+          .js-schedules ref="schedules" data-schedules="#{@schedules.to_json}"
+          v-calendar[is-expanded :attributes="attrs"]
+      .py-2
+        #schedule-list
+          .tabs
+            a.tab.tab-bordered.tab-lg(@click="toBeSentTabClick" :class="{'tab-active': toBeSent }")
+              | 送信予約中
+            a.tab.tab-bordered.tab-lg(@click="sentTabClick" :class="{'tab-active': sent }")
+              | 送信済
+          - if @schedules.present?
+            .(:style="toBeSentStyle")
+              - if @schedules.to_be_sent.present?
+                = render @schedules.to_be_sent
+              - else
+                .py-2
+                  = t('.no_result')
+            .(:style="sentStyle")
+              - if @schedules.sent.present?
+                = render @schedules.sent
+              - else
+                .py-2
+                  = t('.no_result')      
+          - else
+            p.py-2
+              = t('.no_result')
+      .py-2
+        p
+          | ※スケジュールは1か月で自動的に削除されます。
