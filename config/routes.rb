@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get '/terms', to: 'static_pages#terms'
   get '/privacy_policy', to: 'static_pages#privacy_policy'
   get '/faq', to: 'static_pages#faq'
+  get '/guide', to: 'static_pages#guide'
 
   # ユーザー登録・ログイン・ログアウト
   resources :users, only: %i(create destroy)

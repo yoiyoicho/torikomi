@@ -36,7 +36,9 @@ ja:
     privacy_policy:
       title: 'プライバシーポリシー'
     faq:
-      title: 'FAQ'
+      title: 'よくある質問'
+    guide:
+      title: '使い方'
   dashboards:
     index:
       title: 'ダッシュボード'
