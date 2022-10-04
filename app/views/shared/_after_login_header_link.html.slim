@@ -10,10 +10,11 @@
       = image_tag 'default_icon.jpg'
   ul.mt-3.p-2.shadow.menu.menu-compact.dropdown-content.bg-base-100.rounded-box.w-52[tabindex="0"]
     li
-      span
-        | ログイン中：
-        br
-        = current_user.email
+      = link_to dashboards_path do
+        span
+          | ログイン中：
+          br
+          = current_user.email
     hr
     li
       = link_to 'スケジュール一覧', schedules_path
