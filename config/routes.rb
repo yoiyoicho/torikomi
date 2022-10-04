@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   get '/faq', to: 'static_pages#faq'
   get '/guide', to: 'static_pages#guide'
 
-  # ユーザー登録・ログイン・ログアウト
-  resources :users, only: %i(create destroy)
+  # ユーザー登録・ログイン・ログアウト・設定
+  resources :users, only: %i(create destroy show)
   get '/signup', to: 'users#new'
 
   get 'login', to: 'user_sessions#new'

@@ -15,10 +15,10 @@
       .tr-schedules.mt-12
         h2.text-2xl.font-bold.pb-6
           = '通知予定のスケジュール'
-        - if current_user.schedules.to_be_sent.any?
-          - next_schedule = current_user.schedules.to_be_sent.first
-          .card.bg-base-100
-            .card-body
+        .card.bg-base-100
+          .card-body
+            - if current_user.schedules.to_be_sent.any?
+              - next_schedule = current_user.schedules.to_be_sent.first
               .badge.badge-outline
                 | Next
               h2.card-title
@@ -31,19 +31,13 @@
                 = next_schedule.end_time.strftime('%Y年%m月%d日 %H時%M分')
               p
                 = "…ほか#{(current_user.schedules.to_be_sent.size - 1).to_s}件"
-              .card-actions.justify-end
-                = link_to '新規作成・編集', schedules_path, class: 'button btn btn-primary'
-              .card-actions.justify-end
-                = link_to 'Googleカレンダー連携', google_calendar_setting_path, class: 'button btn'
-        - else
-          .card.bg-base-100
-            .card-body
+            - else
               p
                 | スケジュールがありません
-              .card-actions.justify-end
-                = link_to '新規作成・編集', schedules_path, class: 'button btn btn-primary'
-              .card-actions.justify-end
-                = link_to 'Googleカレンダー連携', google_calendar_setting_path, class: 'button btn'
+            .card-actions.justify-end
+              = link_to 'スケジュール一覧・新規作成', schedules_path, class: 'button btn btn-primary'
+            .card-actions.justify-end
+              = link_to 'Googleカレンダー連携', google_calendar_setting_path, class: 'button btn'
       .tr-line-users.mt-12
         h2.text-2xl.font-bold.pb-6
           = '通知設定'
@@ -70,7 +64,7 @@
                 | LINEユーザーがいません
             .card-actions.justify-end
               = link_to 'LINEユーザー設定', line_users_path, class: 'button btn btn-primary'
-        .card.bg-base-100.mt-6
+        .card.bg-base-100.mt-3
           .card-body
             h2.card-title
               | 通知時間・メッセージ
@@ -81,86 +75,21 @@
               br
                 = '通知メッセージ：' + ( current_user.setting.message_text || '（未設定）' )
             .card-actions.justify-end
-              = link_to 'メッセージ設定', setting_path, class: 'button btn btn-primary'
+              = link_to 'メッセージ設定', edit_setting_path, class: 'button btn btn-primary'
       .tr-user.mt-12
         h2.text-2xl.font-bold.pb-6
           = 'アカウント情報'
         .card.bg-base-100
           .card-body
             .avatar
-              .w-12.rounded-full
+              .w-16.rounded-full
                 = image_tag 'default_icon.jpg'
             h2.card-title
               = current_user.email
             p
               = current_user.login_type_i18n + 'ログイン'
             .card-actions.justify-end
-              = link_to 'アカウント設定', '#', class: 'button btn btn-primary'
-      /.my-2
-        - if current_user.google_calendar_token.present?
-          .bg-base-100.rounded-lg.p-4
-            .py-2
-              = 'カレンダー：' + current_user.google_calendar_token.google_calendar_id
-              br
-              = 'スケジュール取得曜日：'
-              - if @google_calendar_setting.monday == true
-                = '月'
-              - if @google_calendar_setting.tuesday == true
-                = '火'
-              - if @google_calendar_setting.wednesday == true
-                = '水'
-              - if @google_calendar_setting.thursday == true
-                = '木'
-              - if @google_calendar_setting.friday == true
-                = '金'
-              - if @google_calendar_setting.saturday == true
-                = '土'
-              - if @google_calendar_setting.sunday == true
-                = '日'
-              - if @google_calendar_setting.monday == false && @google_calendar_setting.tuesday == false && @google_calendar_setting.wednesday == false && @google_calendar_setting.thursday == false && @google_calendar_setting.friday == false && @google_calendar_setting.saturday == false && @google_calendar_setting.sunday == false
-                = 'なし'
-              br
-              = 'スケジュール取得時間：' + @google_calendar_setting.get_period
-        - else
-          p
-            = '連携されていません'
-      /h2.text-2xl.font-bold.py-3
-        = '通知設定'
-      /.flex.items-center.py-2
-        .flex-none.pr-4
-          h3.text-xl.font-bold
-            = 'LINEユーザー一覧'
-        .flex-none
-          = link_to '設定する', line_users_path, class: 'button btn btn-primary'
-      /- if @line_users.present?
-        .py-2
-          table.table.w-full
-            thead
-              tr
-                th.bg-white.pb-0.5
-                th.bg-white.pb-0.5
-            tbody
-              = render @line_users
-      /- else
-        p.py-2
-          = t('.no_result')
-      /.flex.items-center.py-2
-        .flex-none.pr-4
-          h3.text-xl.font-bold
-            = '通知メッセージ'
-        .flex-none
-          = link_to '設定する', edit_setting_path, class: 'button btn btn-primary'
-      /.py-2
-        .bg-base-100.rounded-lg
-          p.p-4
-            = '通知時間：' + @setting.notification_time.to_s + '（分前）'
-            br
-            = '通知メッセージ オプション：' + @setting.message_option_i18n
-            br
-            - if @setting.message_text.present?
-              = '通知メッセージ：' + @setting.message_text 
-            - else
-              = '通知メッセージ：（未設定）'
+              = link_to 'アカウント設定', user_path(current_user), class: 'button btn btn-primary'
       /h2.text-2xl.font-bold.py-3
         = 'アカウント設定'
       /.flex.items-center.py-2

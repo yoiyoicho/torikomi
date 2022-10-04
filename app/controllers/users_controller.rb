@@ -18,6 +18,9 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+  end
+
   def destroy
     # Sidekiqに登録されているLINEメッセージの送信ジョブを削除する
     ss = Sidekiq::ScheduledSet.new
