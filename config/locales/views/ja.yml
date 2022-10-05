@@ -8,6 +8,7 @@ ja:
     update: '更新'
     edit: '編集'
     send: '送信'
+    invalid_access: '不正なアクセスです'
   api:
     google_calendar_api:
       callback:

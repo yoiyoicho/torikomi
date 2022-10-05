@@ -23,4 +23,4 @@
         p
           | アカウントを削除すると、全てのデータが削除されます。
         .card-actions.justify-end[data-turbo="true"]
-          = button_to '削除する', user_path(current_user), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？" } }, class: 'button btn btn-primary'
+          = button_to '削除する', user_path(@user), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？" } }, class: 'button btn btn-primary'

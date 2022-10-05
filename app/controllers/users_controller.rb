@@ -19,6 +19,10 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(params[:id])
+    if @user != current_user
+      redirect_to dashboards_path, error: t('defaults.invalid_access')
+    end
   end
 
   def destroy
