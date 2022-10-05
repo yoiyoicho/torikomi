@@ -1,4 +1,4 @@
-.div class="card bg-base-100 shadow-xl my-2 md:w-88"
+.card.flex-shrink-0.w-full.shadow.bg-base-100.mx-auto.mb-3
   .card-body
     div class="flex flex-col sm:items-center sm:flex-row mb-2"
       h2.flex-none.card-title.mr-2
@@ -11,10 +11,10 @@
       = schedule.body.present? ? simple_format(schedule.body, {}, wrapper_tag: 'span') : '（未設定）'
       br
       = '開始日時：'
-      = schedule.start_time.present? ? schedule.start_time.strftime('%Y年%m月%d日 %H時%M分') : '（未設定）'
+      = schedule.start_time.strftime('%Y年%m月%d日 %H時%M分')
       br
       = '終了日時：'
-      = schedule.end_time.present? ? schedule.end_time.strftime('%Y年%m月%d日 %H時%M分') : '（未設定）'
+      = schedule.end_time.strftime('%Y年%m月%d日 %H時%M分')
     .card-actions.justify-end
       - if schedule.to_be_sent? 
         .flex

@@ -8,6 +8,7 @@ ja:
     update: '更新'
     edit: '編集'
     send: '送信'
+    invalid_access: '不正なアクセスです'
   api:
     google_calendar_api:
       callback:
@@ -36,7 +37,9 @@ ja:
     privacy_policy:
       title: 'プライバシーポリシー'
     faq:
-      title: 'FAQ'
+      title: 'よくある質問'
+    guide:
+      title: 'クイックガイド'
   dashboards:
     index:
       title: 'ダッシュボード'
@@ -47,6 +50,8 @@ ja:
     create:
       success: 'ユーザー登録が完了しました'
       fail: 'ユーザー登録に失敗しました'
+    show:
+      title: 'アカウント設定'
     destroy:
       success: 'ユーザーの退会手続きが完了しました'
   user_sessions:
@@ -92,22 +97,24 @@ ja:
       fail: '通知メッセージの設定の更新に失敗しました'
   google_calendar_settings:
     show:
-      title: 'Googleカレンダー連携設定'
+      title: 'Googleカレンダー連携'
     edit:
-      title: 'Googleカレンダー連携設定'
+      title: 'Googleカレンダー連携'
     update:
-      success: 'Googleカレンダー連携設定を更新しました'
-      fail: 'Googleカレンダー連携設定の更新に失敗しました'
+      success: 'Googleカレンダーの設定を更新しました'
+      fail: 'Googleカレンダーの設定の更新に失敗しました'
+  google_calendar_tokens:
     destroy:
       success: 'Googleカレンダーとの連携を解除しました'
   password_resets:
     new:
       title: 'パスワードリセット受付'
     create:
-      success: 'パスワードリセットURLをメールで送信しました'
+      success: 'パスワードリセットメールを送信しました'
       fail: '存在しないメールアドレスです'
     edit:
       title: 'パスワード再設定'
+      fail: 'URLが正しくありません'
     update:
       success: 'パスワードが更新されました'
       fail: 'パスワードの更新に失敗しました'

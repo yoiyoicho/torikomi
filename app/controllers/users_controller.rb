@@ -18,6 +18,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    if params[:id].to_i != current_user.id
+      redirect_to dashboards_path, error: t('defaults.invalid_access')
+    end
+  end
+
   def destroy
     # Sidekiqに登録されているLINEメッセージの送信ジョブを削除する
     ss = Sidekiq::ScheduledSet.new

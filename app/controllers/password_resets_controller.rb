@@ -35,8 +35,7 @@ class PasswordResetsController < ApplicationController
     @user = User.load_from_reset_password_token(params[:id])
 
     if @user.blank?
-      not_authenticated
-      return
+      redirect_to root_path, error: t('.fail')
     end
   end
       
@@ -46,8 +45,7 @@ class PasswordResetsController < ApplicationController
     @user = User.load_from_reset_password_token(params[:id])
 
     if @user.blank?
-      not_authenticated
-      return
+      redirect_to root_path, error: t('.fail')
     end
 
     # the next line makes the password confirmation validation work

@@ -1,18 +1,33 @@
-li
-  = link_to 'スケジュール一覧', schedules_path
-li[tabindex="0"]
-  .justify-between
-    svg.fill-current[xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewbox="0 0 24 24"]
-      path[d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"]
-    | 設定
-  ul.p-2.bg-base-100
+.dropdown.dropdown-end
+  label.btn.btn-ghost.btn-circle[tabindex="0"]
+    .indicator
+      svg.h-5.w-5[xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor"]
+        path[stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"]
+        / span.badge.badge-xs.badge-primary.indicator-item
+.dropdown.dropdown-end
+  label.btn.btn-ghost.btn-circle.avatar[tabindex="0"]
+    .w-10.rounded-full
+      = image_tag 'default_icon.jpg'
+  ul.mt-3.p-2.shadow.menu.menu-compact.dropdown-content.bg-base-100.rounded-box[tabindex="0"]
+    li
+      = link_to dashboards_path do
+        p
+          b
+            = current_user.email
+          br
+            | ダッシュボード
+    hr
+    li
+      = link_to 'スケジュール一覧', schedules_path
     li
       = link_to 'Googleカレンダー連携', google_calendar_setting_path
+    hr
     li
-      = link_to 'LINEユーザー', line_users_path
+      = link_to 'LINEユーザー設定', line_users_path
     li
-      = link_to '通知メッセージ', setting_path
-li
-  = link_to t('static_pages.faq.title'), faq_path
-li
-  = button_to t('defaults.logout'), logout_path, method: :delete
+      = link_to '通知メッセージ設定', setting_path
+    li
+      = link_to 'アカウント設定', user_path(current_user)
+    hr
+    li
+      = button_to t('defaults.logout'), logout_path, method: :delete
