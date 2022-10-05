@@ -1,12 +1,12 @@
 - content_for(:title, t('.title'))
 .hero.min-h-screen.bg-base-200
-  .hero-content
-    .max-w-screen-lg
-      h1.text-3xl.font-bold.py-3
-        = t('.title')
-      h2.text-2xl.font-bold.py-3
+  .w-screen.max-w-sm.my-12
+    h1.text-3xl.font-bold.mb-4
+      = t('.title')
+    .tr-faq.mb-12
+      h2.text-2xl.font-bold.mb-3
         | Q Googleカレンダーと連携しようとすると警告画面が出る
-      p.py-2.font-bold
+      h3.text-xl.font-bold.mb-3
         | A Googleの審査中であるため警告画面が出ますが、連携機能は使えます。
       p.py-2
         | Googleカレンダーをアプリで使うためにはGoogleによる審査が必要なのですが、それがまだ終わっていないためにこのような警告画面が出ます。開発者を信頼していただける場合は、左下の「詳細」からGoogleカレンダー連携操作を続行できます。
@@ -14,16 +14,18 @@
       p.py-2
         | 「torikomi.herokuapp.com（安全ではないページへ移動）」をクリックし、その先の承認画面で承認してください。
       = image_tag 'google_calendar_info2.png', width: '400'
-      h2.text-2xl.font-bold.py-3
+    .tr-faq.mb-12
+      h2.text-2xl.font-bold.mb-3
         | Q「トリコミ」LINE公式アカウントを友だち追加したい
-      p.py-2.font-bold
+      h3.text-xl.font-bold.mb-3
         | A 下記のボタンから登録をお願いします。
       .py-2
         = link_to 'https://lin.ee/xBUsFNv' do
           = image_tag 'https://scdn.line-apps.com/n/line_add_friends/btn/ja.png', size: '116x36'
-      h2.text-2xl.font-bold.py-3
+    .tr-faq.mb-12
+      h2.text-2xl.font-bold.mb-3
         | Q「トリコミ」LINE公式アカウントから通知が届かない
-      p.py-2.font-bold
+      h3.text-xl.font-bold.mb-3
         | A 下記の3点をご確認ください。
       p.py-2
         | ・LINEユーザー一覧に、通知を受け取りたい人のLINEアカウントが登録されている
@@ -31,9 +33,9 @@
         | ・LINEユーザー一覧で、通知を受け取りたい人のLINEアカウントが「通知オン」の状態になっている
         br
         | ・通知を受け取りたい人のLINEアカウントで、「トリコミ」公式アカウントを友だち登録している
+    .tr-faq.mb-12
       h2.text-2xl.font-bold.py-3
         | Q 利用方法でわからないところがある
-      p.py-2.font-bold
+      h3.text-xl.font-bold.mb-3
         | A 下記のお問い合わせフォームからお問い合わせください
-      p.py-2.link
-        = link_to 'お問い合わせフォーム（Googleフォームへ）', 'https://docs.google.com/forms/d/e/1FAIpQLSc9aS-7336KcYcBMp4s8QLPPsaBKHN8tQ8vzwHv2ZXqXz2etQ/viewform'
+      = link_to t('inquiries.new.title'), new_inquiry_path, class: 'btn btn-primary'

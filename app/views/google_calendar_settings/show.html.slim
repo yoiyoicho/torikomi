@@ -1,31 +1,35 @@
 - content_for(:title, t('.title'))
 .hero.min-h-screen.bg-base-200
-  .hero-content
-    .max-w-screen-lg
-      h1.text-3xl.font-bold.py-3
-        = t('.title')
-      h2.text-2xl.font-bold.py-3
-        | 連携中のGoogleカレンダー
-      - if current_user.google_calendar_token.present?
-        .bg-base-100.rounded-lg.p-4
-          .div class="flex sm:items-center flex-col sm:flex-row"
-            p.flex-none.mr-2.py-2
-              = current_user.google_calendar_token.google_calendar_id
-            .flex.py-2
-              .flex-none.pr-2
-                = link_to '手動更新', api_google_calendar_update_path, class: 'button btn btn-info'
-              .flex-none
-                = button_to '連携解除', google_calendar_token_path(current_user.google_calendar_token), method: :delete, class: 'button btn btn-error'
-      - else
-        p.py-2
-          | カレンダーが連携されていません
-        .py-2
-          = link_to '連携する', api_google_calendar_authorize_path, class: 'button btn btn-primary'
-      - if current_user.google_calendar_token.present?
-        h2.text-2xl.font-bold.py-3
-          | 取得設定
-        .bg-base-100.rounded-lg
-          p.p-4
+  .w-screen.max-w-sm.my-12
+    h1.text-3xl.font-bold.mb-4
+      = t('.title')
+    p.mb-3
+      | Googleカレンダーと連携して、通知するスケジュールを自動で取得します。
+      | 連携開始時の注意事項は
+      = link_to 'こちら', faq_path, class: 'link'
+      | 。
+    .card.shadow.bg-base-100.mb-3
+      .card-body
+        h2.card-title
+          | 連携中のGoogleカレンダー
+        - if current_user.google_calendar_token.present?
+          p
+            = current_user.google_calendar_token.google_calendar_id
+          .card-actions.justify-end
+            = link_to '手動更新', api_google_calendar_update_path, class: 'button btn btn-info'
+          .card-actions.justify-end
+            = button_to '連携解除', google_calendar_token_path(current_user.google_calendar_token), method: :delete, class: 'button btn btn-error'
+        - else
+          p
+            | カレンダーが連携されていません
+          .card-actions.justify-end
+            = link_to '連携する', api_google_calendar_authorize_path, class: 'button btn btn-primary'
+    - if current_user.google_calendar_token.present?
+      .card.shadow.bg-base-100
+        .card-body
+          h2.card-title
+            | 取得設定
+          p
             = 'スケジュール取得曜日：'
             - if @google_calendar_setting.monday == true
               = '月'
@@ -45,5 +49,5 @@
               = 'なし'
             br
             = 'スケジュール取得時間：' + @google_calendar_setting.get_period
-        .my-4
-          = link_to t('defaults.edit'), edit_google_calendar_setting_path, class: 'button btn btn-primary'
+          .card-actions.justify-end
+            = link_to '設定', edit_google_calendar_setting_path, class: 'button btn btn-primary'

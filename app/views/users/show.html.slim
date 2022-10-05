@@ -1,27 +1,26 @@
 - content_for(:title, t('.title'))
 .hero.min-h-screen.bg-base-200
-  .hero-content
-    .max-w-sm
-      h1.text-3xl.font-bold.py-3
-        = t('.title')
-      .card.bg-base-100.py-2
-        .card-body
-          .avatar.justify-center
-            .w-24.rounded-full
-              = image_tag 'default_icon.jpg'
-          h2.card-title.justify-center
-            = current_user.email
-          p.text-center
-            = current_user.login_type_i18n + 'ログイン'
-          .card-actions.justify-end
-            = link_to 'プロフィール画像の変更（準備中）', '#', class: 'button btn btn-ghost btn-active'
-          .card-actions.justify-end
-            = link_to 'メールアドレス・パスワードの変更（準備中）', '#', class: 'button btn btn-ghost btn-active'
-      .card.bg-base-100.mt-3
-        .card-body
-          h2.card-title
-            | アカウントの削除
-          p
-            | アカウントを削除すると、全てのデータが削除されます。
-          .card-actions.justify-end[data-turbo="true"]
-            = button_to '削除する', user_path(current_user), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？" } }, class: 'button btn btn-primary'
+  .w-screen.max-w-sm.my-12
+    h1.text-3xl.font-bold.mb-4
+      = t('.title')
+    .card.bg-base-100.shadow.mb-3
+      .card-body
+        .avatar.justify-center
+          .w-24.rounded-full
+            = image_tag 'default_icon.jpg'
+        h2.card-title.justify-center
+          = current_user.email
+        p.text-center
+          = current_user.login_type_i18n + 'ログイン'
+        .card-actions.justify-end
+          = link_to 'プロフィール画像の変更（準備中）', '#', class: 'button btn btn-ghost btn-active'
+        .card-actions.justify-end
+          = link_to 'メールアドレス・パスワードの変更（準備中）', '#', class: 'button btn btn-ghost btn-active'
+    .card.bg-base-100.shadow
+      .card-body
+        h2.card-title
+          | アカウントの削除
+        p
+          | アカウントを削除すると、全てのデータが削除されます。
+        .card-actions.justify-end[data-turbo="true"]
+          = button_to '削除する', user_path(current_user), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？" } }, class: 'button btn btn-primary'

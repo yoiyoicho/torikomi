@@ -1,21 +1,15 @@
 - content_for(:title, t('.title'))
 .hero.min-h-screen.bg-base-200
-  .hero-content
-    .max-w-screen-lg
-      h1.text-3xl.font-bold.py-3
-        = t('.title')
-      h2.text-2xl.font-bold.py-3
-        | 現在の設定
-      .py-2
-        .bg-base-100.rounded-lg
-          p.p-4
-            = '通知時間：' + @setting.notification_time.to_s + '（分前）'
-            br
-            = '通知メッセージ オプション：' + @setting.message_option_i18n
-            br
-            - if @setting.message_text.present?
-              = '通知メッセージ：' + @setting.message_text 
-            - else
-              = '通知メッセージ：（未設定）'
-      .py-2
-        = link_to t('defaults.edit'), edit_setting_path(@setting), class: 'button btn btn-primary'
+  .w-screen.max-w-sm.my-12
+    h1.text-3xl.font-bold.mb-4
+      = t('.title')
+    .card.shadow.bg-base-100
+      .card-body
+        p
+          = '通知時間：' + current_user.setting.notification_time.to_s + '（分前）'
+          br
+          = '通知メッセージ オプション：' + current_user.setting.message_option_i18n
+          br
+          = "通知メッセージ：#{ current_user.setting.message_text.present? ? current_user.setting.message_text : '（未設定）'}"
+        .card-actions.justify-end
+          = link_to 'メッセージ設定', edit_setting_path, class: 'button btn btn-primary'

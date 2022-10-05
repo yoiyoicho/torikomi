@@ -1,12 +1,11 @@
 - content_for(:title, t('.title'))
 .hero.min-h-screen.bg-base-200
-  .text-center.w-screen.max-w-screen-lg
+  .w-screen.max-w-sm.my-12
     - if @schedule.errors.any?
-      - @schedule.errors.full_messages.each do |error_message|
-        ul.text-error-content
+      ul.text-error-content.mb-4
+        - @schedule.errors.full_messages.each do |error_message|
           li
             = '- ' + error_message
-    h1.text-3xl.font-bold.py-3
+    h1.text-3xl.font-bold.text-center.mb-4
       = t('.title')
-    .py-2
     = render 'form', schedule: @schedule

@@ -1,14 +1,12 @@
 - content_for(:title, t('.title'))
 .hero.min-h-screen.bg-base-200
-  .text-center.w-screen.max-w-screen-lg
-    h1.text-3xl.font-bold.py-3
+  .w-screen.max-w-sm.my-12
+    h1.text-3xl.font-bold.text-center.mb-4
       = t('.title')
-    .py-2
+    p.mb-3
       | ユーザー登録したメールアドレスをご入力ください。
-      br
-      | 入力されたメールアドレス宛てに、パスワード再設定用のメールが送信されます。
-    .py-2
-    .card.flex-shrink-0.w-full.max-w-sm.shadow-2xl.bg-base-100.mx-auto
+      | 入力されたメールアドレスに、パスワード再設定用のメールが送信されます。
+    .card.flex-shrink-0.w-full.shadow.bg-base-100.mx-auto
       .card-body
         = form_with url: password_resets_path, method: :post do |f|
           .form-control
