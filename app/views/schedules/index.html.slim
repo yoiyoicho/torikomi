@@ -4,8 +4,11 @@
     .max-w-sm
       h1.text-3xl.font-bold.py-3
         = t('.title')
-      .py-2
-        = link_to '新規作成', new_schedule_path, class: 'button btn btn-primary'
+      .flex.py-2
+        .flex-none.pr-2
+          = link_to '新規作成', new_schedule_path, class: 'button btn btn-primary'
+        .flex-none
+          = link_to 'Googleカレンダー連携', google_calendar_setting_path, class: 'button btn'
       .py-2
         #calendar
           .js-schedules ref="schedules" data-schedules="#{@schedules.to_json}"
