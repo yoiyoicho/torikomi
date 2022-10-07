@@ -1,92 +1,94 @@
 - content_for(:title, t('.title'))
 .hero.min-h-screen.bg-base-200
-  .w-screen.max-w-sm.my-12
-    .tr-guide.mb-12
-      .card.shadow.bg-base-100.
-        figure
-          img[src="https://placeimg.com/400/225/arch"]
-        .card-body
-          h2.card-title
-            | Welcome!
-          p
-            | トリコミの使い方は分かりますか？　クイックガイドで確認しましょう！
-          .card-actions.justify-end
-            = link_to 'クイックガイドを見る', guide_path, class: 'button btn btn-primary'
-    .tr-schedules.mb-12
-      h2.text-2xl.font-bold.mb-4
-        = '通知予定のスケジュール'
-      .card.shadow.bg-base-100
-        .card-body
-          - if current_user.schedules.to_be_sent.any?
-            - next_schedule = current_user.schedules.to_be_sent.first
-            .badge.badge-outline
-              | Next
+  .w-screen.max-w-sm.px-4.sm:max-w-lg
+    .my-12
+      .tr-guide.mb-12
+        .card.shadow.bg-base-100
+          figure
+            - files = Dir.children('app/assets/images/cards')
+            = image_tag "cards/#{files[rand(files.size)]}", size: '480x270'
+          .card-body
             h2.card-title
-              = next_schedule.title
+              | Welcome!
             p
-              = '開始日時：'
-              = next_schedule.start_time.strftime('%Y年%m月%d日 %H時%M分')
+              | トリコミの使い方は分かりますか？　クイックガイドで確認しましょう！
+            .card-actions.justify-end
+              = link_to 'クイックガイドを見る', guide_path, class: 'button btn btn-primary'
+      .tr-schedules.mb-12
+        h2.text-2xl.font-bold.mb-4
+          = '通知予定のスケジュール'
+        .card.shadow.bg-base-100
+          .card-body
+            - if current_user.schedules.to_be_sent.any?
+              - next_schedule = current_user.schedules.to_be_sent.first
+              .badge.badge-outline
+                | Next
+              h2.card-title
+                = next_schedule.title
+              p
+                = '開始日時：'
+                = next_schedule.start_time.strftime('%Y年%m月%d日 %H時%M分')
+                br
+                = '終了日時：'
+                = next_schedule.end_time.strftime('%Y年%m月%d日 %H時%M分')
+              p
+                = "…ほか#{(current_user.schedules.to_be_sent.size - 1).to_s}件"
+            - else
+              p
+                | スケジュールがありません
+            .card-actions.justify-end
+              = link_to 'スケジュール一覧・新規作成', schedules_path, class: 'button btn btn-primary'
+            .card-actions.justify-end
+              = link_to 'Googleカレンダー連携', google_calendar_setting_path, class: 'button btn'
+      .tr-setting.mb-12
+        h2.text-2xl.font-bold.mb-4
+          = '通知設定'
+        .card.shadow.bg-base-100.mb-3
+          .card-body
+            h2.card-title
+              | 通知先LINEユーザー
+            - if current_user.line_users.any?
+              - current_user.line_users.each_with_index do |line_user, index|
+                - if index != 0
+                  hr
+                .flex
+                  .flex-none.pr-4
+                    .avatar
+                      .w-12.rounded-full
+                        = image_tag line_user.picture_url || 'noimage.png'
+                  .flex-none
+                    p
+                      = line_user.display_name
+                      br
+                      = line_user.status_i18n
+            - else
+              p
+                | LINEユーザーがいません
+            .card-actions.justify-end
+              = link_to 'LINEユーザー設定', line_users_path, class: 'button btn btn-primary'
+        .card.shadow.bg-base-100
+          .card-body
+            h2.card-title
+              | 通知時間・メッセージ
+            p
+              = '通知時間：' + current_user.setting.notification_time.to_s + '（分前）'
               br
-              = '終了日時：'
-              = next_schedule.end_time.strftime('%Y年%m月%d日 %H時%M分')
+              = '通知メッセージ オプション：' + current_user.setting.message_option_i18n
+              br
+              = "通知メッセージ：#{ current_user.setting.message_text.present? ? current_user.setting.message_text : '（未設定）'}"
+            .card-actions.justify-end
+              = link_to 'メッセージ設定', edit_setting_path, class: 'button btn btn-primary'
+      .tr-user
+        h2.text-2xl.font-bold.mb-4
+          = 'アカウント情報'
+        .card.shadow.bg-base-100
+          .card-body
+            .avatar
+              .w-16.rounded-full
+                = image_tag 'default_icon.jpg'
+            h2.card-title
+              = current_user.email
             p
-              = "…ほか#{(current_user.schedules.to_be_sent.size - 1).to_s}件"
-          - else
-            p
-              | スケジュールがありません
-          .card-actions.justify-end
-            = link_to 'スケジュール一覧・新規作成', schedules_path, class: 'button btn btn-primary'
-          .card-actions.justify-end
-            = link_to 'Googleカレンダー連携', google_calendar_setting_path, class: 'button btn'
-    .tr-setting.mb-12
-      h2.text-2xl.font-bold.mb-4
-        = '通知設定'
-      .card.shadow.bg-base-100.mb-3
-        .card-body
-          h2.card-title
-            | 通知先LINEユーザー
-          - if current_user.line_users.any?
-            - current_user.line_users.each_with_index do |line_user, index|
-              - if index != 0
-                hr
-              .flex
-                .flex-none.pr-4
-                  .avatar
-                    .w-12.rounded-full
-                      = image_tag line_user.picture_url || 'noimage.png'
-                .flex-none
-                  p
-                    = line_user.display_name
-                    br
-                    = line_user.status_i18n
-          - else
-            p
-              | LINEユーザーがいません
-          .card-actions.justify-end
-            = link_to 'LINEユーザー設定', line_users_path, class: 'button btn btn-primary'
-      .card.shadow.bg-base-100
-        .card-body
-          h2.card-title
-            | 通知時間・メッセージ
-          p
-            = '通知時間：' + current_user.setting.notification_time.to_s + '（分前）'
-            br
-            = '通知メッセージ オプション：' + current_user.setting.message_option_i18n
-            br
-            = "通知メッセージ：#{ current_user.setting.message_text.present? ? current_user.setting.message_text : '（未設定）'}"
-          .card-actions.justify-end
-            = link_to 'メッセージ設定', edit_setting_path, class: 'button btn btn-primary'
-    .tr-user
-      h2.text-2xl.font-bold.mb-4
-        = 'アカウント情報'
-      .card.shadow.bg-base-100
-        .card-body
-          .avatar
-            .w-16.rounded-full
-              = image_tag 'default_icon.jpg'
-          h2.card-title
-            = current_user.email
-          p
-            = current_user.login_type_i18n + 'ログイン'
-          .card-actions.justify-end
-            = link_to 'アカウント設定', user_path(current_user), class: 'button btn btn-primary'
+              = current_user.login_type_i18n + 'ログイン'
+            .card-actions.justify-end
+              = link_to 'アカウント設定', user_path(current_user), class: 'button btn btn-primary'
