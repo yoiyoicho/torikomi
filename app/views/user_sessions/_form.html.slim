@@ -20,9 +20,8 @@
               = link_to signup_path, class: 'label-text-alt link link-hover' do
                 | 新規登録はこちら
       .form-control.mt-6
-        button.btn.btn-primary
-          = t('defaults.login')
+        = f.submit t('defaults.login'), class: 'btn btn-primary'
       hr.mt-6
       .form-control.mt-6
         #g_id_onload[data-client_id=ENV['GOOGLE_CLIENT_ID'] data-login_uri="#{api_google_login_callback_path}" data-auto_prompt="false"]
-        .g_id_signin[data-type="standard" data-size="large" data-theme="outline" data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left" data-width=320]
+        .g_id_signin[data-type="standard" data-size="large" data-theme="standard" data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left" data-width=288]

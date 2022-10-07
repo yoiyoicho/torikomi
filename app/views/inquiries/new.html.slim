@@ -1,6 +1,6 @@
 - content_for(:title, t('.title'))
 .hero.min-h-screen.bg-base-200
-  .w-screen.max-w-sm.my-12
+  .w-screen.px-4.my-12.max-w-sm.sm:max-w-lg
     - if @inquiry.errors.any?
       ul.text-error-content.mb-4
         - @inquiry.errors.full_messages.each do |error_message|
