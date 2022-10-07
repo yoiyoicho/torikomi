@@ -38,4 +38,7 @@
 /public/.DS_Store
 
 .env
-/config/google_calendar_client_secrets.json
+.DS_Store
+app/.DS_Store
+app/assets/.DS_Store
+dump.rdb
