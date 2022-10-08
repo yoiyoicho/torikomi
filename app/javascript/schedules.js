@@ -36,4 +36,4 @@ if(document.querySelector('#schedule-list')){
       }
     }
   });
-}
+};

@@ -11,6 +11,10 @@
     #calendar.mb-12
       .js-schedules ref="schedules" data-schedules="#{@schedules.to_json}"
       v-calendar[is-expanded :attributes="attrs"]
+    .div[id="schedule-toggle" @click="toggleAccordion"]
+      svg.w-4.transform[fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 10" aria-hidden="true" :class="{'rotate-180': isOpen,
+          'rotate-0': !isOpen}"]
+        path[d="M15 1.2l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"]
     #schedule-list.mb-12
       .tabs.mb-3
         a.tab.tab-bordered.tab-lg(@click="toBeSentTabClick" :class="{'tab-active': toBeSent }")
