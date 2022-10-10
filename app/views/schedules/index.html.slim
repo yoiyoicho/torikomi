@@ -21,21 +21,17 @@
           | 送信予約中
         a.tab.tab-bordered.tab-lg(@click="sentTabClick" :class="{'tab-active': sent }")
           | 送信済
-      - if @schedules.present?
-        .(:style="toBeSentStyle")
-          - if @schedules.to_be_sent.present?
-            = render @schedules.to_be_sent
-          - else
-            p.mb-3
-              = t('.no_result')
-        .(:style="sentStyle")
-          - if @schedules.sent.present?
-            = render @schedules.sent
-          - else
-            p.mb-3
-              = t('.no_result')      
-      - else
-        p.mb-3
-          = t('.no_result')
+      .[v-if="toBeSent"]
+        - if @schedules.to_be_sent.present?
+          = render @schedules.to_be_sent
+        - else
+          p.mb-3
+            = t('.no_result')
+      .[v-else]
+        - if @schedules.sent.present?
+          = render @schedules.sent
+        - else
+          p.mb-3
+            = t('.no_result')
     p
       | ※スケジュールは1か月で削除されます。

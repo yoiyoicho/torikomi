@@ -18,22 +18,6 @@ if(document.querySelector('#schedule-list')){
         this.toBeSent = false;
         this.sent = true;
       }
-    },
-    computed: {
-      toBeSentStyle(){
-        if(this.toBeSent == true){
-          return ''
-        }else{
-          return 'display: none;'
-        };
-      },
-      sentStyle(){
-        if(this.sent == true){
-          return ''
-        }else{
-          return 'display: none;'
-        };
-      }
     }
   });
 };
