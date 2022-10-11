@@ -10,7 +10,7 @@ if(document.querySelector('#calendar')){
       this.schedules = schedules_json;
       this.setAttrs();
     },
-    data: { 
+    data: {
       schedules: {},
       attrs: [],
     },
