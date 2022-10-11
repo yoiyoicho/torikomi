@@ -4,16 +4,21 @@
       .badge.badge-accent
         | Googleカレンダー  
     h2.card-title.mr-2
-      = schedule.title    
+      = schedule.title
     p
       = '開始日時：'
       = schedule.start_time.strftime('%Y年%m月%d日 %H時%M分')
       br
       = '終了日時：'
       = schedule.end_time.strftime('%Y年%m月%d日 %H時%M分')
-    p
-      = '内容：'
-      = schedule.body.present? ? simple_format(schedule.body, {}, wrapper_tag: 'span') : '（未設定）'
+    .[v-if="accordionFlags[#{schedule.id.to_s}]"]
+      p
+        = '内容：'
+        = schedule.body.present? ? simple_format(schedule.body, {}, wrapper_tag: 'span') : '（未設定）'
+    .flex.justify-center[@click="clickAccordion(#{schedule.id.to_s})"]
+      .[v-if="flag"]
+      svg.w-4.transform[fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 10" aria-hidden="true" :class="{'rotate-180': accordionFlags[#{schedule.id.to_s}], 'rotate-0': !accordionFlags[#{schedule.id.to_s}]}"]
+        path[d="M15 1.2l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"]
     .card-actions.justify-end
       - if schedule.to_be_sent? 
         .flex
