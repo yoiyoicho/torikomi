@@ -15,7 +15,7 @@
       p
         = '内容：'
         = schedule.body.present? ? simple_format(schedule.body, {}, wrapper_tag: 'span') : '（未設定）'
-    .flex.justify-center[@click="clickAccordion(#{schedule.id.to_s})"]
+    .flex.justify-center.h-6[@click="clickAccordion(#{schedule.id.to_s})"]
       .[v-if="flag"]
       svg.w-4.transform[fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 10" aria-hidden="true" :class="{'rotate-180': accordionFlags[#{schedule.id.to_s}], 'rotate-0': !accordionFlags[#{schedule.id.to_s}]}"]
         path[d="M15 1.2l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"]

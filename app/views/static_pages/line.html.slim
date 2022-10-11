@@ -1,0 +1,10 @@
+- content_for(:title, t('.title'))
+.hero.min-h-screen.bg-base-200
+  .w-screen.px-4.my-12.max-w-sm.sm:max-w-lg
+    h1.text-3xl.font-bold.mb-4
+      = t('.title')
+    p.mb-3
+      | LINEユーザー登録ありがとうございました。通知を受け取るために、下記のボタンから「トリコミ」公式アカウントを友だちに追加してください。
+    .mb-3
+      = link_to 'https://lin.ee/xBUsFNv' do
+        = image_tag 'https://scdn.line-apps.com/n/line_add_friends/btn/ja.png', size: '116x36'

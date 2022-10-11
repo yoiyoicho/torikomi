@@ -40,6 +40,8 @@ ja:
       title: 'よくある質問'
     guide:
       title: 'クイックガイド'
+    line:
+      title: 'LINE友だち追加'
   dashboards:
     index:
       title: 'ダッシュボード'

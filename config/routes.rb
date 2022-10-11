@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/privacy_policy', to: 'static_pages#privacy_policy'
   get '/faq', to: 'static_pages#faq'
   get '/guide', to: 'static_pages#guide'
+  get '/line', to: 'static_pages#line'
 
   # ユーザー登録・ログイン・ログアウト・設定
   resources :users, only: %i(create destroy show)
