@@ -9,3 +9,6 @@
   access_route_page:
     cron: '0 0/20 * * * *'
     class: AccessRoutePageJob
+  update_schedules_from_google_calendar:
+    cron: '0 0 0 * * *'
+    class: UpdateSchedulesFromGoogleCalendarJob
