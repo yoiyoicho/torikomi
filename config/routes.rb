@@ -47,7 +47,8 @@ Rails.application.routes.draw do
   resource :setting, only: %i(show edit update)
 
   # Googleカレンダー連携設定
-  resource :google_calendar_setting, only: %i(show edit update)
+  # resource :google_calendar_setting, only: %i(show edit update)
+  resource :google_calendar_setting, only: :show
 
   # お問い合わせ
   resources :inquiries, only: %i(new create)

@@ -4,7 +4,7 @@
     h1.text-3xl.font-bold.mb-4
       = t('.title')
     p.mb-3
-      | Googleカレンダーと連携して、通知するスケジュールを自動で取得します。
+      | Googleカレンダーと連携して、スケジュールを自動で取得します（毎日0時に更新）。
       | 連携開始時の注意事項は
       = link_to 'こちら', faq_path, class: 'link'
       | 。
@@ -16,15 +16,17 @@
           p
             = current_user.google_calendar_token.google_calendar_id
           .card-actions.justify-end
-            = link_to '手動更新', api_google_calendar_update_path, class: 'button btn btn-info'
-          .card-actions.justify-end
-            = button_to '連携解除', google_calendar_token_path(current_user.google_calendar_token), method: :delete, class: 'button btn btn-error'
+            .flex
+              .flex-none.pr-2
+                = link_to '手動更新', api_google_calendar_update_path, class: 'button btn btn-info'
+              .flex-none
+                = button_to '連携解除', google_calendar_token_path(current_user.google_calendar_token), method: :delete, class: 'button btn btn-error'
         - else
           p
             | カレンダーが連携されていません
           .card-actions.justify-end
             = link_to '連携する', api_google_calendar_authorize_path, class: 'button btn btn-primary'
-    - if current_user.google_calendar_token.present?
+    /- if current_user.google_calendar_token.present?
       .card.shadow.bg-base-100
         .card-body
           h2.card-title

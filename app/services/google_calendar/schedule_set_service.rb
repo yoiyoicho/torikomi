@@ -29,52 +29,50 @@ class GoogleCalendar::ScheduleSetService
       start_time = item.start.date_time&.in_time_zone || item.start.date&.in_time_zone
       end_time = item.end.date_time&.in_time_zone || item.end.date&.tomorrow.in_time_zone
 
-      # google_calendar_settingの条件と曜日・時間帯が合致するかどうか
-      if valid_event?(@user.google_calendar_setting, start_time)
-        i_cal_uid = item.i_cal_uid
-        schedule = @user.schedules.find_or_initialize_by(i_cal_uid: i_cal_uid)
+      i_cal_uid = item.i_cal_uid
+      schedule = @user.schedules.find_or_initialize_by(i_cal_uid: i_cal_uid)
 
-        title = item.summary
-        body = item.description #最大160字（後ろから数えて）
+      title = item.summary
+      body = item.description #最大160字（後ろから数えて）
 
-        schedule.assign_attributes(start_time: start_time, end_time: end_time, title: title, body: body, resource_type: :google)
+      schedule.assign_attributes(start_time: start_time, end_time: end_time, title: title, body: body, resource_type: :google)
 
-        if schedule.changed? && schedule.save
-          # Sidekiqに登録されているLINEメッセージの送信ジョブを削除する
-          if schedule.job_id.present?
-            ss = Sidekiq::ScheduledSet.new
-            jobs = ss.select { |job| job.args[0]['job_id'] == schedule.job_id }
-            jobs.each(&:delete)
-          end
-
-          # 新しくジョブを登録する
-          job = SendLineMessageJob.set(wait_until: schedule.start_time - schedule.user.setting.notification_time*60).perform_later(schedule.id)
-          schedule.update!(job_id: job.job_id, status: :to_be_sent)
+      if schedule.changed? && schedule.save
+        # Sidekiqに登録されているLINEメッセージの送信ジョブを削除する
+        if schedule.job_id.present?
+          ss = Sidekiq::ScheduledSet.new
+          jobs = ss.select { |job| job.args[0]['job_id'] == schedule.job_id }
+          jobs.each(&:delete)
         end
+
+        # 新しくジョブを登録する
+        job = SendLineMessageJob.set(wait_until: schedule.start_time - schedule.user.setting.notification_time*60).perform_later(schedule.id)
+        schedule.update!(job_id: job.job_id, status: :to_be_sent)
       end
     end
   end
 
-  private
+  # private
 
-  def valid_event?(google_calendar_setting, start_time)
-
-    flag = google_calendar_setting.monday if start_time.wday == 1
-    flag = google_calendar_setting.tuesday if start_time.wday == 2
-    flag = google_calendar_setting.wednesday if start_time.wday == 3
-    flag = google_calendar_setting.thursday if start_time.wday == 4
-    flag = google_calendar_setting.friday if start_time.wday == 5
-    flag = google_calendar_setting.saturday if start_time.wday == 6
-    flag = google_calendar_setting.sunday if start_time.wday == 7
-
-    start_time_min = start_time.hour * 60 + start_time.min
-    start_time_min_s = google_calendar_setting.start_time_hour * 60 + google_calendar_setting.start_time_min
-    end_time_min_s = google_calendar_setting.end_time_hour * 60 + google_calendar_setting.end_time_min
-
-    if flag && start_time_min >= start_time_min_s && start_time_min <= end_time_min_s
-      true
-    else
-      false
-    end
-  end
+  # google_calendar_settingの条件と曜日・時間帯が合致するかどうか
+  # def valid_event?(google_calendar_setting, start_time)
+  #
+  #   flag = google_calendar_setting.monday if start_time.wday == 1
+  #   flag = google_calendar_setting.tuesday if start_time.wday == 2
+  #   flag = google_calendar_setting.wednesday if start_time.wday == 3
+  #   flag = google_calendar_setting.thursday if start_time.wday == 4
+  #   flag = google_calendar_setting.friday if start_time.wday == 5
+  #   flag = google_calendar_setting.saturday if start_time.wday == 6
+  #   flag = google_calendar_setting.sunday if start_time.wday == 7
+  #
+  #   start_time_min = start_time.hour * 60 + start_time.min
+  #   start_time_min_s = google_calendar_setting.start_time_hour * 60 + google_calendar_setting.start_time_min
+  #   end_time_min_s = google_calendar_setting.end_time_hour * 60 + google_calendar_setting.end_time_min
+  # 
+  #   if flag && start_time_min >= start_time_min_s && start_time_min <= end_time_min_s
+  #     true
+  #   else
+  #     false
+  #   end
+  # end
 end
