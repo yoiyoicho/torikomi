@@ -52,17 +52,20 @@ class Api::LineLoginApiController < ApplicationController
 
       if save_service.call #LINEユーザーが保存できたとき
         flash[:success] = t('.success')
+        redirect_path = line_path
 
       else # LINEユーザーが保存できなかったとき
         flash[:error] = t('.fail')
+        redirect_path = root_path
       end
 
     else # LINEログインの通信に失敗しているとき
       flash[:error] = t('.fail')
+      redirect_path = root_path
     end
 
     # アプリユーザー以外によるアクセスの場合、アプリからログアウト状態にする
     reset_session if session[:self] == 'false'
-    redirect_to root_path
+    redirect_to redirect_path
   end
 end
