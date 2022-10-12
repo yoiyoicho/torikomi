@@ -40,6 +40,12 @@ if(document.querySelector('#schedule-list')){
       clickAccordion(schedule_id){
         this.$set(this.accordionFlags, schedule_id, !this.accordionFlags[schedule_id]);
         this.flag = !this.flag;
+      },
+      confirmationDialog(event){
+        const result = confirm('本当に削除しますか？');
+        if(!result){
+          event.preventDefault();
+        }
       }
     }
   });

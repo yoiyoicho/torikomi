@@ -30,5 +30,5 @@
           - if schedule.default?
             .flex-none.pr-2
               = link_to '編集', edit_schedule_path(schedule), class: 'btn btn-info'
-            .flex-none[data-turbo="true"]
-              = button_to '削除', schedule_path(schedule), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？" } }, class: 'btn btn-error'
+            .flex-none
+              = button_to '削除', schedule_path(schedule), method: :delete, class: 'btn btn-error'
