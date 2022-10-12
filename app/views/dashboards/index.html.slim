@@ -50,7 +50,7 @@
             - current_user.line_users.each_with_index do |line_user, index|
               - if index != 0
                 hr
-              .flex
+              .flex.items-center
                 .flex-none.pr-4
                   .avatar
                     .w-12.rounded-full
@@ -58,8 +58,6 @@
                 .flex-none
                   p
                     = line_user.display_name
-                    br
-                    = line_user.status_i18n
           - else
             p
               | LINEユーザーがいません

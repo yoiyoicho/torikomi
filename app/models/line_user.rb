@@ -4,7 +4,4 @@ class LineUser < ApplicationRecord
 
   validates :line_user_id, presence: true, uniqueness: true
   validates :display_name, presence: true
-  validates :status, presence: true
-
-  enum status: { notification_on: 0, notification_off: 1 }
 end

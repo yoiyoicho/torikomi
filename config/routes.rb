@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   resources :google_calendar_tokens, only: :destroy
 
   # LINEユーザー
-  resources :line_users, only: %i(index update destroy)
+  resources :line_users, only: %i(index destroy)
   get '/api/line_login/callback', to: 'api/line_login_api#callback'
   get '/api/line_login/:link_token/login', to: 'api/line_login_api#login', as: 'api_login'
 
