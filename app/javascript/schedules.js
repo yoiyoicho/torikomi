@@ -11,6 +11,7 @@ if(document.querySelector('#schedule-list')){
       return{
         toBeSent: true,
         sent: false,
+        draft: false,
         accordionFlags: {},
         flag: false
       };
@@ -19,10 +20,17 @@ if(document.querySelector('#schedule-list')){
       toBeSentTabClick(){
         this.toBeSent = true;
         this.sent = false;
+        this.draft = false;
       },
       sentTabClick(){
         this.toBeSent = false;
         this.sent = true;
+        this.draft = false;
+      },
+      draftTabClick(){
+        this.toBeSent = false;
+        this.sent = false;
+        this.draft = true;
       },
       setAccordionFlags(schedules_json){
         for(const schedule_json of schedules_json){
@@ -32,6 +40,12 @@ if(document.querySelector('#schedule-list')){
       clickAccordion(schedule_id){
         this.$set(this.accordionFlags, schedule_id, !this.accordionFlags[schedule_id]);
         this.flag = !this.flag;
+      },
+      confirmationDialog(event){
+        const result = confirm('本当に削除しますか？');
+        if(!result){
+          event.preventDefault();
+        }
       }
     }
   });

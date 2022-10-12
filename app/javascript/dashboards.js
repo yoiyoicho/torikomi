@@ -23,7 +23,7 @@ if(document.querySelector('#calendar')){
           this.attrs.push({
             key: `schedule-${schedule_id.toString()}`,
             bar: {
-              color: schedule['status'] === 'to_be_sent' ? 'green' : 'gray'
+              color: schedule['status'] === 'to_be_sent' ? 'green' : 'indigo'
             },
             dates: start_time_date,
             popover: {

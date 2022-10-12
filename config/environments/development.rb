@@ -85,4 +85,7 @@ Rails.application.configure do
     password: ENV['GMAIL_APP_PASSWORD'],  #アプリパスワード
     authentication: :login
   }
+
+  # Active JobでもURLヘルパーを使うために、default_urlを設定
+  config.action_controller.default_url_options = {  host: 'localhost', port: 3000 }
 end

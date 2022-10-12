@@ -37,10 +37,6 @@ ja:
       login_type:
         default: 'デフォルト'
         google: 'Google'
-    line_user:
-      status:
-        notification_on: '通知オン'
-        notification_off: '通知オフ'
     setting:
       message_option:
         only_time: '開始日時のみ'
@@ -49,5 +45,5 @@ ja:
     schedule:
       status:
         draft: '下書き'
-        to_be_sent: '送信予約中'
+        to_be_sent: '送信予約'
         sent: '送信済'

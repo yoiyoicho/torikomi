@@ -16,6 +16,8 @@
       .tabs.mb-3
         a.tab.tab-bordered.tab-lg(@click="toBeSentTabClick" :class="{'tab-active': toBeSent }")
           = Schedule.statuses_i18n["to_be_sent"]
+        a.tab.tab-bordered.tab-lg(@click="draftTabClick" :class="{'tab-active': draft }")
+          = Schedule.statuses_i18n["draft"]
         a.tab.tab-bordered.tab-lg(@click="sentTabClick" :class="{'tab-active': sent }")
           = Schedule.statuses_i18n["sent"]
       .[v-if="toBeSent"]
@@ -24,11 +26,20 @@
         - else
           p.mb-3
             = t('.no_result')
+      .[v-else-if="draft"]
+        - if @schedules.draft.present?
+          = render @schedules.draft
+        - else
+          p.mb-3
+              = t('.no_result')
       .[v-else]
         - if @schedules.sent.present?
           = render @schedules.sent
         - else
           p.mb-3
               = t('.no_result')
+
     p
       | ※スケジュールは1か月で削除されます。
+      br
+      | ※下書き状態のスケジュールは送信されません。
