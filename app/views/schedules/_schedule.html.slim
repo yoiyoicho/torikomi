@@ -20,10 +20,15 @@
       svg.w-4.transform[fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 16 10" aria-hidden="true" :class="{'rotate-180': accordionFlags[#{schedule.id.to_s}], 'rotate-0': !accordionFlags[#{schedule.id.to_s}]}"]
         path[d="M15 1.2l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"]
     .card-actions.justify-end
-      - if schedule.to_be_sent? 
+      - if schedule.to_be_sent? || schedule.draft?
         .flex
+          .flex-none.pr-2
+            - if schedule.to_be_sent?
+              = button_to '送信予約取消', schedule_path(schedule, status: 'draft'), method: :patch, class: 'btn btn-primary'
+            - else
+              = button_to '送信予約', schedule_path(schedule, status: 'to_be_sent'), method: :patch, class: 'btn btn-primary'
           - if schedule.default?
             .flex-none.pr-2
-              = link_to '編集', edit_schedule_path(schedule), class: 'button btn btn-info'
-          .flex-none[data-turbo="true"]
-            = button_to '削除', schedule_path(schedule), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？" } }, class: 'button btn btn-error'
+              = link_to '編集', edit_schedule_path(schedule), class: 'btn btn-info'
+            .flex-none[data-turbo="true"]
+              = button_to '削除', schedule_path(schedule), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？" } }, class: 'btn btn-error'

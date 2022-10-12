@@ -49,5 +49,5 @@ ja:
     schedule:
       status:
         draft: '下書き'
-        to_be_sent: '送信予約中'
+        to_be_sent: '送信予約'
         sent: '送信済'

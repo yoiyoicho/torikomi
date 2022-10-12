@@ -22,5 +22,10 @@
           span.label-text
             = Schedule.human_attribute_name('end_time') + '（必須）'
         = f.datetime_field :end_time, class: 'input input-bordered'
+      .form-control
+        label.label
+          span.label-text
+            = Schedule.human_attribute_name('status') + '（必須）'
+        = f.select :status, Schedule.statuses_i18n.invert.slice("下書き", "送信予約"), {}, class: 'input input-bordered'
       .form-control.mt-6
         = f.submit class: 'btn btn-primary'
