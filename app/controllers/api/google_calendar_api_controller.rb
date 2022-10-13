@@ -28,12 +28,14 @@ class Api::GoogleCalendarApiController < ApplicationController
       google_calendar_token.assign_attributes(access_token: @auth_client.access_token, refresh_token: @auth_client.refresh_token, expires_at: @auth_client.expires_at, google_calendar_id: service.get_calendar('primary').id)
 
       if google_calendar_token.save
-        redirect_back_or_to schedules_path, success: t('.success')
+        set_service = GoogleCalendar::ScheduleSetService.new(current_user, @auth_client)
+        set_service.call
+        redirect_to schedules_path, success: t('.success')
       else
-        redirect_back_or_to google_calendar_setting_path, error: t('.fail')
+        redirect_to google_calendar_setting_path, error: t('.fail')
       end
     else
-      redirect_back_or_to google_calendar_setting_path, error: t('.fail')
+      redirect_to google_calendar_setting_path, error: t('.fail')
     end
   end
 
