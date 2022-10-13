@@ -25,3 +25,26 @@
   --indigo-500: #E6E6E6 !important;
   --indigo-600: #E6E6E6 !important;
 }
+
+/* TOPページ用 */
+.tr-hero-overlay {
+  height: 100%;
+  width: 100%;
+  background-color: hsl(var(--b2)/var(--tw-bg-opacity));
+}
+
+.tr-opacity-message {
+  background-color: rgba( 230, 230, 230, 0.5 );
+  color: #333333;
+}
+
+.tr-hero-content {
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 80rem;
+  row-gap: 3rem;
+  column-gap: 5rem;
+  padding: 1rem;
+}
