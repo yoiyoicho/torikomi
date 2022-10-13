@@ -12,7 +12,7 @@ class Schedule < ApplicationRecord
   validate :start_time_cannot_be_in_the_past, on: :create_or_update
   validate :end_time_cannot_be_earier_than_start_time
 
-  enum status: { draft: 0, to_be_sent: 1, sent: 2 }
+  enum status: { to_be_sent: 0, draft: 1, sent: 2 }
   enum resource_type: { default: 0, google: 1 }
 
   def start_time_cannot_be_in_the_past

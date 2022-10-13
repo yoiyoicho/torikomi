@@ -44,6 +44,6 @@ ja:
         time_and_title_and_body: '開始日時、タイトル、内容すべて'
     schedule:
       status:
-        draft: '下書き'
         to_be_sent: '送信予約'
+        draft: '下書き'
         sent: '送信済'
