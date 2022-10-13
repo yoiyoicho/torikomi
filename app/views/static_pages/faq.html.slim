@@ -1,11 +1,11 @@
 - content_for(:title, t('.title'))
 .hero.min-h-screen.bg-base-200
-  .w-screen.px-4.my-12.max-w-sm.sm:max-w-lg
+  .w-screen.px-4.my-12.max-w-sm.sm:max-w-4xl
     h1.text-3xl.font-bold.mb-4
       = t('.title')
     .tr-faq.mb-12
       h2.text-2xl.font-bold.mb-3
-        | Q Googleカレンダーと連携しようとすると警告画面が出る
+        | Q Googleカレンダーと連携しようとすると警告画面が出る。
       h3.text-xl.font-bold.mb-3
         | A Googleの審査中であるため警告画面が出ますが、連携機能は使えます。
       p.py-2
@@ -16,7 +16,12 @@
       = image_tag 'google_calendar_info2.png', width: '400'
     .tr-faq.mb-12
       h2.text-2xl.font-bold.mb-3
-        | Q「トリコミ」LINE公式アカウントから通知が届かない
+        | Q Googleカレンダーで非公開にしているスケジュールは取得されますか？
+      h3.text-xl.font-bold.mb-3
+        | A 非公開のスケジュールは取得されません。
+    .tr-faq.mb-12
+      h2.text-2xl.font-bold.mb-3
+        | Q「トリコミ」LINE公式アカウントから通知が届かない。
       h3.text-xl.font-bold.mb-3
         | A 下記の3点をご確認ください。
       p.py-2
@@ -27,7 +32,7 @@
         | ・通知したいスケジュールが「送信予約」になっている。
     .tr-faq.mb-12
       h2.text-2xl.font-bold.mb-3
-        | Q「トリコミ」LINE公式アカウントを友だち追加したい
+        | Q「トリコミ」LINE公式アカウントを友だち追加したい。
       h3.text-xl.font-bold.mb-3
         | A 下記のボタンから登録をお願いします。
       .py-2
@@ -35,7 +40,7 @@
           = image_tag 'https://scdn.line-apps.com/n/line_add_friends/btn/ja.png', size: '116x36'
     .tr-faq.mb-12
       h2.text-2xl.font-bold.py-3
-        | Q 利用方法でわからないところがある
+        | Q 利用方法でわからないところがある。
       h3.text-xl.font-bold.mb-3
-        | A 下記のお問い合わせフォームからお問い合わせください
+        | A 下記のお問い合わせフォームからお問い合わせください。
       = link_to t('inquiries.new.title'), new_inquiry_path, class: 'btn btn-primary'
