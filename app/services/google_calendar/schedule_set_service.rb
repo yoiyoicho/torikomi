@@ -22,33 +22,54 @@ class GoogleCalendar::ScheduleSetService
     @service = Google::Apis::CalendarV3::CalendarService.new
     @service.authorization = @auth_client
 
+    # 既存のGoogleカレンダーから取得したスケジュールのi_cal_uid
+    existing_i_cal_uids = @user.schedules.google.pluck(:i_cal_uid)
+
     # 現在から1か月先までのeventを取得
     events = @service.list_events('primary', time_min: Time.zone.now.rfc3339, time_max: 1.month.since.in_time_zone.rfc3339 )
     events.items.each do |item|
-      
-      start_time = item.start.date_time&.in_time_zone || item.start.date&.in_time_zone
-      end_time = item.end.date_time&.in_time_zone || item.end.date&.tomorrow.in_time_zone
 
-      i_cal_uid = item.i_cal_uid
-      schedule = @user.schedules.find_or_initialize_by(i_cal_uid: i_cal_uid)
+      # 非公開のイベントは取得しない
+      if item.visibility != 'private'
 
-      title = item.summary
-      body = item.description #最大160字（後ろから数えて）
+        start_time = item.start.date_time&.in_time_zone || item.start.date&.in_time_zone
+        end_time = item.end.date_time&.in_time_zone || item.end.date&.tomorrow.in_time_zone
 
-      schedule.assign_attributes(start_time: start_time, end_time: end_time, title: title, body: body, resource_type: :google)
+        i_cal_uid = item.i_cal_uid
+        schedule = @user.schedules.find_or_initialize_by(i_cal_uid: i_cal_uid, resource_type: :google)
 
-      if schedule.changed? && schedule.save
-        # Sidekiqに登録されているLINEメッセージの送信ジョブを削除する
-        if schedule.job_id.present?
-          ss = Sidekiq::ScheduledSet.new
-          jobs = ss.select { |job| job.args[0]['job_id'] == schedule.job_id }
-          jobs.each(&:delete)
+        title = item.summary
+        body = item.description #最大160字（後ろから数えて）
+
+        schedule.assign_attributes(start_time: start_time, end_time: end_time, title: title, body: body)
+
+        if schedule.changed? && schedule.save
+          # Sidekiqに登録されているLINEメッセージの送信ジョブを削除する
+          if schedule.job_id.present?
+            ss = Sidekiq::ScheduledSet.new
+            jobs = ss.select { |job| job.args[0]['job_id'] == schedule.job_id }
+            jobs.each(&:delete)
+          end
+          # 新しくジョブを登録する
+          if schedule.to_be_sent?
+            job = SendLineMessageJob.set(wait_until: schedule.start_time - schedule.user.setting.notification_time*60).perform_later(schedule.id)
+            schedule.update!(job_id: job.job_id)
+          end
         end
 
-        # 新しくジョブを登録する
-        job = SendLineMessageJob.set(wait_until: schedule.start_time - schedule.user.setting.notification_time*60).perform_later(schedule.id)
-        schedule.update!(job_id: job.job_id, status: :to_be_sent)
+        existing_i_cal_uids.delete(i_cal_uid)
       end
+    end
+
+    # 前回以前の更新で取得していたが、今はGoogleカレンダーから削除されているスケジュールを削除
+    existing_i_cal_uids.each do |i_cal_uid|
+      schedule = Schedule.find_by(i_cal_uid: i_cal_uid)
+      if schedule.job_id.present?
+        ss = Sidekiq::ScheduledSet.new
+        jobs = ss.select { |job| job.args[0]['job_id'] == schedule.job_id }
+        jobs.each(&:delete)
+      end
+      schedule.destroy!
     end
   end
 

@@ -1,46 +1,66 @@
+.hero.min-h-screen[style="background-image: url('#{image_url('AdobeStock_334927785_w2000.jpg')}');"]
+  .tr-hero-overlay.bg-opacity-80
+  .hero-content.text-center
+    .max-w-lg
+      h1.mb-5.text-5xl.font-bold.text-primary
+        | あなたのスケジュールをLINEでお知らせ
+      p.mb-5
+        span.tr-opacity-message
+          | 自宅でのオンラインミーティングや勉強会。
+          | 家族やパートナーに、
+          b
+            | 事前にスケジュールを共有したい
+          | ときはありませんか？　
+          b
+            | 「トリコミ」
+          | を使えば、アプリがあなたの代わりにスケジュールを
+          b
+            | LINEでお知らせ
+          | 。
+          b
+            | Googleカレンダーとの連携
+          | でさらに便利に！
+      - if !logged_in?
+        .flex.justify-center
+          .flex-none.pr-2
+            = link_to t('defaults.start_now'), signup_path, class: 'btn btn-primary'
+          .flex-none
+            = link_to t('defaults.login'), login_path, class: 'btn btn-outline btn-primary'
 .hero.min-h-screen.bg-base-200
-  .max-w-screen-lg.mx-auto
-    .hero-content.flex-col.lg:flex-row-reverse
-      = image_tag 'topimage.jpg', class: "max-w-sm sm:max-w-xl rounded-lg shadow-2xl"
+  .w-screen.max-w-4xl.px-4.my-12
+    .mb-24
+    h2.text-4xl.font-bold.mb-24.text-center
+      | できること
+    .tr-hero-content.flex-col.mb-24.lg:flex-row
+      = image_tag 'step1.gif', class: "sm:max-w-sm rounded-lg shadow-2xl"
       div
-        h1.text-3xl.font-bold.py-3
-          | 「今、取り込み中」をLINEでお知らせ
-        p.py-2
-          | 自宅でのオンラインミーティングや勉強会。一緒に暮らす家族やパートナーに、事前にスケジュールを知らせたいときはありませんか？
-          br
-          | 「トリコミ」を使えば、あなたが“取り込み中”になるスケジュールを、LINEメッセージで自動送信。Googleカレンダーとの連携でさらに便利に！
-        - if !logged_in?
-          .flex.my-2
-            .flex-none.pr-2
-              = link_to t('defaults.start_now'), signup_path, class: 'btn btn-primary'
-            .flex-none.pr-2
-              = link_to t('defaults.login'), login_path, class: 'btn btn-outline btn-primary'
-    h2.text-2xl.font-bold.p-4
-      | 使い方
-    .hero-content.flex-col.lg:flex-row
-      = image_tag 'step1.jpg', class: "max-w-sm rounded-lg shadow-2xl"
+        h3.text-3xl.font-bold.mb-4
+          | スケジュールを登録
+        p
+          | 「トリコミ」にログインして、通知したいスケジュールを登録。Googleカレンダーと連携すれば、アプリがあなたのGoogleカレンダーから毎日自動でスケジュールを取得します。
+    .tr-hero-content.flex-col.mb-24.lg:flex-row-reverse
+      = image_tag 'step2_w768.jpg', class: "sm:max-w-sm rounded-lg shadow-2xl"
       div
-        h3.text-2xl.font-bold
-          | ① スケジュールを登録
-        p.py-6
-          | 「トリコミ」にログインして、通知したいスケジュールを登録。Googleカレンダーと連携して、指定した曜日・時間帯のスケジュールを自動で取得することもできます。
-    .hero-content.flex-col.lg:flex-row-reverse
-      = image_tag 'step2.jpg', class: "max-w-sm rounded-lg shadow-2xl"
-      div
-        h3.text-2xl.font-bold
-          | ② 通知先のLINEアカウントを登録
-        p.py-6
+        h3.text-3xl.font-bold.mb-4
+          | 通知先のLINEアカウントを登録
+        p
           | スケジュール通知を受け取ってほしい人に招待URLを送りましょう。招待URLを受け取った人が一度LINEログインすればLINEユーザー登録完了です。
-    .hero-content.flex-col.lg:flex-row
-      = image_tag 'step3.jpg', class: "max-w-sm rounded-lg shadow-2xl"
+    .tr-hero-content.flex-col.mb-24.lg:flex-row
+      = image_tag 'step3_w768.jpg', class: "sm:max-w-sm rounded-lg shadow-2xl"
       div
-        h3.text-2xl.font-bold
-          | ③ 通知時間・メッセージをカスタマイズ
-        p.py-6
-          | スケジュールの何分前に通知を送るか、スケジュールの内容をどこまで通知するかをカスタマイズ。オリジナルのメッセージを含めることもできます。
-    .hero-content.flex-col.lg:flex-row-reverse
-      div
-        h3.text-2xl.font-bold
-          | ④ FINISH!!
-        p.py-6
-          | 登録したスケジュールが、設定した時間・内容でLINEメッセージで届きます！
+        h3.text-3xl.font-bold.mb-4
+          | スケジュールの開始日時にLINEが届く
+        p
+          | スケジュールの開始日時に、登録したLINEユーザーに通知メッセージが届きます。開始日時の何分前にメッセージを送るかはカスタマイズ可能。オリジナルのメッセージを含めることもできます。
+.hero.min-h-screen[style="background-image: url('#{image_url('AdobeStock_334927785_w2000.jpg')}');"]
+  .hero-overlay.bg-opacity-80
+  .hero-content.text-center
+    .max-w-lg
+      h1.mb-5.text-4xl.font-bold.text-neutral-content
+        | 「トリコミ」を使ってみる
+      - if !logged_in?
+        .flex.justify-center
+          .flex-none.pr-2
+            = link_to t('defaults.start_now'), signup_path, class: 'btn btn-primary'
+          .flex-none
+            = link_to t('defaults.login'), login_path, class: 'btn btn-outline btn-primary'

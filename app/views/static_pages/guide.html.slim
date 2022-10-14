@@ -1,7 +1,78 @@
 - content_for(:title, t('.title'))
 .hero.min-h-screen.bg-base-200
-  .w-screen.px-4.my-12.max-w-sm.sm:max-w-lg
+  .w-screen.px-4.my-12.max-w-sm.sm:max-w-4xl
     h1.text-3xl.font-bold.mb-4
       = t('.title')
-    p
-      | 現在準備中です。
+    p.mb-12
+      | 「トリコミ」の使い方を簡単に説明します！
+    .tr-guide-hero-content.flex-col.mb-12.lg:flex-row
+      .tr-holster
+        .tr-container.rounded-box.shadow-2xl[dir="ltr"]
+          div
+            = image_tag 'guides/schedule_01_w512.jpg', size: '256x400'
+          div
+            = image_tag 'guides/schedule_02_w512.jpg', size: '256x400'
+          div
+            = image_tag 'guides/schedule_03_w512.jpg', size: '256x400'
+          div
+            = image_tag 'guides/schedule_04_w512.jpg', size: '256x400'
+          div
+            = image_tag 'guides/schedule_05_w512.jpg', size: '256x400'
+      div
+        .badge.mb-2
+          | STEP1
+        h3.text-2xl.font-bold.mb-3
+          | スケジュールを登録
+        p
+          | まずは「スケジュール一覧」ページから、通知したいスケジュールを登録しましょう。
+          br
+          | Googleカレンダーと連携すれば、アプリがあなたのGoogleカレンダーから毎日自動でスケジュールを取得します。
+          br
+          | 通知をやめる場合は「送信予約取消」をクリック。
+    .tr-guide-hero-content.flex-col.mb-12.lg:flex-row-reverse
+      .tr-holster
+        .tr-container.rounded-box.shadow-2xl[dir="ltr"]
+          div
+            = image_tag 'guides/line_01_w512.jpg', size: '256x400'
+          div
+            = image_tag 'guides/line_02_w512.jpg', size: '256x400'
+          div
+            = image_tag 'guides/line_03_w512.jpg', size: '256x400'
+          div
+            = image_tag 'guides/line_04_w512.jpg', size: '256x400'
+      div
+        .badge.mb-2
+          | STEP2
+        h3.text-2xl.font-bold.mb-3
+          | 通知先のLINEアカウントを登録
+        p
+          | 次に「LINEユーザー設定」ページから、通知を送りたいLINEアカウントを登録しましょう。
+          br
+          | 自分のアカウントを登録する場合は上のボタンからLINEログイン。家族や友人のアカウントを登録する場合は、下のボタンからLINEログインURLをお相手に送ってください（※スマホのみ対応）。
+          br
+          | LINEログイン後、トリコミLINEアカウントの友だち登録も忘れずに。
+    .tr-guide-hero-content.flex-col.mb-12.lg:flex-row
+      .tr-holster
+        .tr-container.rounded-box.shadow-2xl[dir="ltr"]
+          div
+            = image_tag 'guides/setting_01_w512.jpg', size: '256x400'
+          div
+            = image_tag 'guides/setting_02_w512.jpg', size: '256x400'
+          div
+            = image_tag 'guides/setting_03_w512.jpg', size: '256x400'
+      div
+        .badge.mb-2
+          | STEP3
+        h3.text-2xl.font-bold.mb-3
+          | 通知メッセージの時間・内容を設定
+        p
+          | 最後に「通知メッセージ設定」ページから、通知メッセージの送信時間や内容を設定しましょう。
+    .tr-guide-hero-content.flex-col.mb-12.lg:flex-row-reverse
+      = image_tag 'guides/finish_w512.jpg', size: '256x400', class: "rounded-lg shadow-2xl"
+      div
+        .badge.mb-2
+          | FINISH
+        h3.text-2xl.font-bold.mb-3
+          | LINEに通知メッセージが届く
+        p
+          | 指定した日時に、通知メッセージが登録したLINEユーザーに届きます！

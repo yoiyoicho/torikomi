@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_12_143333) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_13_083514) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,7 +78,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_143333) do
 
   create_table "settings", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.integer "message_option", default: 0, null: false
+    t.integer "message_option", default: 1, null: false
     t.string "message_text", limit: 255
     t.integer "notification_time", default: 0, null: false
     t.datetime "created_at", null: false
