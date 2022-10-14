@@ -48,3 +48,36 @@
   column-gap: 5rem;
   padding: 1rem;
 }
+
+/* クイックガイド用 */
+.tr-guide-hero-content {
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 80rem;
+  row-gap: 2rem;
+  column-gap: 4rem;
+  padding: 1rem;
+}
+
+.tr-holster {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-flow: column nowrap;
+}
+
+.tr-container {
+  width: 256px;
+  display: flex;
+  overflow: auto;
+  flex: none;
+  flex-flow: row nowrap;
+  scroll-snap-type: x mandatory;
+}
+
+.tr-container > div {
+  scroll-snap-align: center;
+  flex: none;
+}
