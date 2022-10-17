@@ -3,9 +3,9 @@ script[src="https://accounts.google.com/gsi/client" async defer]
 .hero.min-h-screen.bg-base-200
   .w-screen.px-4.my-12.max-w-sm
     - if @error_message.present?
-      ul.text-error-content.mb-4
+      ul::marker.text-error-content.mb-4
         li
-          = '- ' + @error_message
+          = @error_message
     h1.text-3xl.font-bold.text-center.mb-4
       = t('.title')
     = render 'form', user: @user

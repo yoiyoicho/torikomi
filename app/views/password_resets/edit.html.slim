@@ -2,10 +2,10 @@
 .hero.min-h-screen.bg-base-200
   .w-screen.px-4.my-12.max-w-sm.sm:max-w-lg
     - if @user.errors.any?
-      ul.text-error-content.mb-4
+      ul::marker.text-error-content.mb-4
         - @user.errors.full_messages.each do |error_message|
           li
-            = '- ' + error_message
+            = error_message
     h1.text-3xl.font-bold.text-center.mb-4
       = t('.title')
     .card.flex-shrink-0.w-full.shadow.bg-base-100.mx-auto
