@@ -78,3 +78,5 @@ Googleカレンダーと連携して、家族やパートナーのLINEにスケ�
 ![torikomi_er_1018.drawio.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2730434/d8beac27-f60e-482f-3112-3e0d513f6633.png)
 
 ## 関連記事
+
+- [【個人開発】地味に便利!? リモートワーカー向けスケジュール共有サービスを開発しました【LINE×Googleカレンダー】](https://qiita.com/yoiyoicho/items/21cbc56b7d7c1be92524)
