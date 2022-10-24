@@ -30,12 +30,4 @@ class SendLineMessageJob < ApplicationJob
       config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
     }
   end
-
-  # def send_broadcast_message(text)
-  #   message = {
-  #     type: 'text',
-  #     text: text
-  #   }
-  #   client.broadcast(message)
-  # end
 end
