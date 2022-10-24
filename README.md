@@ -1,8 +1,8 @@
 # トリコミ - リモートワーカー向けスケジュール共有サービス
 
-https://torikomi.herokuapp.com/
+https://www.torikomi.net
 
-[![ogp.jpeg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2730434/adfcdaf2-03d1-9222-5f7c-3040e23bf76e.jpeg)](https://torikomi.herokuapp.com/)
+[![ogp.jpeg](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/2730434/adfcdaf2-03d1-9222-5f7c-3040e23bf76e.jpeg)](https://www.torikomi.net)
 
 ## サービス概要
 
