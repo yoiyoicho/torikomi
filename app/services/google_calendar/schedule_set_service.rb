@@ -72,28 +72,4 @@ class GoogleCalendar::ScheduleSetService
       schedule.destroy!
     end
   end
-
-  # private
-
-  # google_calendar_settingの条件と曜日・時間帯が合致するかどうか
-  # def valid_event?(google_calendar_setting, start_time)
-  #
-  #   flag = google_calendar_setting.monday if start_time.wday == 1
-  #   flag = google_calendar_setting.tuesday if start_time.wday == 2
-  #   flag = google_calendar_setting.wednesday if start_time.wday == 3
-  #   flag = google_calendar_setting.thursday if start_time.wday == 4
-  #   flag = google_calendar_setting.friday if start_time.wday == 5
-  #   flag = google_calendar_setting.saturday if start_time.wday == 6
-  #   flag = google_calendar_setting.sunday if start_time.wday == 7
-  #
-  #   start_time_min = start_time.hour * 60 + start_time.min
-  #   start_time_min_s = google_calendar_setting.start_time_hour * 60 + google_calendar_setting.start_time_min
-  #   end_time_min_s = google_calendar_setting.end_time_hour * 60 + google_calendar_setting.end_time_min
-  # 
-  #   if flag && start_time_min >= start_time_min_s && start_time_min <= end_time_min_s
-  #     true
-  #   else
-  #     false
-  #   end
-  # end
 end
