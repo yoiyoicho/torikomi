@@ -1,6 +1,4 @@
 class UsersController < ApplicationController
-  require 'sidekiq/api'
-
   skip_before_action :require_login, only: %i(new create)
 
   def new
@@ -25,11 +23,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    # Sidekiqに登録されているLINEメッセージの送信ジョブを削除する
-    ss = Sidekiq::ScheduledSet.new
     current_user.schedules.each do |schedule|
-      jobs = ss.select { |job| job.args[0]['job_id'] == schedule.job_id }
-      jobs.each(&:delete)
+      destroy_service = Schedule::JobDestroyService.new(schedule)
+      destroy_service.call
     end
     current_user.destroy!
     redirect_to root_path, success: t('.success')
