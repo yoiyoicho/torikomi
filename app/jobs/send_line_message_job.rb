@@ -15,7 +15,7 @@ class SendLineMessageJob < ApplicationJob
     schedule = Schedule.find(schedule_id)
     message = {
       type: 'text',
-      text: schedule.create_line_message
+      text: create_line_message(schedule)
     }
     schedule.user.line_users.each do |line_user|
       client.push_message(line_user.line_user_id, message)
@@ -31,11 +31,26 @@ class SendLineMessageJob < ApplicationJob
     }
   end
 
-  # def send_broadcast_message(text)
-  #   message = {
-  #     type: 'text',
-  #     text: text
-  #   }
-  #   client.broadcast(message)
-  # end
+  def create_line_message(schedule)
+    setting = schedule.user.setting
+
+    message = "スケジュールをお知らせします！" + "\n"
+
+    if setting.only_time?
+      message << "\n" + "日時：" + sschedule.start_time.strftime('%Y年%m月%d日 %H時%M分')
+    elsif setting.time_and_title?
+      message << "\n" + "日時：" + schedule.start_time.strftime('%Y年%m月%d日 %H時%M分')
+      message << "\n" + "タイトル：" + schedule.title
+    else # setting.time_and_title_and_body?
+      message << "\n" + "日時：" + schedule.start_time.strftime('%Y年%m月%d日 %H時%M分')
+      message << "\n" + "タイトル：" + schedule.title
+      message << "\n" + "内容：" + schedule.body ||= "（未設定）"
+    end
+
+    if setting.message_text.present?
+      message << "\n\n" + setting.message_text
+    end
+
+    message
+  end
 end
