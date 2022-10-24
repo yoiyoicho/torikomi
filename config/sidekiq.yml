@@ -3,15 +3,9 @@
   delete_old_schedules:
     cron: '0 0 0 * * *'
     class: DeleteOldSchedulesJob
-  # delete_draft_schedules:
-  #   cron: '0 0 0 * * *'
-  #   class: DeleteDraftSchedulesJob
   delete_old_link_tokens:
     cron: '0 0 0 * * *'
     class: DeleteOldLinkTokensJob
-  access_route_page:
-    cron: '0 0/20 * * * *'
-    class: AccessRoutePageJob
   update_schedules_from_google_calendar:
     cron: '0 0 0 * * *'
     class: UpdateSchedulesFromGoogleCalendarJob
