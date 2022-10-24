@@ -3,7 +3,7 @@ class AccessRoutePageJob < ApplicationJob
   queue_as :default
 
   def perform
-    url = 'https://torikomi.herokuapp.com'
+    url = 'https://www.torikomi.net'
     response = Typhoeus::Request.get(url)
   end
 
