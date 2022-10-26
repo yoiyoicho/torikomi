@@ -13,8 +13,9 @@ Rails.application.routes.draw do
   get '/line', to: 'static_pages#line'
 
   # ユーザー登録・ログイン・ログアウト・設定
-  resources :users, only: %i(create destroy show)
+  resources :users, only: %i(destroy show)
   get '/signup', to: 'users#new'
+  post '/signup', to: 'users#create'
 
   get 'login', to: 'user_sessions#new'
   post 'login', to: 'user_sessions#create'

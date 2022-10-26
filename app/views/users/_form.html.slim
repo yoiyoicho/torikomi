@@ -1,6 +1,6 @@
 .card.flex-shrink-0.w-full.shadow.bg-base-100.mx-auto
   .card-body
-    = form_with model: user, local: true do |f|
+    = form_with model: user, url: signup_path, local: true do |f|
       .form-control
         label.label
           span.label-text

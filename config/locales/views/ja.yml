@@ -9,6 +9,7 @@ ja:
     edit: '編集'
     send: '送信'
     invalid_access: '不正なアクセスです'
+    delete_confirmation: '本当に削除しますか？'
   api:
     google_calendar_api:
       callback:
@@ -62,6 +63,7 @@ ja:
     create:
       success: 'ログインしました'
       fail: 'ログインに失敗しました'
+      error_message: 'メールアドレスまたはパスワードが正しくありません'
     destroy:
       success: 'ログアウトしました'
   schedules:
