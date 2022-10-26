@@ -1,6 +1,6 @@
 .card.flex-shrink-0.w-full.shadow.bg-base-100.mx-auto
   .card-body
-    = form_with url: login_path, method: :post do |f|
+    = form_with model: user, url: login_path, method: :post do |f|
       .form-control
         label.label
           span.label-text

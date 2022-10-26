@@ -3,7 +3,8 @@ class PasswordResetsController < ApplicationController
   # before_action :require_login
   # is not declared in your ApplicationController.
   skip_before_action :require_login
-  
+  before_action :require_not_logged_in
+
   def new
   end
 
@@ -17,7 +18,7 @@ class PasswordResetsController < ApplicationController
     if @user
       # This line sends an email to the user with instructions on how to reset their password (a url with a random token)
       @user.deliver_reset_password_instructions!
-  
+
       # Tell the user instructions have been sent whether or not email was found.
       # This is to not leak information to attackers about which emails exist in the system.
       redirect_to root_path, success: t('.success')

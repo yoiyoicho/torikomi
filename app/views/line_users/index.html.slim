@@ -17,7 +17,7 @@
             h2.card-title
               = line_user.display_name
             .card-actions.justify-end[data-turbo="true"]
-              = button_to '削除', line_user_path(line_user), method: :delete, form: { data: { turbo_confirm: "本当に削除しますか？" } }, class: 'button btn btn-error'
+              = button_to '削除', line_user_path(line_user), method: :delete, form: { data: { turbo_confirm: t('defaults.delete_confirmation') } }, class: 'button btn btn-error'
         - else
           p
             = t('.no_result')
