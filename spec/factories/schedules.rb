@@ -1,12 +1,12 @@
 FactoryBot.define do
   factory :schedule do
-    association :user
+    association :user, :default
     sequence(:title) { |n| "title_#{n}" }
     body { 'body' }
     start_time { 1.day.since.in_time_zone }
     end_time { 1.day.since.in_time_zone + 1.hour }
     job_id { '' }
-    status { :draft }
+    status { :to_be_sent }
 
     trait :default do
       resource_type { :default }
