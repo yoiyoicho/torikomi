@@ -1,0 +1,25 @@
+.w-full.overflow-x-hidden.border-t.flex.flex-col
+  main.w-full.flex-grow.p-6
+    h1.text-3xl.text-black.pb-6
+      | Users
+    .w-full
+      p.text-xl.pb-3.flex.items-center
+        = "データ件数：#{@users.size}"
+    .w-full.mt-12
+      p.text-xl.pb-3.flex.items-center
+        i.fas.fa-list.mr-3
+        |  All Users 
+      .bg-white.overflow-auto
+        table.min-w-full.bg-white
+          thead.bg-gray-800.text-white
+            tr
+              th.w-1/3.text-left.py-3.px-4.uppercase.font-semibold.text-sm
+                | ID
+              th.w-1/3.text-left.py-3.px-4.uppercase.font-semibold.text-sm
+                | Email
+              th.text-left.py-3.px-4.uppercase.font-semibold.text-sm
+                | Login Type
+              th.text-left.py-3.px-4.uppercase.font-semibold.text-sm
+                | Role
+          tbody.text-gray-700
+            = render @users
