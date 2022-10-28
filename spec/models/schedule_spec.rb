@@ -9,22 +9,22 @@ RSpec.describe User, type: :model do
         expect(schedule.errors).to be_empty
       end
       it '異常系：開始日時が現在より過去の日時になっている（to_be_sent）' do
-        schedule = build(:schedule, :default, start_time: 1.day.ago.in_time_zone )
+        schedule = build(:schedule, :default, start_time: 1.day.ago.beginning_of_day.in_time_zone )
         expect(schedule).to be_invalid
         expect(schedule.errors[:start_time]).to eq ["は現在より先の日時にしてください"]
       end
       it '異常系：開始日時が現在より過去の日時になっている（draft）' do
-        schedule = build(:schedule, :default, start_time: 1.day.ago.in_time_zone, status: :draft )
+        schedule = build(:schedule, :default, start_time: 1.day.ago.beginning_of_day.in_time_zone, status: :draft )
         expect(schedule).to be_invalid
         expect(schedule.errors[:start_time]).to eq ["は現在より先の日時にしてください"]
       end
       it '正常系：開始日時が現在より過去の日時になっている（sent）' do
-        schedule = build(:schedule, :default, start_time: 1.day.ago.in_time_zone, status: :sent )
+        schedule = build(:schedule, :default, start_time: 1.day.ago.beginning_of_day.in_time_zone, status: :sent )
         expect(schedule).to be_valid
         expect(schedule.errors).to be_empty
       end
       it '異常系：開始日時が終了日時より過去の日時になっている' do
-        schedule = build(:schedule, :default, start_time: 1.day.since.in_time_zone, end_time: 1.day.since.in_time_zone - 1.hour )
+        schedule = build(:schedule, :default, start_time: 1.day.since.beginning_of_day.in_time_zone, end_time: 1.day.since.beginning_of_day.in_time_zone - 1.hour )
         expect(schedule).to be_invalid
         expect(schedule.errors[:end_time]).to eq ["は開始日時より先の日時にしてください"]
       end

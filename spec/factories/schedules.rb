@@ -3,9 +3,9 @@ FactoryBot.define do
     association :user, :default
     sequence(:title) { |n| "title_#{n}" }
     body { 'body' }
-    start_time { 1.day.since.in_time_zone }
-    end_time { 1.day.since.in_time_zone + 1.hour }
-    job_id { '' }
+    start_time { 1.day.since.beginning_of_day.in_time_zone }
+    end_time { 1.day.since.beginning_of_day.in_time_zone + 1.hour }
+    job_id { 'job_id' }
     status { :to_be_sent }
 
     trait :default do
