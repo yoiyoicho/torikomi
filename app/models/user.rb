@@ -17,6 +17,10 @@ class User < ApplicationRecord
 
   after_save :create_user_settings
 
+  def my_object?(object)
+    object.user_id == id
+  end
+
   private
 
   def create_user_settings

@@ -21,7 +21,7 @@
         path[d="M15 1.2l-7 7-7-7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"]
     .card-actions.justify-end
       - if schedule.to_be_sent? || schedule.draft?
-        .flex
+        .flex[id="buttons-#{schedule.id}"]
           .flex-none.pr-2
             - if schedule.to_be_sent?
               = button_to '送信予約取消', schedule_path(schedule, status: 'draft'), method: :patch, class: 'btn btn-primary'
