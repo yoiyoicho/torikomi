@@ -1,10 +1,12 @@
 - color_class = 'bg-gray-200' if user_counter.odd?
 tr[class=color_class]
-  td.w-1/3.text-left.py-3.px-4
+  td.w-1/4.text-left.py-3.px-4
     = user.id
-  td.w-1/3.text-left.py-3.px-4
+  td.w-1/4.text-left.py-3.px-4
     = user.email
   td.text-left.py-3.px-4
     = user.login_type
   td.text-left.py-3.px-4
     = user.role
+  td.text-left.py-3.px-4
+    = user.line_users.size
