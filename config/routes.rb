@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root 'users#index'
     resources :users, only: %i(index)
+    resources :schedules, only: %i(index)
   end
   # トップページ
   root 'static_pages#top'

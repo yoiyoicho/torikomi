@@ -1,0 +1,10 @@
+- color_class = 'bg-gray-200' if schedule_counter.odd?
+tr[class=color_class]
+  td.w-1/3.text-left.py-3.px-4
+    = schedule.id
+  td.w-1/3.text-left.py-3.px-4
+    = schedule.start_time
+  td.text-left.py-3.px-4
+    = schedule.status
+  td.text-left.py-3.px-4
+    = schedule.user.id
