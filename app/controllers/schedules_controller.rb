@@ -1,4 +1,6 @@
 class SchedulesController < ApplicationController
+  before_action :set_schedule, only: %i(edit update destroy)
+  before_action :verify_access, only: %i(edit update destroy)
 
   def index
     @schedules = current_user.schedules.order(:start_time)
@@ -10,7 +12,7 @@ class SchedulesController < ApplicationController
 
   def create
     @schedule = current_user.schedules.new(schedule_params)
-    if @schedule.save(context: :create_or_update)
+    if @schedule.save
       set_service = Schedule::JobSetService.new(@schedule)
       set_service.call
       redirect_to schedules_path, success: t('.success')
@@ -21,13 +23,12 @@ class SchedulesController < ApplicationController
   end
 
   def edit
-    @schedule = current_user.schedules.default.find(params[:id])
+    redirect_to dashboards_path, error: t('defaults.invalid_access') unless @schedule.default?
   end
 
   def update
-    @schedule = current_user.schedules.find(params[:id])
     @schedule.assign_attributes(schedule_params)
-    if @schedule.save(context: :create_or_update)
+    if @schedule.save
 
       destroy_service = Schedule::JobDestroyService.new(@schedule)
       destroy_service.call
@@ -43,8 +44,6 @@ class SchedulesController < ApplicationController
   end
 
   def destroy
-    @schedule = current_user.schedules.find(params[:id])
-
     destroy_service = Schedule::JobDestroyService.new(@schedule)
     destroy_service.call
 
@@ -62,5 +61,13 @@ class SchedulesController < ApplicationController
       # 「送信予約」「送信予約取消」ボタンからのリクエスト
       params.permit(:status)
     end
+  end
+
+  def set_schedule
+    @schedule = Schedule.find(params[:id])
+  end
+
+  def verify_access
+    redirect_to dashboards_path, error: t('defaults.invalid_access') unless current_user.my_object?(@schedule)
   end
 end
