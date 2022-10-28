@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :user do
     sequence(:email) { |n| "user_#{n}@example.com" }
+    role { :general }
 
     trait :default do
       password { 'password' }
