@@ -12,6 +12,8 @@ ja:
         email: 'メールアドレス'
         password: 'パスワード'
         password_confirmation: 'パスワード確認'
+        login_type: 'ログインタイプ'
+        role: '役割'
       schedule:
         title: 'タイトル'
         body: '内容'
@@ -37,6 +39,9 @@ ja:
       login_type:
         default: 'デフォルト'
         google: 'Google'
+      role:
+        general: '一般'
+        admin: '管理者'
     setting:
       message_option:
         only_time: '開始日時のみ'

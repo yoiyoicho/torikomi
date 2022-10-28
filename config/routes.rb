@@ -2,6 +2,13 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
+  # 管理画面
+  namespace :admin do
+    root 'users#index'
+    resources :users, only: %i(index)
+    resources :schedules, only: %i(index)
+    resources :line_users, only: %i(index)
+  end
   # トップページ
   root 'static_pages#top'
 

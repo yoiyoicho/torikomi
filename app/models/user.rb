@@ -13,7 +13,11 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: -> { default? && (new_record? || changes[:crypted_password]) }
   validates :email, presence: true, uniqueness: { scope: :login_type }
 
+  validates :login_type, presence: true
+  validates :role, presence: true
+
   enum login_type: { default: 0, google: 1 }
+  enum role: { general: 0, admin: 1 }
 
   after_save :create_user_settings
 
