@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     root 'users#index'
     resources :users, only: %i(index)
     resources :schedules, only: %i(index)
+    resources :line_users, only: %i(index)
   end
   # トップページ
   root 'static_pages#top'
