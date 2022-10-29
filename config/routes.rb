@@ -1,14 +1,25 @@
 require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
+class AdminConstraint
+  def matches?(request)
+    return false unless request.session[:user_id]
+    user = User.find(request.session[:user_id])
+    user && user.admin?
+  end
+end
+
 Rails.application.routes.draw do
   # 管理画面
-  namespace :admin do
+  namespace :admin, constraints: AdminConstraint.new do
     root 'users#index'
-    resources :users, only: %i(index)
-    resources :schedules, only: %i(index)
-    resources :line_users, only: %i(index)
+    resources :users, only: :index
+    resources :schedules, only: :index
+    resources :line_users, only: :index
+    # sidekiq管理画面
+    mount Sidekiq::Web, at: '/sidekiq'
   end
+
   # トップページ
   root 'static_pages#top'
 
@@ -60,10 +71,4 @@ Rails.application.routes.draw do
 
   # お問い合わせ
   resources :inquiries, only: %i(new create)
-
-  # sidekiq管理画面
-  Sidekiq::Web.use(Rack::Auth::Basic) do |user_id, password|
-    [user_id, password] == [ENV['SIDEKIQ_ADMIN_USER_ID'], ENV['SIDEKIQ_ADMIN_PASSWORD']]
-  end
-  mount Sidekiq::Web, at: '/sidekiq'
 end

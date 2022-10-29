@@ -5,9 +5,7 @@ RSpec.describe "Admin", type: :system do
   describe 'ログイン前' do
     context 'ユーザーが管理画面にアクセスする' do
       it 'アクセスが失敗する' do
-        visit admin_root_path
-        expect(page).to have_content I18n.t('defaults.please_login_first')
-        expect(current_path).to eq login_path
+        expect{ get '/admin' }.to raise_error(ActionController::RoutingError)
       end
     end
   end
@@ -27,9 +25,7 @@ RSpec.describe "Admin", type: :system do
     context '管理権限のないユーザーが管理画面にアクセスする' do
       it 'アクセスが失敗する' do
         login_as(general_user)
-        visit admin_root_path
-        expect(page).to have_content I18n.t('defaults.invalid_access')
-        expect(current_path).to eq root_path
+        expect{ get '/admin' }.to raise_error(ActionController::RoutingError)
       end
     end
   end
