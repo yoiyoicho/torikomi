@@ -12,7 +12,7 @@ class SchedulesController < ApplicationController
 
   def create
     @schedule = current_user.schedules.new(schedule_params)
-    if @schedule.save
+    if @schedule.valid?(:schedules_controller) && @schedule.save
       set_service = Schedule::JobSetService.new(@schedule)
       set_service.call
       redirect_to schedules_path, success: t('.success')
@@ -28,7 +28,7 @@ class SchedulesController < ApplicationController
 
   def update
     @schedule.assign_attributes(schedule_params)
-    if @schedule.save
+    if @schedule.valid?(:schedules_controller) && @schedule.save
 
       destroy_service = Schedule::JobDestroyService.new(@schedule)
       destroy_service.call
