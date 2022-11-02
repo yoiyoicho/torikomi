@@ -159,6 +159,34 @@ RSpec.describe "Schedules", type: :system do
           end
         end
 
+        context '開始日時を現在より過去の日時にする' do
+          it 'スケジュールの更新に失敗する' do
+            visit edit_schedule_path(to_be_sent_schedule)
+            fill_in 'schedule[start_time]', with: 1.day.ago.beginning_of_day.in_time_zone
+            fill_in 'schedule[end_time]', with: 1.day.ago.beginning_of_day.in_time_zone + 1.hour
+            click_button I18n.t('helpers.submit.update')
+            expect(page).to have_content I18n.t('schedules.update.fail')
+            expect(current_path).to eq schedule_path(to_be_sent_schedule)
+
+            # 通知メッセージ送信ジョブが変更されない
+            expect(Schedule.find(to_be_sent_schedule.id).job_id).to eq to_be_sent_schedule.job_id
+          end
+        end
+
+        context '開始日時が終了日時より過去の日時になっている' do
+          it 'スケジュールの新規作成に失敗する' do
+            visit edit_schedule_path(to_be_sent_schedule)
+            fill_in 'schedule[start_time]', with: 1.day.since.beginning_of_day.in_time_zone
+            fill_in 'schedule[end_time]', with: 1.day.since.beginning_of_day.in_time_zone - 1.hour
+            click_button I18n.t('helpers.submit.update')
+            expect(page).to have_content I18n.t('schedules.update.fail')
+            expect(current_path).to eq schedule_path(to_be_sent_schedule)
+
+            # 通知メッセージ送信ジョブが変更されない
+            expect(Schedule.find(to_be_sent_schedule.id).job_id).to eq to_be_sent_schedule.job_id
+          end
+        end
+
         context 'ステータスを変更（to_be_sentからdraft）' do
           it 'スケジュールの編集に成功する' do
             visit edit_schedule_path(to_be_sent_schedule)
