@@ -9,11 +9,13 @@ class Schedule < ApplicationRecord
   validates :resource_type, presence: true
   validates :i_cal_uid, presence: true, if: :google?
 
-  validate :start_time_cannot_be_in_the_past
-  validate :end_time_cannot_be_earier_than_start_time
-
   enum status: { to_be_sent: 0, draft: 1, sent: 2 }
   enum resource_type: { default: 0, google: 1 }
+
+  with_options on: :schedules_controller do
+    validate :start_time_cannot_be_in_the_past
+    validate :end_time_cannot_be_earier_than_start_time
+  end
 
   def start_time_cannot_be_in_the_past
     if to_be_sent? || draft?
