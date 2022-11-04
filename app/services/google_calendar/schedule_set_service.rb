@@ -31,8 +31,8 @@ class GoogleCalendar::ScheduleSetService
       # 非公開のイベントは取得しない
       if item.visibility != 'private'
 
-        start_time = item.start.date_time&.in_time_zone || item.start.date&.in_time_zone
-        end_time = item.end.date_time&.in_time_zone || item.end.date&.tomorrow.in_time_zone
+        start_time = item.start&.date_time&.in_time_zone || item.start&.date&.in_time_zone
+        end_time = item.end&.date_time&.in_time_zone || item.end&.date&.tomorrow.in_time_zone
 
         i_cal_uid = item.i_cal_uid
         schedule = @user.schedules.find_or_initialize_by(i_cal_uid: i_cal_uid, resource_type: :google)
