@@ -9,14 +9,9 @@ class GoogleCalendar::ScheduleSetService
 
   def call
 
-    # access_tokenが期限切れの場合は、refresh_tokenを使って新しいaccess_tokenを取得する
+    # refresh_tokenを使って新しいaccess_tokenを取得する
     @auth_client.refresh_token = @user.google_calendar_token[:refresh_token]
-    if @user.google_calendar_token.expires_at < Time.zone.now
-      @auth_client.refresh!
-      @user.google_calendar_token.update!(access_token: @auth_client.access_token, expires_at: @auth_client.expires_at)
-    else
-      @auth_client.access_token = @user.google_calendar_token[:access_token]
-    end
+    @auth_client.refresh!
 
     @service = Google::Apis::CalendarV3::CalendarService.new
     @service.authorization = @auth_client

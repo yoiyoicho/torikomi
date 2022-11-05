@@ -25,7 +25,7 @@ class Api::GoogleCalendarApiController < ApplicationController
       service.authorization = @auth_client
 
       google_calendar_token = GoogleCalendarToken.find_or_initialize_by(user: current_user)
-      google_calendar_token.assign_attributes(access_token: @auth_client.access_token, refresh_token: @auth_client.refresh_token, expires_at: @auth_client.expires_at, google_calendar_id: service.get_calendar('primary').id)
+      google_calendar_token.assign_attributes(refresh_token: @auth_client.refresh_token, google_calendar_id: service.get_calendar('primary').id)
 
       if google_calendar_token.save
         set_service = GoogleCalendar::ScheduleSetService.new(current_user, @auth_client)
