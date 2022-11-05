@@ -16,7 +16,7 @@
                 = image_tag line_user.picture_url || 'noimage.png'
             h2.card-title
               = line_user.display_name
-            .card-actions.justify-end[data-turbo="true"]
+            .card-actions.justify-end[data-turbo="true" id="buttons-#{line_user.id}"]
               = button_to '削除', line_user_path(line_user), method: :delete, form: { data: { turbo_confirm: t('defaults.delete_confirmation') } }, class: 'button btn btn-error'
         - else
           p
@@ -30,7 +30,7 @@
         p
           | ①下記のボタンから自分のLINEアカウントでログイン
         .py-2
-            = link_to 'LINEでログイン', @login_url + '&self=true', class: 'button btn btn-primary'
+            = link_to 'LINEでログイン', @login_url + '&self=true', class: 'button btn btn-primary', id: 'self-line-login'
         p
           | ②ログイン後のページで、「トリコミ」LINE公式アカウントを友だち登録！
     .card.shadow.bg-base-100.mb-3
@@ -42,6 +42,6 @@
           br
           | ※スマホのみ対応。
         .py-2
-            = link_to 'ログインURLを送信', "https://line.me/R/share?text=%E3%80%8C%E3%83%88%E3%83%AA%E3%82%B3%E3%83%9F%E3%80%8D%E3%81%AB%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%EF%BC%81%0D%0A%EF%BC%88URL%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%99%90%EF%BC%9A24%E6%99%82%E9%96%93%EF%BC%89%0D%0A%0D%0A#{CGI.escape(@login_url+'&self=false')}", class: 'button btn btn-primary'
+            = link_to 'ログインURLを送信', "https://line.me/R/share?text=%E3%80%8C%E3%83%88%E3%83%AA%E3%82%B3%E3%83%9F%E3%80%8D%E3%81%AB%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%EF%BC%81%0D%0A%EF%BC%88URL%E3%81%AE%E6%9C%89%E5%8A%B9%E6%9C%9F%E9%99%90%EF%BC%9A24%E6%99%82%E9%96%93%EF%BC%89%0D%0A%0D%0A#{CGI.escape(@login_url+'&self=false')}", class: 'button btn btn-primary', id: 'other-line-login'
         p
           | ②（URLを受け取ったLINEユーザー）①のURLからログイン。ログイン後のページで、「トリコミ」LINE公式アカウントを友だち登録！
