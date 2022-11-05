@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_28_063524) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_05_114709) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,9 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_28_063524) do
 
   create_table "google_calendar_tokens", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "access_token", null: false
     t.string "refresh_token", null: false
-    t.datetime "expires_at", precision: nil, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "google_calendar_id", null: false
