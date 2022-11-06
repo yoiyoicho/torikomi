@@ -35,36 +35,6 @@ RSpec.describe "LineUsers", type: :system do
       end
     end
 
-    describe 'LINEユーザー登録中' do
-      context 'LINE認証画面への遷移' do
-        it '本人用の正しいログインURLからLINE認証画面へ遷移する' do
-        end
-
-        it '他人用の正しいログインURLからLINE認証画面へ遷移する' do
-        end
-
-        it 'LinkTokenがデタラメなログインURLからLINE認証画面へ遷移しない' do
-        end
-
-        it 'LinkTokenとapp_user_idが関連しないログインURLからLINE認証画面へ遷移しない' do
-        end
-
-        it 'app_user_idパラメータが欠けたログインURLからLINE認証画面へ遷移しない' do
-        end
-
-        it 'selfパラメータが欠けたログインURLからLINE認証画面へ遷移しない' do
-        end
-      end
-
-      context 'LINE認証画面後の遷移' do
-        it 'LINEユーザーが保存され、ログイン状態で友だち追加画面へ遷移する（本人用）' do
-        end
-
-        it 'LINEユーザーが保存され、ログアウト状態で友だち追加画面へ遷移する（他人用）' do
-        end
-      end
-    end
-
     describe 'LINEユーザー登録後' do
       let!(:line_user) { create(:line_user, users: [user]) }
 
