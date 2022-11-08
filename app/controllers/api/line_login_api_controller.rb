@@ -66,6 +66,6 @@ class Api::LineLoginApiController < ApplicationController
 
     # アプリユーザー以外によるアクセスの場合、アプリからログアウト状態にする
     reset_session if session[:self] == 'false'
-    redirect_to redirect_path
+    redirect_to root_path
   end
 end
