@@ -10,9 +10,9 @@ class LineLogin::LineUserSaveService
   end
 
   def call
-    line_user_params = get_line_user_params(@code)
-    line_user = LineUser.find_or_initialize_by(line_user_id: line_user_params[:line_user_id])
-    line_user.assign_attributes(line_user_params)
+    line_user_profile = get_line_user_profile(@code)
+    line_user = LineUser.find_or_initialize_by(line_user_id: line_user_profile[:line_user_id])
+    line_user.assign_attributes(line_user_profile)
     if line_user.save && UserLineUserRelationship.find_or_create_by(user: @user, line_user: line_user)
       true
     else
@@ -22,10 +22,15 @@ class LineLogin::LineUserSaveService
 
   private
 
-  def get_line_user_params(code)
+  def get_line_user_profile(code)
 
-    line_user_params = {}
+    # LINEユーザーのIDトークンを取得
     id_token = get_line_user_id_token(code)
+
+    # IDトークンからユーザーのプロフィール情報（ID、表示名、プロフィール画像）を取得
+    # https://developers.line.biz/ja/reference/line-login/#verify-id-token
+
+    profile = {}
 
     if id_token.present?
 
@@ -40,20 +45,19 @@ class LineLogin::LineUserSaveService
       response = Typhoeus::Request.post(url, options)
 
       if response.code == 200
-        line_user_params.merge!({ line_user_id: JSON.parse(response.body)['sub'], display_name: JSON.parse(response.body)['name'], picture_url: JSON.parse(response.body)['picture']||=nil })
+        profile.merge!({ line_user_id: JSON.parse(response.body)['sub'], display_name: JSON.parse(response.body)['name'], picture_url: JSON.parse(response.body)['picture']||=nil })
       end
 
     end
 
-    line_user_params
+    profile
 
   end
 
   def get_line_user_id_token(code)
 
-    # LINEユーザーのアクセストークンを発行する
+    # LINEユーザーのプロフィール情報取得に必要なIDトークンを発行する
     # https://developers.line.biz/ja/reference/line-login/#issue-access-token
-    # ここではLINEユーザーのID、表示名、プロフィール画像のみ取得
 
     url = 'https://api.line.me/oauth2/v2.1/token'
 
