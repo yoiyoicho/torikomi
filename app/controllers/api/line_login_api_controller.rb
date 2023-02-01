@@ -7,10 +7,6 @@ class Api::LineLoginApiController < ApplicationController
 
   skip_before_action :require_login
 
-  # WebアプリとLINEプラットフォーム間でのCSRF対策は自前で行うため
-  # RailsデフォルトのCSRF対策メソッドは無効化する
-  protect_from_forgery except: %i(login callback)
-
   def login
     # ログインURLのバリデーションを行う
     validate_service = LineLogin::LoginUrlValidateService.new(params)
