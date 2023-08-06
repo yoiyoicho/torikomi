@@ -81,7 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: cldljs8xy005e9ro43p5n4azh
-  username: cldljs8xv005c9ro4gzbe2run
+  database: torikomi_production
+  username: torikomi
   password: <%= ENV["TORIKOMI_DATABASE_PASSWORD"] %>
-  url: <%= ENV['DATABASE_URL'] %>
