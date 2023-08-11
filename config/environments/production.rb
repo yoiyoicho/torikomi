@@ -92,7 +92,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # パスワードリセット処理時、Gmailからメールを送信できるようにする
-  config.action_mailer.default_url_options = {  host: 'torikomi.herokuapp.com' }
+  config.action_mailer.default_url_options = {  host: 'torikomi.fly.dev' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
@@ -104,5 +104,5 @@ Rails.application.configure do
   }
 
   # Active JobでもURLヘルパーを使うために、default_urlを設定
-  config.action_controller.default_url_options = {  host: 'torikomi.herokuapp.com' }
+  config.action_controller.default_url_options = {  host: 'torikomi.fly.dev' }
 end
