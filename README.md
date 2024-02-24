@@ -71,7 +71,7 @@ Googleカレンダーと連携して、家族やパートナーのLINEにスケ�
 
 - Sidekiq
 - Redis
-- Heroku
+- Fly.io
 
 ## ER図
 
