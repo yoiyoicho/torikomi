@@ -23,5 +23,17 @@
         = f.submit t('defaults.login'), class: 'btn btn-primary'
       hr.mt-6
       .form-control.mt-6
-        #g_id_onload[data-client_id=ENV['GOOGLE_CLIENT_ID'] data-login_uri="#{api_google_login_callback_path}" data-auto_prompt="false"]
+        // Googleログインボタン
+        // https://developers.google.com/identity/gsi/web/reference/html-reference?hl=ja
+        // 右のスクリプトをアプリ全体で読み込んでいる https://accounts.google.com/gsi/client
+        // クリック時、このスクリプトがIDがg_id_onloadのデータ属性をパラメータに含め、
+        // https://accounts.google.com/gsi/select にGETリクエストを行う
+        // Google側で認証が成功したら、このスクリプトがボディにIDトークンを含めた状態で
+        // ログインエンドポイントにPOSTリクエストを行う POST /[ログインエンドポイント]
+        // data-client_id: アプリのクライアント ID
+        // data-login_uri: ログインエンドポイントのURL＝リダイレクトURI
+        // data-auto_prompt: Google Oneのタップ操作の表示
+        // data-ux_mode: ログインボタンを押したときのUXフロー redirect or popup
+        #g_id_onload[data-client_id=ENV['GOOGLE_CLIENT_ID'] data-login_uri="#{api_google_login_callback_path}" data-auto_prompt="false" data-ux_mode="redirect"]
+        // class属性にg_id_signinを追加すると、要素は[Google でログイン]ボタンとしてレンダリングされる
         .g_id_signin[data-type="standard" data-size="large" data-theme="standard" data-text="sign_in_with" data-shape="rectangular" data-logo_alignment="left" data-width=288]
