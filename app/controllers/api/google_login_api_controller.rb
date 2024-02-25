@@ -1,7 +1,6 @@
 class Api::GoogleLoginApiController < ApplicationController
   # 以下のドキュメントをもとに実装
-  # https://developers.google.com/identity/gsi/web/guides/display-button
-  # https://developers.google.com/identity/gsi/web/reference/html-reference#id-token-handler-endpoint
+  # https://developers.google.com/identity/gsi/web/guides/overview
   # https://github.com/googleapis/google-auth-library-ruby/blob/main/lib/googleauth/id_tokens.rb
 
   require "googleauth/id_tokens/errors"
@@ -9,8 +8,7 @@ class Api::GoogleLoginApiController < ApplicationController
 
   skip_before_action :require_login
 
-  # WebアプリとLINEプラットフォーム間でのCSRF対策は自前で行うため
-  # RailsデフォルトのCSRF対策メソッドは無効化する
+  # CSRF対策は自前で行うため、RailsデフォルトのCSRF対策メソッドは無効化する
   protect_from_forgery except: :callback
   before_action :verify_g_csrf_token, only: :callback
 
